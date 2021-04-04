@@ -1,0 +1,50 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U1S2:  Time Events}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }Stop Timing\\
+\textbf{Related Use Cases:  }Use Case 1 Scenario 1:
+\textit{Start the Timing},
+\\Use Case 2:  \textit{Save the Timed Events}\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants to measure the elapsed time of an event.
+\end{itemize}
+\textbf{Preconditions:  }The Timer was started at some previous
+point by the User.\\
+\textbf{Success Guaranties:  (Postconditions)} 
+The Timer stops and indicates the elapsed time to the User.\\\\
+\textbf{Main Success Scenario: }\\\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Indicates to stop timing. & \\\hline
+&2.  Stops Timing.\\\hline
+&3.  Calculates the final elapsed time.\\\hline
+&4.  Displays the elapsed time in millisseconds resolution.\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+*a.  If at any time, the System cannot measure the time for the
+elapsed time, then the System informs the User the Timer has
+stopped working properly.\\\\
+\textbf{Technology and Variations List:  }\\
+2b-4b.  The Actuall accuracy of the timer is dependant and
+will vary based on the task schedulers of both the Operating
+System and the language used for implementation.\\\\
+\textbf{Frequency of Occurrence:  }Multiple timers as needed.\\\\
+\textbf{Open Issues:  }\\
+\begin{itemize}
+\item Is the accuracy dependant on the Operating System?
+\item Is the accuracy dependant on the Hardware?
+\item How does language affect the accuracy of the Timer?
+\item How does a ``fully loaded System" affect the accuracy
+of the Timer?
+\end{itemize}
+\end{document}
