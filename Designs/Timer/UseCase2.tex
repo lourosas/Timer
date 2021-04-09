@@ -1,0 +1,51 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U2:  Save Timed Events}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }N/A\\
+\textbf{Related Use Cases:  }Use Case 1 Scenario 2:
+\textit{Stop the Timing}\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants to archive the given timed event.
+\end{itemize}
+\textbf{Preconditions:  }The Timer stopped at some previous
+point by the User.\\
+\textbf{Success Guaranties:  (Postconditions)} 
+The Timer archives the Timing data, including all the laps and 
+total elapsed time to the location and name specified by the User.\\\\
+\textbf{Main Success Scenario: }\\\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Indicates to save the current timed data. & \\\hline
+&2.  Requests where to save the data and file name.\\\hline
+3.  Inputs file name and location for archiving. &\\\hline
+&4.  Saves the total elapsed time, and all the elapsed times in the
+location specified by the User.\\\hline
+&5.  Saves the date in millisecond resolution.\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+4a.  If the System is unable to archive the data, then the System will
+indicate the error to the User.\\
+4b.  If the record does not exist, then the System will create the
+file and archive the data.\\
+4c.  If the record does exist, then the System will archive the new
+timing data by appending it to the record.\\\\
+\textbf{Technology and Variations List:  }\\
+4d.  As the technology changes, the System is to be able to handle
+different types of archiving formats and methods.\\\\
+\textbf{Frequency of Occurrence:  }Almost continuously--as many
+times the User desires to record an elapsed time event.\\\\
+\textbf{Open Issues:  }
+\begin{itemize}
+\item Perhaps just print out the record?
+\end{itemize}
+\end{document}
