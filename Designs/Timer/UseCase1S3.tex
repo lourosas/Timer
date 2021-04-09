@@ -1,0 +1,66 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U1S3:  Time Events}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }Lap Timing\\
+\textbf{Related Use Cases:  }Use Case 1 Scenario 1:
+\textit{Start the Timing}\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants to measure the measure the interval of a given
+timing event.
+\item User:  Wants to record the interval of a given timing event.
+\end{itemize}
+\textbf{Preconditions:  }The Timer started at some previous
+point by the User.\\
+\textbf{Success Guaranties:  (Postconditions)} 
+The Timer records the lap (interval), indicates that to the User,
+while continuing to meausure the complete event time.\\\\
+\textbf{Main Success Scenario: }\\\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Indicates to lap a timing interval. & \\\hline
+&2.  Calculates the elapsed time interval\\\hline
+&3.  Records the Interval from the last lapped interval if there
+is one, or the start of the timing event if there is no previous
+interval\\\hline
+&4.  Displays the Interval Elapsed time in milliseconds
+resolution.\\\hline
+&5.  Displays the elapsed time in seconds resolution. (See
+\textit{Use Case 1S1: Start Timing})\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+*a.  If at any time, the System cannot measure the time for the
+elapsed time, then the System informs the User the Timer has
+stopped working properly.\\
+*b.  The User has the option to perform as many lap intervals as
+desired, to the limits of the System.  The System will calculate
+the interval from the \underline{previous lap interval}, not the
+start of the timing event (See \textit{Step 3}).\\\\
+\textbf{Technology and Variations List:  }\\
+2c-5c.  The Actual accuracy of the timer is dependant and
+will vary based on the task schedulers of both the Operating
+System and the language used for implementation.\\
+\textbf{Frequency of Occurrence:  }System should be able to record
+as many lap events as needed, or until the System runs out of 
+memory.\\\\
+\textbf{Open Issues:  }\\
+\begin{itemize}
+\item Is the accuracy dependant on the Operating System?
+\item Is the accuracy dependant on the Hardware?
+\item How does language affect the accuracy of the Timer?
+\item How does a ``fully loaded System" affect the accuracy
+of the Timer?
+\item Consider lapping from the start of the timing event?
+\item The number of lapping events a system can handle is not
+infinite and may not be able to handle as many as the User desires.
+\end{itemize}
+\end{document}
