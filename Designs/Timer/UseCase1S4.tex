@@ -1,0 +1,41 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U1S4:  Reset Timing}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }Lap Timing\\
+\textbf{Related Use Cases:  }Use Case 1 Scenario 2:
+\textit{Stop the Timing}\\
+Use Case 2: \textit{Save the Timing Events}\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants to reset the timer
+\end{itemize}
+\textbf{Preconditions:  }The Timer is stopped at some previous
+point by the User.\\
+\textbf{Success Guaranties:  (Postconditions)} The Timer resets
+time (``zeros everything out") and displays `0' to the User.\\\\
+\textbf{Main Success Scenario: }\\\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Indicates reset the Timer. & \\\hline
+&2.  Clears out the current measured interval.\\\hline
+&3.  Clears out all the saved intervals.\\\hline
+&4.  Indicates to the User the ``zeroed out" state.\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+None\\\\
+\textbf{Technology and Variations List:  }\\
+None\\\\
+\textbf{Frequency of Occurrence:  } Continuous:  as many times as the
+Timer is stopped\\\\
+\textbf{Open Issues:  }\\
+None
+\end{document}
