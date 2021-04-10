@@ -1,0 +1,26 @@
+Noun Identification
+
+Timer
+User
+Event
+time
+resolution
+System
+task schedulers
+Operating System
+language
+Hardware
+Multitasking
+Multi-threading
+language
+accuracy
+User Goal
+scenario
+elapsed time
+Lap
+Interval
+Milliseconds
+Seconds
+Implementation
+Memory
+Previous Point
