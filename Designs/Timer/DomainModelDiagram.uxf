@@ -319,7 +319,7 @@ r2=reset time
     <id>UMLClass</id>
     <coordinates>
       <x>890</x>
-      <y>750</y>
+      <y>740</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -355,12 +355,12 @@ lap &gt;</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>680</x>
-      <y>750</y>
+      <y>730</y>
       <w>230</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=-
-m1=3
+m1=1
 m2=1
 &lt; alerts</panel_attributes>
     <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
@@ -451,5 +451,41 @@ m1=1
 m2=1..*
 updates total elapsed time v</panel_attributes>
     <additional_attributes>170.0;10.0;170.0;200.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>700</y>
+      <w>310</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+calculate "frozen" lap time</panel_attributes>
+    <additional_attributes>70.0;30.0;100.0;30.0;100.0;10.0;10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>680</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+calculate elaspsed lap time</panel_attributes>
+    <additional_attributes>140.0;50.0;140.0;20.0;60.0;20.0;60.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>760</y>
+      <w>220</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+calculate elaspsed total time</panel_attributes>
+    <additional_attributes>10.0;20.0;10.0;60.0;200.0;60.0;200.0;10.0;20.0;10.0</additional_attributes>
   </element>
 </diagram>
