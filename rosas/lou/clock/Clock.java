@@ -12,7 +12,6 @@
 * along with this program.
 * If not, see <http://www.gnu.org/licenses/>.
 *********************************************************************/
-//THIS IS DEADLOCKED!!!
 package rosas.lou.clock;
 
 import java.util.*;
@@ -23,26 +22,31 @@ import rosas.lou.clock.*;
 public class Clock implements Runnable{
    private long time;
    private Date date;
-   final int MOD = 1000;
-   boolean alert;
-   List<ClockObserver> observers;
+   private final int MOD = 1000;
+   private boolean alert;
+   private List<ClockObserver> observers;
+   private ClockNotifier clockNotifier;
 
    {
-      time      = 0;
-      date      = null;
-      observers = null;
-      alert     = true;
+      time          = 0;
+      date          = null;
+      observers     = null;
+      alert         = true;
+      clockNotifier = null;
    }
 
    //*********************Constructor********************************
    /*
    Constructor of no arguments
    */
-   public Clock(){}
+   public Clock(){
+      this.clockNotifier = new ClockNotifier();
+   }
 
    /*
    */
    public void addObserver(ClockObserver clockObserver){
+      /*
       try{
          this.observers.add(clockObserver);
       }
@@ -50,6 +54,8 @@ public class Clock implements Runnable{
          this.observers = new LinkedList<ClockObserver>();
          this.observers.add(clockObserver);
       }
+      */
+      this.clockNotifier.addObserver(clockObserver);
    }
 
    //****************Interface Implementations***********************
@@ -57,49 +63,33 @@ public class Clock implements Runnable{
    Implementation of the Runnable Interface--run() method
    */
    public void run(){
-      boolean run = true;
-      this.time = Calendar.getInstance().getTimeInMillis();
-      this.alertObservers();
-      System.out.println(time);
-      while(run){
-         try{
+      try{
+         boolean run = true;
+         this.time = Calendar.getInstance().getTimeInMillis();
+         System.out.println(time);
+         Thread th = new Thread(this.clockNotifier,"notifier");
+         th.start();
+         while(run){
             Thread.sleep(0,100);
-         }
-         catch(InterruptedException ie){
-            run = false;
-         }
-         long time2 = Calendar.getInstance().getTimeInMillis();
-         if((time%this.MOD) == (time2%this.MOD)){
-            //Alert the Observers somehow
-            //Somehow, I need to off load the time...not sure the
-            //best way just yet...
-            synchronized(this){
+            long time2 = Calendar.getInstance().getTimeInMillis();
+            if((this.time%this.MOD) == (time2%this.MOD)){
+               //Alert the Observers somehow
+               //Somehow, I need to off load the time...not sure the
+               //best way just yet...
                this.time = time2;
-               this.alert = true;
-               this.notify();
+               this.clockNotifier.setTime(this.time);
+               this.clockNotifier.trigger(true);
             }
          }
+         this.clockNotifier.quit(true);
+         th.join();
+      }
+      catch(InterruptedException e){
+         e.printStackTrace();
       }
    }
 
    //*********************Public Methods*****************************
-   /*
-   */
-   private synchronized void alertObservers(){
-      //System.out.println(Thread.currentThread().getName());
-      try{
-         synchronized(this){
-            while(!this.alert){
-               this.wait();
-            }
-         }
-         System.out.println(Thread.currentThread().getName());
-         //System.out.println(this.time);
-         this.alert = false;
-      }
-      catch(InterruptedException ie){ ie.printStackTrace(); }
-   }
-
    /*
    */
    public long getTime(){
