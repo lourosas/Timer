@@ -23,15 +23,11 @@ public class Clock implements Runnable{
    private long time;
    private Date date;
    private final int MOD = 1000;
-   private boolean alert;
-   private List<ClockObserver> observers;
    private ClockNotifier clockNotifier;
 
    {
       time          = 0;
       date          = null;
-      observers     = null;
-      alert         = true;
       clockNotifier = null;
    }
 
@@ -46,15 +42,6 @@ public class Clock implements Runnable{
    /*
    */
    public void addObserver(ClockObserver clockObserver){
-      /*
-      try{
-         this.observers.add(clockObserver);
-      }
-      catch(NullPointerException npe){
-         this.observers = new LinkedList<ClockObserver>();
-         this.observers.add(clockObserver);
-      }
-      */
       this.clockNotifier.addObserver(clockObserver);
    }
 
@@ -67,6 +54,8 @@ public class Clock implements Runnable{
          boolean run = true;
          this.time = Calendar.getInstance().getTimeInMillis();
          System.out.println(time);
+         this.clockNotifier.setTime(this.time);
+         this.clockNotifier.trigger(true);
          Thread th = new Thread(this.clockNotifier,"notifier");
          th.start();
          while(run){
