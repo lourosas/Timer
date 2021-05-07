@@ -10,7 +10,6 @@ public class TestTimer implements ClockObserver{
    }
 
    public TestTimer(){
-      System.out.println(Thread.currentThread().getName());
       Clock clock = new Clock();
       clock.addObserver(this);
       Thread t = new Thread(clock,"clock");
