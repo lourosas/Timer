@@ -5,7 +5,7 @@
     <id>UMLActor</id>
     <coordinates>
       <x>90</x>
-      <y>90</y>
+      <y>30</y>
       <w>60</w>
       <h>110</h>
     </coordinates>
@@ -16,7 +16,7 @@
     <id>Relation</id>
     <coordinates>
       <x>110</x>
-      <y>80</y>
+      <y>20</y>
       <w>30</w>
       <h>600</h>
     </coordinates>
@@ -27,7 +27,7 @@
     <id>Relation</id>
     <coordinates>
       <x>330</x>
-      <y>120</y>
+      <y>60</y>
       <w>30</w>
       <h>540</h>
     </coordinates>
@@ -38,7 +38,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>290</x>
-      <y>100</y>
+      <y>40</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -49,7 +49,7 @@
     <id>Relation</id>
     <coordinates>
       <x>110</x>
-      <y>180</y>
+      <y>120</y>
       <w>250</w>
       <h>40</h>
     </coordinates>
@@ -61,7 +61,7 @@ start()</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>330</x>
-      <y>200</y>
+      <y>140</y>
       <w>180</w>
       <h>50</h>
     </coordinates>
@@ -73,7 +73,7 @@ setRun(true)</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>860</x>
-      <y>80</y>
+      <y>20</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -96,7 +96,7 @@ getTimeInMillis():milliseconds</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>900</x>
-      <y>100</y>
+      <y>40</y>
       <w>30</w>
       <h>550</h>
     </coordinates>
@@ -107,7 +107,7 @@ getTimeInMillis():milliseconds</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>550</x>
-      <y>90</y>
+      <y>30</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -118,11 +118,23 @@ getTimeInMillis():milliseconds</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>590</x>
-      <y>110</y>
+      <y>50</y>
       <w>30</w>
       <h>550</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>170</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+setReceive(true)</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
