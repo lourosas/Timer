@@ -53,7 +53,6 @@ public class Clock implements Runnable{
       try{
          boolean run = true;
          this.time = Calendar.getInstance().getTimeInMillis();
-         System.out.println(time);
          this.clockNotifier.setTime(this.time);
          this.clockNotifier.trigger(true);
          Thread th = new Thread(this.clockNotifier,"notifier");
