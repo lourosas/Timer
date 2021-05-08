@@ -17,11 +17,14 @@ package rosas.lou.clock;
 
 import java.lang.*;
 import java.util.*;
+import java.text.ParseException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import rosas.lou.clock.*;
 
 public class Timer implements ClockObserver{
+   private final int DIFFERENCE = 1000;
+
    private boolean _run;
    private boolean _receive;
 
@@ -75,6 +78,9 @@ public class Timer implements ClockObserver{
    /*
    */
    public void start(){
+      this._currentTime = this._clock.getTime();
+      //this.setTimeValues();
+      //Just try to notify the Observers-->see where that goes
       this.setRun(true);
       this.setReceive(true);
    }
@@ -91,15 +97,21 @@ public class Timer implements ClockObserver{
    */
    public void updateTime(long milliseconds){
       if(this._run && this._receive){
-         this._milliseconds = milliseconds;
-         System.out.println(this._milliseconds);
+         this._updatedTime = milliseconds;
+         this.calculateTime();
       }
    }
 
    /////////////////////Private Methods///////////////////////////////
    /*
    */
-   private void calculateTime(long time){}
+   private void calculateTime(){
+      this._differenceTime = this._updatedTime - this._currentTime;
+      if(this._differenceTime >= DIFFERENCE){
+         this._currentTime = this._updatedTime;
+         this.setTimeValues();
+      }
+   }
 
    /*
    */
@@ -119,9 +131,12 @@ public class Timer implements ClockObserver{
 
    /*
    */
-   private void setTime(long time){}
-
-   /*
-   */
-   private void setTimeValues(){}
+   private void setTimeValues(){
+      System.out.println(this._differenceTime);
+      Calendar cal = Calendar.getInstance();
+      cal.setTimeInMillis(this._differenceTime);
+      SimpleDateFormat sdf = new SimpleDateFormat("dd hh:mm:ss");
+      System.out.println(sdf.format(cal.getTime()));
+      System.out.println(cal.getTime());
+   }
 }

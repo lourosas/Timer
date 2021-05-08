@@ -87,7 +87,8 @@ public class Clock implements Runnable{
    /*
    */
    public long getTime(){
-      return this.time;
+      //return this.time;
+      return Calendar.getInstance().getTimeInMillis();
    }
 
    /*
