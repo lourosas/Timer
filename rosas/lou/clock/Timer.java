@@ -66,7 +66,7 @@ public class Timer implements ClockObserver{
    public void setClock(Clock clock){
       //If already connected to a clock, disconnect from it TBD
       if(this._clock != null){
-         //this._clock.removeObserver(this);
+         this._clock.removeObserver(this);
       }
       this._clock = clock;
       this._clock.addObserver(this);
@@ -77,5 +77,32 @@ public class Timer implements ClockObserver{
    public void start(){}
 
    ////////////////Clock Observer Implementation methods//////////////
+   /*
+   */
    public void updateTime(long milliseconds){}
+
+   /////////////////////Private Methods///////////////////////////////
+   /*
+   */
+   private void calculateTime(long time){}
+
+   /*
+   */
+   private void notifyObservers(){}
+
+   /*
+   */
+   private void setRun(boolean run){}
+
+   /*
+   */
+   private void setReceive(boolean receive){}
+
+   /*
+   */
+   private void setTime(long time){}
+
+   /*
+   */
+   private void setTimeValues(){}
 }

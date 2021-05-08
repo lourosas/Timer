@@ -56,6 +56,9 @@ public class ClockNotifier implements Runnable{
       }
    }
 
+   /**/
+   public void removeObserver(ClockObserver observer){}
+
    /*
    */
    public void setTime(long time){

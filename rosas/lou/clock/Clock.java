@@ -47,7 +47,9 @@ public class Clock implements Runnable{
 
    /*
    */
-   public void removeObserver(ClockObserver clockObserver){}
+   public void removeObserver(ClockObserver clockObserver){
+      this.clockNotifier.removeObserver(clockObserver);
+   }
 
    //****************Interface Implementations***********************
    /*
