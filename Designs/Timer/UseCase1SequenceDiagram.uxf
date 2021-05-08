@@ -4,8 +4,8 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>90</x>
-      <y>30</y>
+      <x>20</x>
+      <y>10</y>
       <w>60</w>
       <h>110</h>
     </coordinates>
@@ -15,30 +15,30 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>110</x>
-      <y>20</y>
+      <x>40</x>
+      <y>0</y>
       <w>30</w>
-      <h>600</h>
+      <h>1180</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;580.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;1160.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>60</y>
+      <x>260</x>
+      <y>40</y>
       <w>30</w>
-      <h>540</h>
+      <h>1060</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;520.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;1040.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>290</x>
-      <y>40</y>
+      <x>220</x>
+      <y>20</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -48,8 +48,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>110</x>
-      <y>120</y>
+      <x>40</x>
+      <y>100</y>
       <w>250</w>
       <h>40</h>
     </coordinates>
@@ -60,8 +60,8 @@ start()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>140</y>
+      <x>260</x>
+      <y>120</y>
       <w>180</w>
       <h>50</h>
     </coordinates>
@@ -72,8 +72,8 @@ setRun(true)</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>860</x>
-      <y>20</y>
+      <x>730</x>
+      <y>10</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -83,31 +83,31 @@ setRun(true)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>590</x>
-      <y>230</y>
-      <w>340</w>
+      <x>520</x>
+      <y>200</y>
+      <w>280</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-getTimeInMillis():milliseconds</panel_attributes>
-    <additional_attributes>320.0;20.0;10.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+getTimeInMillis():long</panel_attributes>
+    <additional_attributes>260.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>40</y>
+      <x>770</x>
+      <y>30</y>
       <w>30</w>
-      <h>550</h>
+      <h>920</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;530.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;900.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>550</x>
-      <y>30</y>
+      <x>480</x>
+      <y>10</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -117,24 +117,423 @@ getTimeInMillis():milliseconds</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>590</x>
-      <y>50</y>
+      <x>520</x>
+      <y>30</y>
       <w>30</w>
-      <h>550</h>
+      <h>1070</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;530.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;1050.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>170</y>
+      <x>260</x>
+      <y>150</y>
       <w>200</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 setReceive(true)</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>190</y>
+      <w>290</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+time=getTime():long</panel_attributes>
+    <additional_attributes>270.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>950</x>
+      <y>10</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_:ClockNotifier_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>30</y>
+      <w>30</w>
+      <h>1070</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;1050.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>480</x>
+      <y>240</y>
+      <w>1060</w>
+      <h>580</h>
+    </coordinates>
+    <panel_attributes>while(run = true)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>40</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+run()</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>990</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+InterruptedException</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>60</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+run()</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1240</x>
+      <y>10</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Thread</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1280</x>
+      <y>30</y>
+      <w>30</w>
+      <h>950</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;930.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>270</y>
+      <w>790</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+sleep(0,100)</panel_attributes>
+    <additional_attributes>10.0;20.0;770.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>170</y>
+      <w>60</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;120.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>800</x>
+      <y>130</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Thread.sleep(0,100)
+bg=gray
+Sleep for 100 nano-seconds
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>290</y>
+      <w>280</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+time2=getTimeInMillis():long</panel_attributes>
+    <additional_attributes>260.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>500</x>
+      <y>340</y>
+      <w>530</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>time2%1000=time%1000</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>280</x>
+      <y>270</y>
+      <w>200</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>bg=red
+if(time%MOD==time2%MOD){
+   time=time2
+   ...
+   ...
+}
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>340</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>80.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>360</y>
+      <w>510</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+setTime(time)</panel_attributes>
+    <additional_attributes>10.0;20.0;490.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>380</y>
+      <w>510</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+trigger(true)</panel_attributes>
+    <additional_attributes>10.0;20.0;490.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>980</x>
+      <y>510</y>
+      <w>300</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>while(!quit)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>460</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+notify()</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>990</x>
+      <y>540</y>
+      <w>170</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>while(not triggered)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>560</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+wait()</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>990</x>
+      <y>610</y>
+      <w>540</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>if(!quit)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>980</x>
+      <y>440</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>triggered==true</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1430</x>
+      <y>10</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_:ClockNotifier_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1480</x>
+      <y>30</y>
+      <w>30</w>
+      <h>970</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;950.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1000</x>
+      <y>640</y>
+      <w>520</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>while(Notifiers)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>660</y>
+      <w>510</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+updateTime(currentTime:long)</panel_attributes>
+    <additional_attributes>490.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>730</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+trigger(false)</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>1000</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+InterruptedException</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>780</y>
+      <w>1250</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+setTime(time:long)</panel_attributes>
+    <additional_attributes>10.0;20.0;1230.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>810</y>
+      <w>260</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+calculateTime(time:long)</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>250</x>
+      <y>860</y>
+      <w>260</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>CalculateTime==ChangeTrigger</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>880</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+setTimeValues()</panel_attributes>
     <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
