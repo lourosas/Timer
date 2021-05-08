@@ -33,7 +33,7 @@ public class Timer implements ClockObserver{
    private long  _differenceTime;
    private long  _currentTime; //In milliseconds
    private long  _updatedTime; //In milliseconds
-   private clock _clock;
+   private Clock _clock;
 
    {
       _run            = false;
@@ -74,12 +74,27 @@ public class Timer implements ClockObserver{
 
    /*
    */
-   public void start(){}
+   public void start(){
+      this.setRun(true);
+      this.setReceive(true);
+   }
+
+   /*
+   */
+   public void stop(){
+      this.setRun(false);
+      this.setReceive(false);
+   }
 
    ////////////////Clock Observer Implementation methods//////////////
    /*
    */
-   public void updateTime(long milliseconds){}
+   public void updateTime(long milliseconds){
+      if(this._run && this._receive){
+         this._milliseconds = milliseconds;
+         System.out.println(this._milliseconds);
+      }
+   }
 
    /////////////////////Private Methods///////////////////////////////
    /*
@@ -92,11 +107,15 @@ public class Timer implements ClockObserver{
 
    /*
    */
-   private void setRun(boolean run){}
+   private void setRun(boolean run){
+      this._run = run;
+   }
 
    /*
    */
-   private void setReceive(boolean receive){}
+   private void setReceive(boolean receive){
+      this._receive = receive;
+   }
 
    /*
    */
