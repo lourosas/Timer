@@ -12,12 +12,16 @@ public class TestTimer2{
       rosas.lou.clock.Timer timer = new rosas.lou.clock.Timer(clock);
       Thread t = new Thread(clock, "clock");
       t.start();
-      timer.start();
       try{
-         Thread.sleep(5000);
+         timer.start();
+	 Thread.sleep(10000);
+	 timer.stop();
+         Thread.sleep(3000);
+         timer.start();
+         Thread.sleep(20000);
          timer.stop();
-	 Thread.sleep(2000);
-	 timer.start();
+	 clock.stop();
+	 t.join();
       }
       catch(InterruptedException ie){}
    }
