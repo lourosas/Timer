@@ -1,5 +1,6 @@
-/********************************************************************
-* Copyright (C) 2015 Lou Rosas
+//////////////////////////////////////////////////////////////////////
+/*
+* Copyright (C) 2021 Lou Rosas
 * This file is part of many applications registered with
 * the GNU General Public License as published
 * by the Free Software Foundation; either version 3 of the License,
@@ -11,316 +12,158 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.
 * If not, see <http://www.gnu.org/licenses/>.
-********************************************************************/
-
+*/
 package rosas.lou.clock;
 
-import java.util.*;
 import java.lang.*;
+import java.util.*;
+import java.text.ParseException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import rosas.lou.clock.*;
 
 public class LTimer implements ClockObserver{
+   private final int DIFFERENCE = 1000;
 
-   private State currentState, previousState;
-   
-   //Instances
-   private List<TimeObserver> t_o_List = null;
-   
-   //Primatives
-   private boolean toPublish;
-   private int hour, min, sec;
-   private long millisecs, startTime, stopTime, elapsedTime;
-   private long totalsecs;
-   
-   //*********************Constructor*******************************
+   private boolean _run;
+   private boolean _receive;
+
+   private int    _days;
+   private int    _hours;
+   private int    _minutes;
+   private int    _seconds;
+   private int    _milliseconds;
+   private long   _differenceTime;
+   private long   _currentTime; //In milliseconds
+   private long   _updatedTime; //In milliseconds
+   private long   _stopTime;
+   private String _stringTime;
+   private LClock  _clock;
+
+   {
+      _run            = false;
+      _receive        = false;
+      _days           = 0;
+      _hours          = 0;
+      _minutes        = 0;
+      _seconds        = 0;
+      _milliseconds   = 0;
+      _differenceTime = 0;
+      _currentTime    = 0;
+      _updatedTime    = 0;
+      _stopTime       = 0;
+      _stringTime     = null;
+      _clock          = null;
+   };
+
+   //////////////////////////Constructors/////////////////////////////
    /*
-   Constructor of no arguments
    */
-   public LTimer(){
-      this.initialize();
+   public LTimer(){}
+
+   /*
+   */
+   public LTimer(LClock clock){
+      this.setClock(clock);
    }
 
-   //*********************Public Methods****************************
+   //////////////////////////Public Methods///////////////////////////
    /*
    */
-   public void addTimerObserver(TimeObserver to){
-      try{
-         this.t_o_List.add(to);
+   public void setClock(LClock clock){
+      //If already connected to a clock, disconnect from it TBD
+      if(this._clock != null){
+         this._clock.removeObserver(this);
       }
-      catch(NullPointerException npe){
-         this.t_o_List = new Vector<TimeObserver>();
-         this.t_o_List.add(to);
-      }
-   }
-   
-   /*
-   */
-   public int getHours(){
-      return this.hour;
-   }
-
-   /*
-   */
-   public int getMinutes(){
-      return this.min;
-   }
-
-   /*
-   */
-   public int getSeconds(){
-      return this.sec;
-   }
-
-   /*
-   */
-   public long getMilliSecs(){
-      return this.millisecs;
-   }
-   
-   /*
-   */
-   public long getElapsedTime(){
-      return this.elapsedTime;
-   }
-   
-   /*
-   */
-   public long getStartTime(){
-      return this.startTime;
-   }
-   
-   /*
-   */
-   public long getStopTime(){
-      return this.stopTime;
-   }
-   
-   /*
-   */
-   public boolean getToPublish(){
-      return this.toPublish;
-   }
-
-   /*
-   */
-   public long getTotalSecs(){
-      return this.totalsecs;
-   }
-
-   /*
-   */
-   public void initialize(){
-      final int INIT = 0;
-      this.setHour(INIT);
-      this.setMinute(INIT);
-      this.setSecond(INIT);
-      this.setMillis(INIT);
-      this.setStartTime(INIT);
-      this.setStopTime(INIT);
-      this.setElapsedTime(this.getStopTime(), this.getStartTime());
-      this.setTotalSecs(INIT);
-      this.setToPublish(true);
-      this.setCurrentState(State.RESET);
-      this.setPreviousState(State.RESET);
-   }
-
-   /*
-   Reset the clock
-   */
-   public void reset(){
-      this.initialize();
-      this.publishTimeEvents();
-      this.setToPublish(false);
+      this._clock = clock;
+      this._clock.addObserver(this);
    }
 
    /*
    */
    public void start(){
-      this.setCurrentState(State.START);
-      this.setStartTime(this.getMilliSecs());
-      this.setToPublish(true);
-      //this.publishTimeEvents();
+      this._currentTime = this._clock.getTime();
+      //this.setTimeValues();
+      //Just try to notify the Observers-->see where that goes
+      this.setRun(true);
+      this.setReceive(true);
    }
-   
+
+   /*
+   */
    public void stop(){
-      this.setStopTime(this.getMilliSecs());
-      this.setCurrentState(State.STOP);
-      this.publishTimeEvents();
-      this.setToPublish(false);
-   }
-   
-   /*
-   Implementation of the ClockObserver interface
-   */
-   public void updateTime(long millisecs){
-      this.millisecs = millisecs;
-      //this.setCurrentTime(millisecs);
-      this.publishTimeEvents();
+      //This will need to change but going to do a "proof of concept"
+      //Going to try this in this way for the time being
+      this._stopTime = this._differenceTime;
+      this.setRun(false);
+      this.setReceive(false);
    }
 
-   //**********************Private Methods***************************
+   ////////////////Clock Observer Implementation methods//////////////
    /*
    */
-   private State getCurrentState(){
-      return this.currentState;
+   public void updateTime(long milliseconds){
+      if(this._run && this._receive){
+         this._updatedTime = milliseconds;
+         this.calculateTime();
+      }
    }
-   
+
+   /////////////////////Private Methods///////////////////////////////
    /*
    */
-   private State getPreviousState(){
-      return this.previousState;
+   private void calculateTime(){
+      this._differenceTime =
+               this._updatedTime - this._currentTime + this._stopTime;
+      if(this._differenceTime >= DIFFERENCE){
+         //this._currentTime = this._updatedTime;
+         this.setTimeValues();
+      }
    }
 
    /*
    */
-   private void publishTimeEvents(){
+   private void notifyObservers(){}
+
+   /*
+   */
+   private void setRun(boolean run){
+      this._run = run;
+   }
+
+   /*
+   */
+   private void setReceive(boolean receive){
+      this._receive = receive;
+   }
+
+   /*
+   */
+   private void setTimeValues(){
+      Calendar cal = Calendar.getInstance();
+      cal.setTimeInMillis(this._differenceTime);
+      SimpleDateFormat sdf = new SimpleDateFormat("dd HH:mm:ss.SSS");
+      sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+      this._stringTime = sdf.format(cal.getTime());
+      String[] values_ = this._stringTime.split(" ");
       try{
-
-         //Test prints:  I currently do not care about accuracy...
-         //System.out.println(this.getMilliSecs());
-         //System.out.println(this.getDate());
-         //String time;
-         /*
-         String mins = String.format("%02d:", this.min);
-         String secs = String.format("%02d.", this.sec);
-         if(this.getStart()){
-            time = new String(this.hour + ":" + mins + secs);
+         this._days         = Integer.parseInt(values_[0]) - 1;
+         values_            = values_[1].split(":");
+         this._hours        = Integer.parseInt(values_[0]);
+         this._minutes      = Integer.parseInt(values_[1]);
+         values_            = values_[2].split("\\.");
+         this._seconds      = Integer.parseInt(values_[0]);
+         this._milliseconds = Integer.parseInt(values_[1]);
+         if(this._run){
+            sdf = new SimpleDateFormat("dd HH:mm:ss");
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+            this._stringTime = sdf.format(cal.getTime());
          }
-         else{
-            String mils = String.format("%03d", this.millisecs);
-            time = new String(this.hour + ":" + mins + secs + mils);
-         }
-         if(this.getCurrentState() == State.START){
-            long currentTime = this.getMilliSecs();
-            this.setElapsedTime(currentTime, this.getStartTime());
-            while(i.hasNext()){
-               TimeObserver t = i.next();
-               t.updateTime(this.getElapsedTime());
-               System.out.println(this.getElapsedTime());
-               //t.updateTime(time);
-            }
-         }
-         */
-         if(this.getToPublish()){
-            long deltaTime;
-            long totalTime;
-            State state = this.getCurrentState();
-            if(state == State.START){
-               deltaTime = this.getMilliSecs() - this.getStartTime();
-            }
-            else{
-               deltaTime = this.getStopTime() - this.getStartTime();
-            }
-            totalTime = deltaTime + this.getElapsedTime();
-            //Publish
-            Iterator<TimeObserver> i = this.t_o_List.iterator();
-            while(i.hasNext()){
-               TimeObserver t = i.next();
-               //Send in a TimeObject
-            }
-            //Set the elapsed time for a Stop
-            if(state != State.START){
-               this.setElapsedTime(deltaTime);
-            }
-         }
+         values_ = this._stringTime.split(" ");
+         this._stringTime = this._days + " " + values_[1];
+         System.out.println(this._stringTime);
       }
-      catch(NullPointerException npe){
-         System.out.println("No Time Observers");
-         System.exit(1);
-      }
+      catch(NumberFormatException nfe){}
+      catch(ArrayIndexOutOfBoundsException oob){}
    }
-   
-   /*
-   */
-   private void setCurrentTime(long mills){
-      this.millisecs = mills;
-   }
-   
-   /*
-   */
-   private void setHour(int hr){
-      this.hour = hr;
-   }
-
-   /*
-   */
-   private void setMinute(int minute){
-      this.min = minute;
-   }
-
-   /*
-   */
-   private void setSecond(int second){
-      this.sec = second;
-   }
-   
-   /*
-   */
-   private void setCurrentState(State state){
-      if(state == State.STOP  ||
-         state == State.START ||
-         state == State.RESET){
-         this.currentState = state;
-      }
-      else{
-         this.currentState = State.STOP;
-      }
-   }
-   
-   /*
-   */
-   private void setElapsedTime(long current, long previous){
-      this.elapsedTime += (current - previous);
-   }
-   
-   /*
-   */
-   private void setElapsedTime(long deltaTime){
-      this.elapsedTime += deltaTime;
-   }
-   
-   /*
-   */
-   private void setPreviousState(State state){
-      if(state == State.STOP  ||
-         state == State.START ||
-         state == State.RESET){
-         this.previousState = state;
-      }
-      else{
-         this.previousState = State.STOP;
-      }
-   }
-
-   /*
-   */
-   private void setMillis(long millis){
-      this.millisecs = millis;
-   }
-   
-   /*
-   */
-   private void setStartTime(long startTime){
-      this.startTime = startTime;
-   }
-   
-   /*
-   */
-   private void setStopTime(long stopTime){
-      this.stopTime = stopTime;
-   }
-   
-   /*
-   */
-   private void setToPublish(boolean publish){
-      this.toPublish = publish;
-   }
-
-   /*
-   */
-   private void setTotalSecs(long total){
-      totalsecs = total;
-   }
-
 }
