@@ -24,14 +24,16 @@ public class Clock implements Runnable{
    private Date date;
    private final int MOD = 1000;
    private ClockNotifier clockNotifier;
+   private boolean toRun;
 
    {
       time          = 0;
       date          = null;
       clockNotifier = null;
-   }
+      toRun         = false;
+   };
 
-   //*********************Constructor********************************
+   //************************Constructor******************************
    /*
    Constructor of no arguments
    */
@@ -57,13 +59,13 @@ public class Clock implements Runnable{
    */
    public void run(){
       try{
-         boolean run = true;
-         this.time = Calendar.getInstance().getTimeInMillis();
+         this.toRun = true;
+         this.time  = Calendar.getInstance().getTimeInMillis();
          this.clockNotifier.setTime(this.time);
          this.clockNotifier.trigger(true);
-         Thread th = new Thread(this.clockNotifier,"notifier");
+         Thread th  = new Thread(this.clockNotifier,"notifier");
          th.start();
-         while(run){
+         while(this.toRun){
             Thread.sleep(0,100);
             long time2 = Calendar.getInstance().getTimeInMillis();
             if((this.time%this.MOD) == (time2%this.MOD)){
@@ -96,5 +98,11 @@ public class Clock implements Runnable{
    public Date getDate(){
       this.date = Calendar.getInstance().getTime();
       return this.date;
+   }
+
+   /*
+   */
+   public synchronized void stop(){
+      this.toRun = false;
    }
 }

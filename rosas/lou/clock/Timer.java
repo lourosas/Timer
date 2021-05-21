@@ -28,15 +28,16 @@ public class Timer implements ClockObserver{
    private boolean _run;
    private boolean _receive;
 
-   private short _days;
-   private short _hours;
-   private short _minutes;
-   private short _seconds;
-   private long  _milliseconds;
-   private long  _differenceTime;
-   private long  _currentTime; //In milliseconds
-   private long  _updatedTime; //In milliseconds
-   private Clock _clock;
+   private int    _days;
+   private int    _hours;
+   private int    _minutes;
+   private int    _seconds;
+   private int    _milliseconds;
+   private long   _differenceTime;
+   private long   _currentTime; //In milliseconds
+   private long   _updatedTime; //In milliseconds
+   private String _stringTime;
+   private Clock  _clock;
 
    {
       _run            = false;
@@ -49,6 +50,7 @@ public class Timer implements ClockObserver{
       _differenceTime = 0;
       _currentTime    = 0;
       _updatedTime    = 0;
+      _stringTime     = null;
       _clock          = null;
    };
 
@@ -108,7 +110,7 @@ public class Timer implements ClockObserver{
    private void calculateTime(){
       this._differenceTime = this._updatedTime - this._currentTime;
       if(this._differenceTime >= DIFFERENCE){
-         this._currentTime = this._updatedTime;
+         //this._currentTime = this._updatedTime;
          this.setTimeValues();
       }
    }
@@ -132,11 +134,30 @@ public class Timer implements ClockObserver{
    /*
    */
    private void setTimeValues(){
-      System.out.println(this._differenceTime);
       Calendar cal = Calendar.getInstance();
       cal.setTimeInMillis(this._differenceTime);
-      SimpleDateFormat sdf = new SimpleDateFormat("dd hh:mm:ss");
-      System.out.println(sdf.format(cal.getTime()));
-      System.out.println(cal.getTime());
+      SimpleDateFormat sdf = new SimpleDateFormat("dd HH:mm:ss.SSS");
+      sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+      this._stringTime = sdf.format(cal.getTime());
+      String[] values_ = this._stringTime.split(" ");
+      try{
+         this._days         = Integer.parseInt(values_[0]) - 1;
+         values_            = values_[1].split(":");
+         this._hours        = Integer.parseInt(values_[0]);
+         this._minutes      = Integer.parseInt(values_[1]);
+         values_            = values_[2].split("\\.");
+         this._seconds      = Integer.parseInt(values_[0]);
+         this._milliseconds = Integer.parseInt(values_[1]);
+         if(this._run){
+            sdf = new SimpleDateFormat("dd HH:mm:ss");
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+            this._stringTime = sdf.format(cal.getTime());
+         }
+         values_ = this._stringTime.split(" ");
+         this._stringTime = this._days + " " + values_[1];
+         System.out.println(this._stringTime);
+      }
+      catch(NumberFormatException nfe){}
+      catch(ArrayIndexOutOfBoundsException oob){}
    }
 }
