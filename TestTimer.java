@@ -1,7 +1,6 @@
 import java.lang.*;
 import java.util.*;
-import rosas.lou.clock.Clock;
-import rosas.lou.clock.ClockObserver;
+import rosas.lou.clock.*;
 
 
 public class TestTimer implements ClockObserver{
@@ -10,7 +9,7 @@ public class TestTimer implements ClockObserver{
    }
 
    public TestTimer(){
-      Clock clock = new Clock();
+      LClock clock = new LClock();
       clock.addObserver(this);
       Thread t = new Thread(clock,"clock");
       t.start();

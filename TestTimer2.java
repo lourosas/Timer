@@ -8,8 +8,8 @@ public class TestTimer2{
    }
 
    public TestTimer2(){
-      Clock clock = new Clock();
-      rosas.lou.clock.Timer timer = new rosas.lou.clock.Timer(clock);
+      LClock clock = new LClock();
+      LTimer timer = new LTimer(clock);
       Thread t = new Thread(clock, "clock");
       t.start();
       try{
