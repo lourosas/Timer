@@ -16,6 +16,7 @@ package rosas.lou.clock;
 
 import java.util.*;
 import java.lang.*;
+import java.time.Instant;
 import java.text.DateFormat;
 import rosas.lou.clock.*;
 
@@ -68,6 +69,9 @@ public class LClock implements Runnable{
          while(this.toRun){
             Thread.sleep(0,100);
             long time2 = Calendar.getInstance().getTimeInMillis();
+            Instant instant = Instant.now();
+            this.clockNotifier.setTime(instant);
+            this.clockNotifier.trigger(true);
             if((this.time%this.MOD) == (time2%this.MOD)){
                //Alert the Observers somehow
                //Somehow, I need to off load the time...not sure the
@@ -88,9 +92,18 @@ public class LClock implements Runnable{
    //*********************Public Methods*****************************
    /*
    */
-   public long getTime(){
+   
+   /*
+   */
+   public long getTimeInMillis(){
       //return this.time;
       return Calendar.getInstance().getTimeInMillis();
+   }
+
+   /*
+   */
+   public Instant getInstant(){
+      return Instant.now();
    }
 
    /*

@@ -22,4 +22,5 @@ import rosas.lou.clock.*;
 
 public interface ClockObserver{
    public void updateTime(long millisecs);
+   public void updateTime(java.time.Instant instant);
 }

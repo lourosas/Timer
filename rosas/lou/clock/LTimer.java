@@ -17,6 +17,8 @@ package rosas.lou.clock;
 
 import java.lang.*;
 import java.util.*;
+import java.time.Instant;
+import java.time.Duration;
 import java.text.ParseException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,17 +30,20 @@ public class LTimer implements ClockObserver{
    private boolean _run;
    private boolean _receive;
 
-   private int    _days;
-   private int    _hours;
-   private int    _minutes;
-   private int    _seconds;
-   private int    _milliseconds;
-   private long   _differenceTime;
-   private long   _currentTime; //In milliseconds
-   private long   _updatedTime; //In milliseconds
-   private long   _stopTime;
-   private String _stringTime;
-   private LClock  _clock;
+   private int      _days;
+   private int      _hours;
+   private int      _minutes;
+   private int      _seconds;
+   private int      _milliseconds;
+   private long     _differenceTime;
+   private long     _currentTime; //In milliseconds
+   private long     _updatedTime; //In milliseconds
+   private long     _stopTime;
+   private Instant  _instantThen;
+   private Instant  _instantNow;
+   private Duration _duration;
+   private String   _stringTime;
+   private LClock   _clock;
 
    {
       _run            = false;
@@ -54,6 +59,9 @@ public class LTimer implements ClockObserver{
       _stopTime       = 0;
       _stringTime     = null;
       _clock          = null;
+      _instantThen    = null;
+      _instantNow     = null;
+      _duration       = null;
    };
 
    //////////////////////////Constructors/////////////////////////////
@@ -82,7 +90,7 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void start(){
-      this._currentTime = this._clock.getTime();
+      this._currentTime = this._clock.getTimeInMillis();
       //this.setTimeValues();
       //Just try to notify the Observers-->see where that goes
       this.setRun(true);
@@ -109,16 +117,31 @@ public class LTimer implements ClockObserver{
       }
    }
 
+   /*
+   */
+   public void updateTime(Instant instant){
+      if(this._run && this._receive){
+         this._instantNow = instant;
+         this.calculateTime();
+      }
+      else{
+         this._instantThen = instant;
+      }
+   }
+
    /////////////////////Private Methods///////////////////////////////
    /*
    */
    private void calculateTime(){
+      /*
       this._differenceTime =
                this._updatedTime - this._currentTime + this._stopTime;
       if(this._differenceTime >= DIFFERENCE){
          //this._currentTime = this._updatedTime;
          this.setTimeValues();
       }
+      */
+      
    }
 
    /*

@@ -17,16 +17,19 @@ package rosas.lou.clock;
 
 import java.lang.*;
 import java.util.*;
+import java.time.Instant;
 import rosas.lou.clock.*;
 
 public class ClockNotifier implements Runnable{
    private long                _currentTime;
+   private Instant             _instant;
    private boolean             _quit;
    private boolean             _triggered;
    private List<ClockObserver> _observers;
 
    {
       _currentTime = 0;
+      _instant     = null;
       _quit        = false;
       _triggered   = false;
       _observers   = null;
@@ -63,6 +66,12 @@ public class ClockNotifier implements Runnable{
    */
    public void setTime(long time){
       this._currentTime = time;
+   }
+
+   /*
+   */
+   public void setTime(Instant instant){
+      this._instant = instant;
    }
 
    /*
