@@ -98,7 +98,8 @@ public class ClockNotifier implements Runnable{
                Iterator it = this._observers.iterator();
                while(it.hasNext()){
                   ClockObserver ob = (ClockObserver)it.next();
-                  ob.updateTime(this._currentTime);
+                  //ob.updateTime(this._currentTime);
+                  ob.updateTime(this._instant);
                }
             }
             this.trigger(false);

@@ -90,7 +90,7 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void start(){
-      this._currentTime = this._clock.getTimeInMillis();
+      //this._currentTime = this._clock.getTimeInMillis();
       //this.setTimeValues();
       //Just try to notify the Observers-->see where that goes
       this.setRun(true);
@@ -122,11 +122,16 @@ public class LTimer implements ClockObserver{
    public void updateTime(Instant instant){
       if(this._run && this._receive){
          this._instantNow = instant;
+         if(this._instantThen == null){
+            this._instantThen = instant;
+         }
          this.calculateTime();
       }
+      /*
       else{
          this._instantThen = instant;
       }
+      */
    }
 
    /////////////////////Private Methods///////////////////////////////
@@ -141,7 +146,18 @@ public class LTimer implements ClockObserver{
          this.setTimeValues();
       }
       */
-      
+      try{
+         this._duration = Duration.between(this._instantThen,
+                                           this._instantNow);
+         //Now, need to figure out how to ONLY display Second time
+         //Differences
+         if(this._duration.toMillis()%1000 == 0){
+            System.out.println(this._duration.toMillis());
+         }
+      }
+      catch(NullPointerException npe){
+         npe.printStackTrace();
+      }
    }
 
    /*
@@ -161,6 +177,7 @@ public class LTimer implements ClockObserver{
    }
 
    /*
+   TODO--this can definitely change, as well...
    */
    private void setTimeValues(){
       Calendar cal = Calendar.getInstance();
