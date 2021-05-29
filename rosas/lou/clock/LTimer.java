@@ -152,7 +152,7 @@ public class LTimer implements ClockObserver{
          //Now, need to figure out how to ONLY display Second time
          //Differences
          if(this._duration.toMillis()%1000 == 0){
-            System.out.println(this._duration.toMillis());
+            this.setTimeValues();
          }
       }
       catch(NullPointerException npe){
@@ -177,11 +177,12 @@ public class LTimer implements ClockObserver{
    }
 
    /*
-   TODO--this can definitely change, as well...
+   TODO--need to alert the Subscribers...
    */
    private void setTimeValues(){
       Calendar cal = Calendar.getInstance();
-      cal.setTimeInMillis(this._differenceTime);
+      //cal.setTimeInMillis(this._differenceTime);
+      cal.setTimeInMillis(this._duration.toMillis());
       SimpleDateFormat sdf = new SimpleDateFormat("dd HH:mm:ss.SSS");
       sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
       this._stringTime = sdf.format(cal.getTime());

@@ -73,16 +73,6 @@ public class LClock implements Runnable{
             //Instant instant = Instant.now();
             this.clockNotifier.setTime(Instant.now());
             this.clockNotifier.trigger(true);
-            /*
-            if((this.time%this.MOD) == (time2%this.MOD)){
-               //Alert the Observers somehow
-               //Somehow, I need to off load the time...not sure the
-               //best way just yet...
-               this.time = time2;
-               this.clockNotifier.setTime(this.time);
-               this.clockNotifier.trigger(true);
-            }
-            */
          }
          this.clockNotifier.quit(true);
          th.join();
@@ -95,7 +85,7 @@ public class LClock implements Runnable{
    //*********************Public Methods*****************************
    /*
    */
-   
+
    /*
    */
    public long getTimeInMillis(){
