@@ -14,11 +14,11 @@ public class TestTimer2{
       t.start();
       try{
          timer.start();
-	 Thread.sleep(10000);
-	 timer.stop();
-         Thread.sleep(3000);
-         timer.start();
-         Thread.sleep(20000);
+	 //Thread.sleep(10000);
+	 //timer.stop();
+         //Thread.sleep(3000);
+         //timer.start();
+         Thread.sleep(600000);
          timer.stop();
 	 clock.stop();
 	 t.join();
