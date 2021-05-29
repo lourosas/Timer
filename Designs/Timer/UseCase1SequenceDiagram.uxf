@@ -272,7 +272,7 @@ sleep(0,100)</panel_attributes>
       <h>50</h>
     </coordinates>
     <panel_attributes>Thread.sleep(0,100)
-bg=gray
+bg=orange
 Sleep for 100 nano-seconds
 fontsize=12</panel_attributes>
     <additional_attributes/>
@@ -428,7 +428,7 @@ wait()</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>_:ClockNotifier_</panel_attributes>
+    <panel_attributes>_:ClockObserver_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
