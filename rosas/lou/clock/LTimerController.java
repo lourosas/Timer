@@ -26,7 +26,7 @@ import rosas.lou.clock.LTimerView;
 public class LTimerController implements ActionListener,
 KeyListener{
    private LTimer      _lTimer;
-   private LTimverView _lTimerView;
+   private LTimerView  _lTimerView;
 
    {
       _lTimer      = null;
@@ -43,8 +43,14 @@ KeyListener{
 
    /////////////////////Interface Implementaions//////////////////////
    /**/
-   public void actionPerformed(ActiveEvent e){}
+   public void actionPerformed(ActionEvent e){}
 
    /**/
-   public
+   public void keyPressed(KeyEvent k){}
+
+   /**/
+   public void keyReleased(KeyEvent k){}
+
+   /**/
+   public void keyTyped(KeyEvent k){}
 }

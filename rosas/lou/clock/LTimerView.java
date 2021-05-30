@@ -61,6 +61,8 @@ implements ClockSubscriber{
             System.exit(0); //This may need to change
          }
       });
+      this.setUpGUI();
+      this.setVisible(true);
    }
 
    ///////////////////Interface Imeplementations//////////////////////
@@ -71,4 +73,93 @@ implements ClockSubscriber{
    public void update(java.time.Instant instant){}
 
    /////////////////////////Private Methods///////////////////////////
+   /**/
+   private JPanel setCenterPanel(){
+      final int RIGHT = SwingConstants.RIGHT;
+
+      JPanel centerPanel = new JPanel();
+
+      Border border = BorderFactory.createEtchedBorder();
+      centerPanel.setBorder(border);
+      centerPanel.setLayout(new GridLayout(0,2));
+
+      JLabel time         = new JLabel("Time:  ", RIGHT);
+      this._currentTimeTF = new JTextField();
+      this._currentTimeTF.setEditable(false);
+
+      centerPanel.add(time);
+      centerPanel.add(this._currentTimeTF);
+
+      return centerPanel;
+   }
+
+   /**/
+   private JPanel setNorthPanel(){
+      String s = new String("LTimer");
+      JPanel northPanel = new JPanel();
+      JLabel northLabel = new JLabel(s, SwingConstants.CENTER);
+
+      Border border = BorderFactory.createEtchedBorder();
+      northPanel.setBorder(border);
+      northPanel.add(northLabel);
+
+      return northPanel;
+   }
+
+   /**/
+   private JPanel setSouthPanel(){
+      JPanel buttonPanel = new JPanel();
+      this._buttonGroup  = new ButtonGroup();
+
+      JButton start = new JButton("Start");
+      start.setMnemonic(KeyEvent.VK_S);
+      buttonPanel.add(start);
+      this._buttonGroup.add(start);
+
+      JButton stop = new JButton("Stop");
+      stop.setEnabled(false);
+      stop.setMnemonic(KeyEvent.VK_T);
+      buttonPanel.add(stop);
+      this._buttonGroup.add(stop);
+
+      JButton lap = new JButton("Lap");
+      lap.setEnabled(false);
+      lap.setMnemonic(KeyEvent.VK_L);
+      buttonPanel.add(lap);
+      this._buttonGroup.add(lap);
+
+      JButton reset = new JButton("Reset");
+      reset.setMnemonic(KeyEvent.VK_R);
+      buttonPanel.add(reset);
+      this._buttonGroup.add(reset);
+
+      if(this._controller != null){
+         start.addActionListener(this._controller);
+         start.addKeyListener(this._controller);
+         stop.addActionListener(this._controller);
+         stop.addKeyListener(this._controller);
+         lap.addActionListener(this._controller);
+         lap.addKeyListener(this._controller);
+         reset.addActionListener(this._controller);
+         reset.addKeyListener(this._controller);
+      }
+
+      return buttonPanel;
+   }
+
+   /**/
+   private void setUpGUI(){
+      final short WIDTH  = 340;
+      final short HEIGHT = 160;
+      //Get the Content Pane
+      Container contentPane = this.getContentPane();
+      this.setSize(WIDTH, HEIGHT);
+      //set up the rest of the GUi
+      contentPane.add(this.setNorthPanel(),  BorderLayout.NORTH);
+      contentPane.add(this.setCenterPanel(),BorderLayout.CENTER);
+      contentPane.add(this.setSouthPanel(),  BorderLayout.SOUTH);
+      //Set up the Menu Bar
+      //this.setJMenuBar(this.setUpMenuBar());
+      this.setResizable(false);
+   }
 }
