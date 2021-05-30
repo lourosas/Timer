@@ -44,6 +44,7 @@ public class LTimer implements ClockObserver{
    private Duration _duration;
    private String   _stringTime;
    private LClock   _clock;
+   private List<ClockSubscriber> _subscribers;
 
    {
       _run            = false;
@@ -62,6 +63,7 @@ public class LTimer implements ClockObserver{
       _instantThen    = null;
       _instantNow     = null;
       _duration       = null;
+      _subscribers    = null;
    };
 
    //////////////////////////Constructors/////////////////////////////
@@ -76,6 +78,18 @@ public class LTimer implements ClockObserver{
    }
 
    //////////////////////////Public Methods///////////////////////////
+   /*
+   */
+   public void addSubscriber(ClockSubscriber subscriber){
+      try{
+         this._subscribers.add(subscriber);
+      }
+      catch(NullPointerException npe){
+         this._subscribers = new LinkedList<ClockSubscriber>();
+         this._subscribers.add(subscriber);
+      }
+   }
+
    /*
    */
    public void setClock(LClock clock){
@@ -138,14 +152,6 @@ public class LTimer implements ClockObserver{
    /*
    */
    private void calculateTime(){
-      /*
-      this._differenceTime =
-               this._updatedTime - this._currentTime + this._stopTime;
-      if(this._differenceTime >= DIFFERENCE){
-         //this._currentTime = this._updatedTime;
-         this.setTimeValues();
-      }
-      */
       try{
          this._duration = Duration.between(this._instantThen,
                                            this._instantNow);
@@ -162,7 +168,7 @@ public class LTimer implements ClockObserver{
 
    /*
    */
-   private void notifyObservers(){}
+   private void notifySubscribers(){}
 
    /*
    */

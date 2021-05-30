@@ -1,5 +1,5 @@
 /*********************************************************************
-* Copyright (C) 2015 Lou Rosas
+* Copyright (C) 2021 Lou Rosas
 * This file is part of many applications registered with
 * the GNU General Public License as published
 * by the Free Software Foundation; either version 3 of the License,
