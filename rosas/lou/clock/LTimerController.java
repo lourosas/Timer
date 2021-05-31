@@ -35,10 +35,23 @@ KeyListener{
 
    /////////////////////////Public Methods////////////////////////////
    /**/
+   public LTimerController(){}
+
+   /**/
    public LTimerController(LTimer timer, LTimerView ltv){
       this._lTimer = timer;
       this._lTimerView = ltv;
       this._lTimer.addSubscriber(this._lTimerView);
+   }
+
+   /**/
+   public void addView(LTimerView view){
+      this._lTimerView = view;
+   }
+
+   /**/
+   public void addModel(LTimer model){
+      this._lTimer = model;
    }
 
    /////////////////////Interface Implementaions//////////////////////
@@ -51,7 +64,7 @@ KeyListener{
          int code = k.getKeyCode();
          if(code == KeyEvent.VK_ENTER){
             JButton button = ((JButton)k.getSource());
-            button.doClick();
+            button.doClick(100);
          }
       }
       catch(ClassCastException cce){}
