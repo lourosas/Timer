@@ -94,6 +94,8 @@ implements ClockSubscriber{
    }
 
    /**/
+
+   /**/
    private JPanel setNorthPanel(){
       String s = new String("LTimer");
       JPanel northPanel = new JPanel();
@@ -148,6 +150,60 @@ implements ClockSubscriber{
    }
 
    /**/
+   private JMenu setUpFileMenu(){
+      int ctrl = InputEvent.CTRL_DOWN_MASK;
+      KeyStroke ks = null;
+
+      JMenu file = new JMenu("File");
+      file.setMnemonic(KeyEvent.VK_F);
+
+      JMenuItem start = new JMenuItem("Start", 'S');
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_S, ctrl);
+      start.setAccelerator(ks);
+      this._menuItemGroup.add(start);
+      file.add(start);
+
+      JMenuItem stop = new JMenuItem("Stop", 'T');
+      stop.setEnabled(false);
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_T, ctrl);
+      stop.setAccelerator(ks);
+      this._menuItemGroup.add(stop);
+      file.add(stop);
+
+      JMenuItem lap = new JMenuItem("Lap", 'L');
+      lap.setEnabled(false);
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_L, ctrl);
+      lap.setAccelerator(ks);
+      this._menuItemGroup.add(lap);
+      file.add(lap);
+
+      JMenuItem reset = new JMenuItem("Reset", 'R');
+      //ks = KeyStroke.getKeyStroke(KeyEvent.VK_R, ctrl);
+      //reset.setAccelerator(ks);
+      this._menuItemGroup.add(reset);
+      file.add(reset);
+
+      file.addSeparator();
+
+      JMenuItem quit = new JMenuItem("Quit", 'Q');
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_Q, ctrl);
+      quit.setAccelerator(ks);
+      this._menuItemGroup.add(quit);
+      file.add(quit);
+
+
+      if(this._controller != null){
+         start.addActionListener(this._controller);
+         stop.addActionListener(this._controller);
+         lap.addActionListener(this._controller);
+         reset.addActionListener(this._controller);
+         quit.addActionListener(this._controller);
+      }
+
+      return file;
+   }
+
+   /**/
    private void setUpGUI(){
       final short WIDTH  = 340;
       final short HEIGHT = 160;
@@ -159,7 +215,45 @@ implements ClockSubscriber{
       contentPane.add(this.setCenterPanel(),BorderLayout.CENTER);
       contentPane.add(this.setSouthPanel(),  BorderLayout.SOUTH);
       //Set up the Menu Bar
-      //this.setJMenuBar(this.setUpMenuBar());
+      this.setJMenuBar(this.setUpMenuBar());
       this.setResizable(false);
+   }
+
+   /**/
+   private JMenu setUpHelpMenu(){
+      KeyStroke ks = null;
+
+      JMenu help = new JMenu("Help");
+      help.setMnemonic(KeyEvent.VK_H);
+
+      JMenuItem helpItem = new JMenuItem("Help", 'H');
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
+      helpItem.setAccelerator(ks);
+      this._menuItemGroup.add(helpItem);
+      help.add(helpItem);
+
+
+      help.addSeparator();
+
+      JMenuItem about = new JMenuItem("About", 'A');
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0);
+      about.setAccelerator(ks);
+      this._menuItemGroup.add(about);
+      help.add(about);
+
+      if(this._controller != null){
+         helpItem.addActionListener(this._controller);
+         about.addActionListener(this._controller);
+      }
+      return help;
+   }
+
+   /**/
+   private JMenuBar setUpMenuBar(){
+      this._menuItemGroup = new ButtonGroup();
+      JMenuBar jmenuBar = new JMenuBar();
+      jmenuBar.add(this.setUpFileMenu());
+      jmenuBar.add(this.setUpHelpMenu());
+      return jmenuBar;
    }
 }
