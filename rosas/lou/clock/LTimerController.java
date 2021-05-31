@@ -46,7 +46,16 @@ KeyListener{
    public void actionPerformed(ActionEvent e){}
 
    /**/
-   public void keyPressed(KeyEvent k){}
+   public void keyPressed(KeyEvent k){
+      try{
+         int code = k.getKeyCode();
+         if(code == KeyEvent.VK_ENTER){
+            JButton button = ((JButton)k.getSource());
+            button.doClick();
+         }
+      }
+      catch(ClassCastException cce){}
+   }
 
    /**/
    public void keyReleased(KeyEvent k){}

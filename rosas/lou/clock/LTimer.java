@@ -82,13 +82,24 @@ public class LTimer implements ClockObserver{
    */
    public void addSubscriber(ClockSubscriber subscriber){
       try{
-         this._subscribers.add(subscriber);
+         if(!this._subscribers.contains(subscriber)){
+            this._subscribers.add(subscriber);
+	 }
       }
       catch(NullPointerException npe){
-         this._subscribers = new LinkedList<ClockSubscriber>();
-         this._subscribers.add(subscriber);
+         if(this._subscribers == null){
+            this._subscribers = new LinkedList<ClockSubscriber>();
+            try{
+               this._subscribers.add(subscriber);
+            }
+            catch(NullPointerException npe2){}
+         }
       }
    }
+
+
+   /**/
+   public void removeSubscribers(ClockSubscriber subscriber){}
 
    /*
    */
@@ -168,7 +179,13 @@ public class LTimer implements ClockObserver{
 
    /*
    */
-   private void notifySubscribers(){}
+   private void notifySubscribers(){
+      Iterator<ClockSubscriber> it = this._subscribers.iterator();
+      while(it.hasNext()){
+         (it.next()).update(this._stringTime);
+         
+      }
+   }
 
    /*
    */
@@ -208,7 +225,7 @@ public class LTimer implements ClockObserver{
          }
          values_ = this._stringTime.split(" ");
          this._stringTime = this._days + " " + values_[1];
-         System.out.println(this._stringTime);
+         this.notifySubscribers();
       }
       catch(NumberFormatException nfe){}
       catch(ArrayIndexOutOfBoundsException oob){}
