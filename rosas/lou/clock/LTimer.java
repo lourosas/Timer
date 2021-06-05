@@ -138,7 +138,7 @@ public class LTimer implements ClockObserver{
       //Going to try this in this way for the time being
       this._stopTime = this._differenceTime;
       this.setRun(false);
-      this.setReceive(false);
+      //this.setReceive(false);
    }
 
    ////////////////Clock Observer Implementation methods//////////////
@@ -154,18 +154,16 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void updateTime(Instant instant){
-      if(this._run && this._receive){
+      if(/*this._run &&*/ this._receive){
          this._instantNow = instant;
          if(this._instantThen == null){
             this._instantThen = instant;
          }
          this.calculateTime();
+         if(!this._run){
+            this.setReceive(false);
+         }
       }
-      /*
-      else{
-         this._instantThen = instant;
-      }
-      */
    }
 
    /////////////////////Private Methods///////////////////////////////
@@ -177,7 +175,12 @@ public class LTimer implements ClockObserver{
                                            this._instantNow);
          //Now, need to figure out how to ONLY display Second time
          //Differences
-         if(this._duration.toMillis()%1000 == 0){
+         if(this._run){
+            if(this._duration.toMillis()%1000 == 0){
+               this.setTimeValues();
+            }
+         }
+         else if(this._receive){
             this.setTimeValues();
          }
       }
