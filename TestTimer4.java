@@ -12,9 +12,12 @@ public class TestTimer4{
       LTimer timer   = new LTimer(clock);
       LTimerController controller = new LTimerController();
       LTimerView ltv = new LTimerView("Test Timer", controller);
+      //Will have to come up with a better way, but do this for now
+      //Technically, everything should go through the Controller
+      timer.addSubscriber(ltv);
       controller.addView(ltv);
       controller.addModel(timer);
-      //Thread t = new Thread(clock, "clock");
-      //t.start();
+      Thread t = new Thread(clock, "clock");
+      t.start();
    }
 }
