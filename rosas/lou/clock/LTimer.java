@@ -30,20 +30,20 @@ public class LTimer implements ClockObserver{
    private boolean _run;
    private boolean _receive;
 
-   private int      _days;
-   private int      _hours;
-   private int      _minutes;
-   private int      _seconds;
-   private int      _milliseconds;
-   private long     _differenceTime;
-   private long     _currentTime; //In milliseconds
-   private long     _updatedTime; //In milliseconds
-   private long     _stopTime;
-   private Instant  _instantThen;
-   private Instant  _instantNow;
-   private Duration _duration;
-   private String   _stringTime;
-   private LClock   _clock;
+   private int                   _days;
+   private int                   _hours;
+   private int                   _minutes;
+   private int                   _seconds;
+   private int                   _milliseconds;
+   private long                  _differenceTime;
+   private long                  _currentTime; //In milliseconds
+   private long                  _updatedTime; //In milliseconds
+   private long                  _stopTime;
+   private Instant               _instantThen;
+   private Instant               _instantNow;
+   private Duration              _duration;
+   private String                _stringTime;
+   private LClock                _clock;
    private List<ClockSubscriber> _subscribers;
 
    {
@@ -81,6 +81,7 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void addSubscriber(ClockSubscriber subscriber){
+      /*
       try{
          if(!this._subscribers.contains(subscriber)){
             this._subscribers.add(subscriber);
@@ -94,6 +95,14 @@ public class LTimer implements ClockObserver{
             }
             catch(NullPointerException npe2){}
          }
+      }
+      */
+      try{
+         this._subscribers.add(subscriber);
+      }
+      catch(NullPointerException npe){
+         this._subscribers = new LinkedList<ClockSubscriber>();
+         this._subscribers.add(subscriber);
       }
    }
 
@@ -180,10 +189,14 @@ public class LTimer implements ClockObserver{
    /*
    */
    private void notifySubscribers(){
-      Iterator<ClockSubscriber> it = this._subscribers.iterator();
-      while(it.hasNext()){
-         (it.next()).update(this._stringTime);
-         
+      try{
+         Iterator<ClockSubscriber> it = this._subscribers.iterator();
+         while(it.hasNext()){
+            (it.next()).update(this._stringTime);
+         }
+      }
+      catch(NullPointerException npe){
+         npe.printStackTrace();
       }
    }
 

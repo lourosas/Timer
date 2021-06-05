@@ -28,22 +28,22 @@ import rosas.lou.clock.ClockSubscriber;
 
 public class LTimerView extends GenericJFrame
 implements ClockSubscriber{
-   private LTimerController _controller;
-   private ButtonGroup      _buttonGroup;
-   private ButtonGroup      _menuItemGroup;
-   private JTextField       _currentTimeTF;
-   private JTextArea        _lapsTA;
-   private JScrollPane      _lapsSP;
+   private LTimerController         _controller;
+   private ButtonGroup              _buttonGroup;
+   private ButtonGroup              _menuItemGroup;
+   private JTextField               _currentTimeTF;
+   private JTextArea                _lapsTA;
+   private JScrollPane              _lapsSP;
    private GenericJInteractionFrame _lapsFrame;
 
    {
-      _controller                  = null;
-      _buttonGroup                 = null;
-      _menuItemGroup               = null;
-      _currentTimeTF               = null;
-      _lapsTA                      = null;
-      _lapsSP                      = null;
-      _lapsFrame                   = null;
+      _controller     = null;
+      _buttonGroup    = null;
+      _menuItemGroup  = null;
+      _currentTimeTF  = null;
+      _lapsTA         = null;
+      _lapsSP         = null;
+      _lapsFrame      = null;
    };
    /////////////////////////Public Methods///////////////////////////
    /**/
@@ -67,7 +67,9 @@ implements ClockSubscriber{
 
    ///////////////////Interface Imeplementations//////////////////////
    /**/
-   public void update(String time){}
+   public void update(String time){
+      this._currentTimeTF.setText(time);
+   }
 
    /**/
    public void update(java.time.Instant instant){}

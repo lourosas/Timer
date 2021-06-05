@@ -56,7 +56,10 @@ KeyListener{
 
    /////////////////////Interface Implementaions//////////////////////
    /**/
-   public void actionPerformed(ActionEvent e){}
+   public void actionPerformed(ActionEvent e){
+      this.handleJButton(e);
+      this.handleJMenuItem(e);
+   }
 
    /**/
    public void keyPressed(KeyEvent k){
@@ -75,4 +78,29 @@ KeyListener{
 
    /**/
    public void keyTyped(KeyEvent k){}
+
+   //////////////////////////Private Methods//////////////////////////
+   /**/
+   private void handleJButton(ActionEvent e){
+      try{
+         JButton button = (JButton)e.getSource();
+         if(button.getActionCommand().equals("Start")){
+            this._lTimer.start();
+         }
+      }
+      catch(ClassCastException cce){}
+      catch(IllegalArgumentException iae){}
+   }
+
+   /**/
+   private void handleJMenuItem(ActionEvent e){
+      try{
+         JMenuItem menuItem = (JMenuItem)e.getSource();
+         if(menuItem.getActionCommand().equals("Start")){
+            this._lTimer.start();
+         }
+      }
+      catch(ClassCastException eec){}
+      catch(IllegalArgumentException iae){}
+   }
 }
