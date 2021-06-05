@@ -149,12 +149,14 @@ r1=-observers</panel_attributes>
       <x>260</x>
       <y>140</y>
       <w>180</w>
-      <h>320</h>
+      <h>350</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Model&gt;&gt;
 LTimer
 Package::Clock
 -
+-run:boolean
+-receive:boolean
 -days:short
 -hours:short
 -minutes:short
