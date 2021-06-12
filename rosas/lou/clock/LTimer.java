@@ -81,22 +81,6 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void addSubscriber(ClockSubscriber subscriber){
-      /*
-      try{
-         if(!this._subscribers.contains(subscriber)){
-            this._subscribers.add(subscriber);
-	 }
-      }
-      catch(NullPointerException npe){
-         if(this._subscribers == null){
-            this._subscribers = new LinkedList<ClockSubscriber>();
-            try{
-               this._subscribers.add(subscriber);
-            }
-            catch(NullPointerException npe2){}
-         }
-      }
-      */
       try{
          this._subscribers.add(subscriber);
       }
@@ -205,8 +189,23 @@ public class LTimer implements ClockObserver{
 
    /*
    */
+   private void notifySubscribersOfStateChange(){
+      try{
+         Iterator<ClockSubscriber> it = this._subscribers.iterator();
+         while(it.hasNext()){
+            (it.next()).update(this._run);
+         }
+      }
+      catch(NullPointerException npe){
+         npe.printStackTrace();
+      }
+   }
+
+   /*
+   */
    private void setRun(boolean run){
       this._run = run;
+      this.notifySubscribersOfStateChange();
    }
 
    /*

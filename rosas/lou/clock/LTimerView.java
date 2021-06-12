@@ -74,7 +74,63 @@ implements ClockSubscriber{
    /**/
    public void update(java.time.Instant instant){}
 
+   /**/
+   public void update(boolean isRunning){
+      this.reflectState(isRunning);
+   }
+
    /////////////////////////Private Methods///////////////////////////
+   /**/
+   private void reflectState(boolean isRunning){
+      Enumeration<AbstractButton> e = this._buttonGroup.getElements();
+      Enumeration<AbstractButton> m=this._menuItemGroup.getElements();
+      while(e.hasMoreElements()){
+         AbstractButton ab = e.nextElement();
+         if(isRunning){
+            if(ab.getActionCommand().equals("Start") ||
+               ab.getActionCommand().equals("Reset")){
+               ab.setEnabled(false);
+            }
+            else if(ab.getActionCommand().equals("Stop") ||
+                    ab.getActionCommand().equals("Lap")){
+               ab.setEnabled(true);
+            }
+         }
+         else{
+            if(ab.getActionCommand().equals("Start") ||
+               ab.getActionCommand().equals("Reset")){
+               ab.setEnabled(true);
+            }
+            else if(ab.getActionCommand().equals("Stop") ||
+                    ab.getActionCommand().equals("Lap")){
+               ab.setEnabled(false);
+            }
+         }
+      }
+      while(m.hasMoreElements()){
+         AbstractButton ab = m.nextElement();
+         if(isRunning){
+            if(ab.getActionCommand().equals("Start") ||
+               ab.getActionCommand().equals("Reset")){
+               ab.setEnabled(false);
+            }
+            else if(ab.getActionCommand().equals("Stop") ||
+                    ab.getActionCommand().equals("Lap")){
+               ab.setEnabled(true);
+            }
+         }
+         else{
+            if(ab.getActionCommand().equals("Start") ||
+               ab.getActionCommand().equals("Reset")){
+               ab.setEnabled(true);
+            }
+            else if(ab.getActionCommand().equals("Stop") ||
+                    ab.getActionCommand().equals("Lap")){
+               ab.setEnabled(false);
+            }
+         }
+      }
+   }
    /**/
    private JPanel setCenterPanel(){
       final int RIGHT = SwingConstants.RIGHT;
