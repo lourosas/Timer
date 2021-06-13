@@ -42,6 +42,7 @@ public class LTimer implements ClockObserver{
    private Instant               _instantThen;
    private Instant               _instantNow;
    private Duration              _duration;
+   private Duration              _savedDuration;
    private String                _stringTime;
    private LClock                _clock;
    private List<ClockSubscriber> _subscribers;
@@ -63,6 +64,7 @@ public class LTimer implements ClockObserver{
       _instantThen    = null;
       _instantNow     = null;
       _duration       = null;
+      _savedDuration  = null;
       _subscribers    = null;
    };
 
@@ -146,6 +148,9 @@ public class LTimer implements ClockObserver{
          this.calculateTime();
          if(!this._run){
             this.setReceive(false);
+            this._savedDuration = this._duration;
+            this._instantThen   = null;
+            this._instantNow    = null;
          }
       }
    }
@@ -157,6 +162,10 @@ public class LTimer implements ClockObserver{
       try{
          this._duration = Duration.between(this._instantThen,
                                            this._instantNow);
+         try{
+            this._duration = this._duration.plus(this._savedDuration);
+         }
+         catch(NullPointerException e){}
          //Now, need to figure out how to ONLY display Second time
          //Differences
          if(this._run){
