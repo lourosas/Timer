@@ -87,7 +87,9 @@ KeyListener{
          if(button.getActionCommand().equals("Start")){
             this._lTimer.start();
          }
-         else if(button.getActionCommand().equals("Stop")){}
+         else if(button.getActionCommand().equals("Stop")){
+            this._lTimer.stop();
+         }
       }
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
@@ -100,7 +102,9 @@ KeyListener{
          if(menuItem.getActionCommand().equals("Start")){
             this._lTimer.start();
          }
-         else if(menuItem.getActionCommand().equals("Stop")){}
+         else if(menuItem.getActionCommand().equals("Stop")){
+            this._lTimer.stop();
+         }
       }
       catch(ClassCastException eec){}
       catch(IllegalArgumentException iae){}
