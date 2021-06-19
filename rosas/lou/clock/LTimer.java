@@ -90,6 +90,9 @@ public class LTimer implements ClockObserver{
          this._subscribers = new LinkedList<ClockSubscriber>();
          this._subscribers.add(subscriber);
       }
+      finally{
+         this.setTimeValues();
+      }
    }
 
 
