@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
-      <y>580</y>
+      <x>310</x>
+      <y>600</y>
       <w>230</w>
       <h>180</h>
     </coordinates>
@@ -25,8 +25,8 @@ Package::Clock
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>540</x>
-      <y>440</y>
+      <x>580</x>
+      <y>460</y>
       <w>80</w>
       <h>90</h>
     </coordinates>
@@ -38,19 +38,19 @@ run()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>440</y>
-      <w>140</w>
+      <x>530</x>
+      <y>460</y>
+      <w>110</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>90.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>580</y>
+      <x>730</x>
+      <y>600</y>
       <w>230</w>
       <h>170</h>
     </coordinates>
@@ -70,33 +70,33 @@ Package::Clock
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>590</y>
-      <w>240</w>
+      <x>530</x>
+      <y>610</y>
+      <w>220</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1
 r2=-clockNotifier</panel_attributes>
-    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
-      <y>440</y>
-      <w>130</w>
+      <x>610</x>
+      <y>460</y>
+      <w>140</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;120.0;140.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>900</y>
+      <x>370</x>
+      <y>920</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -106,9 +106,9 @@ r2=-clockNotifier</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>340</x>
-      <y>750</y>
-      <w>70</w>
+      <x>410</x>
+      <y>770</y>
+      <w>60</w>
       <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
@@ -120,9 +120,9 @@ r2=-date</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>1020</x>
-      <y>640</y>
-      <w>180</w>
+      <x>1030</x>
+      <y>660</y>
+      <w>160</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>List&lt;ClockObserver&gt;
@@ -132,24 +132,24 @@ r2=-date</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>630</y>
-      <w>230</w>
+      <x>950</x>
+      <y>650</y>
+      <w>180</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
 m1=1
 m2=1
 r1=-observers</panel_attributes>
-    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>260</x>
-      <y>140</y>
+      <y>160</y>
       <w>180</w>
-      <h>350</h>
+      <h>390</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Model&gt;&gt;
 LTimer
@@ -166,7 +166,10 @@ Package::Clock
 -currentTime:long
 -updateTime:long
 -
++reset()
 +start()
++stop()
+-clearAllTimeValues()
 -setRun(:boolean)
 -setReceive(:boolean)
 -setTime(:long)
@@ -179,7 +182,7 @@ Package::Clock
     <id>UMLInterface</id>
     <coordinates>
       <x>280</x>
-      <y>0</y>
+      <y>20</y>
       <w>140</w>
       <h>100</h>
     </coordinates>
@@ -193,7 +196,7 @@ updateTime(:long)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>340</x>
-      <y>0</y>
+      <y>20</y>
       <w>30</w>
       <h>160</h>
     </coordinates>
@@ -204,7 +207,7 @@ updateTime(:long)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>340</x>
-      <y>0</y>
+      <y>20</y>
       <w>800</w>
       <h>670</h>
     </coordinates>
@@ -218,7 +221,7 @@ stores</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>30</x>
-      <y>90</y>
+      <y>110</y>
       <w>180</w>
       <h>60</h>
     </coordinates>
@@ -234,7 +237,7 @@ Design Pattern
     <id>Relation</id>
     <coordinates>
       <x>200</x>
-      <y>120</y>
+      <y>140</y>
       <w>80</w>
       <h>90</h>
     </coordinates>
@@ -244,9 +247,9 @@ Design Pattern
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>30</x>
-      <y>570</y>
-      <w>140</w>
+      <x>40</x>
+      <y>590</y>
+      <w>120</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>List&lt;Subscriber&gt;
@@ -258,7 +261,7 @@ Design Pattern
     <id>Relation</id>
     <coordinates>
       <x>90</x>
-      <y>430</y>
+      <y>450</y>
       <w>190</w>
       <h>170</h>
     </coordinates>
@@ -271,8 +274,8 @@ r1=-observers</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>370</y>
+      <x>580</x>
+      <y>390</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -282,47 +285,47 @@ r1=-observers</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
-      <y>390</y>
-      <w>190</w>
-      <h>210</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m1=1
-m2=1</panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;190.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>630</x>
-      <y>390</y>
+      <x>440</x>
+      <y>410</y>
       <w>160</w>
       <h>210</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;140.0;190.0</additional_attributes>
+    <additional_attributes>140.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>410</y>
+      <w>170</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;190.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>430</x>
-      <y>300</y>
-      <w>130</w>
+      <y>320</y>
+      <w>170</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=2
 m2=1</panel_attributes>
-    <additional_attributes>110.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>150.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>540</x>
-      <y>250</y>
+      <y>270</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -333,7 +336,7 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>430</x>
-      <y>250</y>
+      <y>270</y>
       <w>130</w>
       <h>40</h>
     </coordinates>
