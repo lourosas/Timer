@@ -98,6 +98,12 @@ public class LTimer implements ClockObserver{
 
    /*
    */
+   public void reset(){
+      System.out.println("Reset");
+   }
+
+   /*
+   */
    public void setClock(LClock clock){
       //If already connected to a clock, disconnect from it TBD
       if(this._clock != null){
