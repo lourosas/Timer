@@ -26,10 +26,12 @@ import rosas.lou.clock.*;
 
 public class LTimer implements ClockObserver{
    private final int DIFFERENCE = 1000;
+   private final int CHANGEDDIFFERENCE = 500;
 
    private boolean _run;
    private boolean _receive;
 
+   private int                   _hitCounter;
    private int                   _days;
    private int                   _hours;
    private int                   _minutes;
@@ -175,14 +177,15 @@ public class LTimer implements ClockObserver{
             this._duration = this._duration.plus(this._savedDuration);
          }
          catch(NullPointerException e){}
-         //Now, need to figure out how to ONLY display Second time
-         //Differences
-         if(this._run){
-            if(this._duration.toMillis()%1000 == 0){
+         //Leave this for the moment, but honestly, do not need it
+	 if(this._run){
+            this._updatedTime = this._duration.toMillis();
+            if(this._updatedTime - this._currentTime >= 1000){
                this.setTimeValues();
+               this._currentTime = this._updatedTime;
             }
-         }
-         else if(this._receive){
+	 }
+	 else if(this._receive){
             this.setTimeValues();
          }
       }
@@ -194,6 +197,8 @@ public class LTimer implements ClockObserver{
    /*
    */
    private void clearAllTimeValues(){
+      this._currentTime   = 0;
+      this._updatedTime   = 0;
       this._stringTime    = null;
       this._instantThen   = null;
       this._instantNow    = null;
@@ -250,12 +255,10 @@ public class LTimer implements ClockObserver{
    private void setTimeValues(){
       Calendar cal = Calendar.getInstance();
       try{
-         long time = this._duration.toMillis();
+         cal.setTimeInMillis(this._duration.toMillis());
       }
       catch(NullPointerException npe){
          this._duration = Duration.ZERO;
-      }
-      finally{
          cal.setTimeInMillis(this._duration.toMillis());
       }
       try{
@@ -274,6 +277,7 @@ public class LTimer implements ClockObserver{
             sdf = new SimpleDateFormat("dd HH:mm:ss");
             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             this._stringTime = sdf.format(cal.getTime());
+            //System.out.println(this._duration.toMillis());
          }
          values_ = this._stringTime.split(" ");
          this._stringTime = this._days + " " + values_[1];
