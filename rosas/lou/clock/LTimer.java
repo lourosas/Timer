@@ -99,7 +99,7 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void reset(){
-      System.out.println("Reset");
+      this.clearAllTimeValues();
    }
 
    /*
@@ -190,6 +190,18 @@ public class LTimer implements ClockObserver{
 
    /*
    */
+   private void clearAllTimeValues(){
+      this._stringTime    = null;
+      this._instantThen   = null;
+      this._instantNow    = null;
+      this._duration      = null;
+      this._savedDuration = null;
+      this._stringTime    = "";
+      this.setTimeValues();
+   }
+
+   /*
+   */
    private void notifySubscribers(){
       try{
          Iterator<ClockSubscriber> it = this._subscribers.iterator();
@@ -234,13 +246,20 @@ public class LTimer implements ClockObserver{
    */
    private void setTimeValues(){
       Calendar cal = Calendar.getInstance();
-      //cal.setTimeInMillis(this._differenceTime);
-      cal.setTimeInMillis(this._duration.toMillis());
-      SimpleDateFormat sdf = new SimpleDateFormat("dd HH:mm:ss.SSS");
-      sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-      this._stringTime = sdf.format(cal.getTime());
-      String[] values_ = this._stringTime.split(" ");
       try{
+         long time = this._duration.toMillis();
+      }
+      catch(NullPointerException npe){
+         this._duration = Duration.ZERO;
+      }
+      finally{
+         cal.setTimeInMillis(this._duration.toMillis());
+      }
+      try{
+         SimpleDateFormat sdf=new SimpleDateFormat("dd HH:mm:ss.SSS");
+         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+         this._stringTime = sdf.format(cal.getTime());
+         String[] values_ = this._stringTime.split(" ");
          this._days         = Integer.parseInt(values_[0]) - 1;
          values_            = values_[1].split(":");
          this._hours        = Integer.parseInt(values_[0]);
