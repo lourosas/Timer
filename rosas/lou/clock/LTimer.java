@@ -66,7 +66,7 @@ public class LTimer implements ClockObserver{
       _instantThen    = null;
       _instantNow     = null;
       _duration       = null;
-      _savedDuration  = null;
+      _savedDuration  = Duration.ZERO;
       _subscribers    = null;
    };
 
@@ -97,6 +97,9 @@ public class LTimer implements ClockObserver{
       }
    }
 
+   /*
+   */
+   public void lap(){}
 
    /**/
    public void removeSubscribers(ClockSubscriber subscriber){}
@@ -133,9 +136,7 @@ public class LTimer implements ClockObserver{
    public void stop(){
       //This will need to change but going to do a "proof of concept"
       //Going to try this in this way for the time being
-      this._stopTime = this._differenceTime;
       this.setRun(false);
-      //this.setReceive(false);
    }
 
    ////////////////Clock Observer Implementation methods//////////////
@@ -173,19 +174,16 @@ public class LTimer implements ClockObserver{
       try{
          this._duration = Duration.between(this._instantThen,
                                            this._instantNow);
-         try{
-            this._duration = this._duration.plus(this._savedDuration);
-         }
-         catch(NullPointerException e){}
+         this._duration = this._duration.plus(this._savedDuration);
          //Leave this for the moment, but honestly, do not need it
-	 if(this._run){
+         if(this._run){
             this._updatedTime = this._duration.toMillis();
             if(this._updatedTime - this._currentTime >= 1000){
                this.setTimeValues();
                this._currentTime = this._updatedTime;
             }
-	 }
-	 else if(this._receive){
+         }
+         else if(this._receive){
             this.setTimeValues();
          }
       }
@@ -203,7 +201,7 @@ public class LTimer implements ClockObserver{
       this._instantThen   = null;
       this._instantNow    = null;
       this._duration      = null;
-      this._savedDuration = null;
+      this._savedDuration = Duration.ZERO;
       this._stringTime    = "";
       this.setTimeValues();
    }

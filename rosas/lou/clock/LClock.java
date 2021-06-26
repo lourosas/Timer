@@ -64,14 +64,10 @@ public class LClock implements Runnable{
          this.time  = Calendar.getInstance().getTimeInMillis();
          Thread th  = new Thread(this.clockNotifier,"notifier");
          th.start();
-         //this.clockNotifier.setTime(this.time);
          this.clockNotifier.setTime(Instant.now());
          this.clockNotifier.trigger(true);
          while(this.toRun){
             Thread.sleep(0,100000);
-	    //Thread.sleep(1);
-            //long time2 = Calendar.getInstance().getTimeInMillis();
-            //Instant instant = Instant.now();
             this.clockNotifier.setTime(Instant.now());
             this.clockNotifier.trigger(true);
          }
@@ -84,9 +80,6 @@ public class LClock implements Runnable{
    }
 
    //*********************Public Methods*****************************
-   /*
-   */
-
    /*
    */
    public long getTimeInMillis(){
