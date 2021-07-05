@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import rosas.lou.clock.*;
 
 public class LTimer implements ClockObserver{
-   private final int DIFFERENCE = 1000;
+   private final int DIFFERENCE        = 1000;
    private final int CHANGEDDIFFERENCE = 500;
 
    private boolean _run;
@@ -43,11 +43,14 @@ public class LTimer implements ClockObserver{
    private long                  _stopTime;
    private Instant               _instantThen;
    private Instant               _instantNow;
+   private Instant               _instantLap;
    private Duration              _duration;
    private Duration              _savedDuration;
    private String                _stringTime;
    private LClock                _clock;
    private List<ClockSubscriber> _subscribers;
+   private List<Duration>        _lapDurations;
+   private Stack<String>         _lapStrings;
 
    {
       _run            = false;
@@ -65,9 +68,12 @@ public class LTimer implements ClockObserver{
       _clock          = null;
       _instantThen    = null;
       _instantNow     = null;
+      _instantLap     = null;
       _duration       = null;
       _savedDuration  = Duration.ZERO;
       _subscribers    = null;
+      _lapDurations   = null;
+      _lapStrings     = null;
    };
 
    //////////////////////////Constructors/////////////////////////////
@@ -99,7 +105,9 @@ public class LTimer implements ClockObserver{
 
    /*
    */
-   public void lap(){}
+   public void lap(){
+      System.out.println("Lap");
+   }
 
    /**/
    public void removeSubscribers(ClockSubscriber subscriber){}
@@ -200,9 +208,12 @@ public class LTimer implements ClockObserver{
       this._stringTime    = null;
       this._instantThen   = null;
       this._instantNow    = null;
+      this._instantLap    = null;
       this._duration      = null;
       this._savedDuration = Duration.ZERO;
       this._stringTime    = "";
+      this._lapStrings    = null;
+      this._lapDurations  = null;
       this.setTimeValues();
    }
 

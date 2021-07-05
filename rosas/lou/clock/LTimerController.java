@@ -93,6 +93,9 @@ KeyListener{
          else if(button.getActionCommand().equals("Reset")){
             this._lTimer.reset();
          }
+         else if(button.getActionCommand().equals("Lap")){
+            this._lTimer.lap();
+         }
       }
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
@@ -110,6 +113,9 @@ KeyListener{
          }
          else if(menuItem.getActionCommand().equals("Reset")){
             this._lTimer.reset();
+         }
+         else if(menuItem.getActionCommand().equals("Lap")){
+            this._lTimer.lap();
          }
       }
       catch(ClassCastException eec){}
