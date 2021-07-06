@@ -106,7 +106,21 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void lap(){
-      System.out.println("Lap");
+      if(this._instantLap == null){
+         this._instantLap = this._instantThen;
+      }
+      try{
+         this._lapDurations.add(Duration.between(this._instantLap,
+                                                 this._instantNow));
+      }
+      catch(NullPointerException npe){
+         this._lapDurations = new LinkedList<Duration>();
+         this._lapDurations.add(Duration.between(this._instantLap,
+                                                 this._instantNow));
+      }
+      //At some point, add this to the List<Duration>
+      //Now, set the next Lap Interval to the current Instant
+      this._instantLap = this._instantNow;
    }
 
    /**/
