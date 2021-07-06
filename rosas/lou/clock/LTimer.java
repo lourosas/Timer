@@ -121,6 +121,7 @@ public class LTimer implements ClockObserver{
       //At some point, add this to the List<Duration>
       //Now, set the next Lap Interval to the current Instant
       this._instantLap = this._instantNow;
+       
    }
 
    /**/
