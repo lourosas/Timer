@@ -96,7 +96,7 @@ r2=-clockNotifier</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>350</x>
-      <y>990</y>
+      <y>1040</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -109,13 +109,13 @@ r2=-clockNotifier</panel_attributes>
       <x>390</x>
       <y>880</y>
       <w>70</w>
-      <h>130</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1
 r2=-date</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
   </element>
   <element>
     <id>UMLInterface</id>
