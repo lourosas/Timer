@@ -30,22 +30,16 @@ public class LTimer implements ClockObserver{
 
    private boolean _run;
    private boolean _receive;
+   private boolean _lap;
 
-   private int                   _hitCounter;
    private int                   _days;
-   private int                   _hours;
-   private int                   _minutes;
-   private int                   _seconds;
-   private int                   _milliseconds;
-   private long                  _differenceTime;
    private long                  _currentTime; //In milliseconds
    private long                  _updatedTime; //In milliseconds
-   private long                  _stopTime;
    private Instant               _instantThen;
    private Instant               _instantNow;
    private Instant               _instantLap;
    private Duration              _duration;
-   private Duration              _savedDuration;
+   private Duration              _lapDuration;
    private String                _stringTime;
    private LClock                _clock;
    private List<ClockSubscriber> _subscribers;
@@ -55,22 +49,15 @@ public class LTimer implements ClockObserver{
    {
       _run            = false;
       _receive        = false;
-      _days           = 0;
-      _hours          = 0;
-      _minutes        = 0;
-      _seconds        = 0;
-      _milliseconds   = 0;
-      _differenceTime = 0;
+      _lap            = false;
       _currentTime    = 0;
-      _updatedTime    = 0;
-      _stopTime       = 0;
       _stringTime     = null;
       _clock          = null;
       _instantThen    = null;
       _instantNow     = null;
       _instantLap     = null;
-      _duration       = null;
-      _savedDuration  = Duration.ZERO;
+      _duration       = Duration.ZERO;
+      _lapDuration    = Duration.ZERO;
       _subscribers    = null;
       _lapDurations   = null;
       _lapStrings     = null;
@@ -106,6 +93,22 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void lap(){
+      if(this._lap == true){
+         try{
+            this._lapDurations.add(this._lapDuration);
+         }
+         catch(NullPointerException npe){
+            this._lapDurations = new LinkedList<Duration>();
+            this._lapDurations.add(this._lapDuration);
+         }
+         System.out.println(this._lapDurations);
+      }
+      else{
+         this._lap = true;
+      }
+      this._instantLap = this._instantThen;
+      this._lapDuration = Duration.ZERO;
+   /*
       if(this._instantLap == null){
          this._instantLap = this._instantThen;
       }
@@ -121,7 +124,7 @@ public class LTimer implements ClockObserver{
       //At some point, add this to the List<Duration>
       //Now, set the next Lap Interval to the current Instant
       this._instantLap = this._instantNow;
-       
+   */
    }
 
    /**/
@@ -168,64 +171,65 @@ public class LTimer implements ClockObserver{
    public void updateTime(long milliseconds){
       if(this._run && this._receive){
          this._updatedTime = milliseconds;
-         this.calculateTime();
       }
    }
 
    /*
    */
    public void updateTime(Instant instant){
-      if(/*this._run &&*/ this._receive){
-         this._instantNow = instant;
+      if(this._receive){
          if(this._instantThen == null){
             this._instantThen = instant;
          }
-         this.calculateTime();
-         if(!this._run){
-            this.setReceive(false);
-            this._savedDuration = this._duration;
-            this._instantThen   = null;
-            this._instantNow    = null;
+         if(this._lap && this._instantLap == null){
+            this._instantLap = instant;
          }
+         if(instant.isAfter(this._instantThen)){
+            Duration lapduration = null;
+            Duration duration = Duration.between(this._instantThen,
+                                               instant);
+            if(this._lap){
+               lapduration = Duration.between(this._instantLap,
+                                                instant);
+            }
+            if(this._run && duration.toMillis() >= 1000){
+               if(this._lap){
+                  this._lapDuration =
+                                  this._lapDuration.plus(lapduration);
+                  System.out.println(this._lapDuration.toMillis());
+                  this._instantLap = instant;
+               }
+               this._duration = this._duration.plus(duration);
+               this._instantThen = instant;
+            }
+            else if(!this._run){
+               this._duration = this._duration.plus(duration);
+               this.setReceive(false);
+               this._instantThen = null;
+               if(this._lap){
+                  this._instantLap = null;
+               }
+            }
+         }
+         this.setTimeValues();
       }
    }
 
    /////////////////////Private Methods///////////////////////////////
    /*
    */
-   private void calculateTime(){
-      try{
-         this._duration = Duration.between(this._instantThen,
-                                           this._instantNow);
-         this._duration = this._duration.plus(this._savedDuration);
-         //Leave this for the moment, but honestly, do not need it
-         if(this._run){
-            this._updatedTime = this._duration.toMillis();
-            if(this._updatedTime - this._currentTime >= 1000){
-               this.setTimeValues();
-               this._currentTime = this._updatedTime;
-            }
-         }
-         else if(this._receive){
-            this.setTimeValues();
-         }
-      }
-      catch(NullPointerException npe){
-         npe.printStackTrace();
-      }
-   }
-
-   /*
-   */
    private void clearAllTimeValues(){
+      this._lap           = false;
+
       this._currentTime   = 0;
+      this._days          = 0;
       this._updatedTime   = 0;
       this._stringTime    = null;
       this._instantThen   = null;
       this._instantNow    = null;
       this._instantLap    = null;
-      this._duration      = null;
-      this._savedDuration = Duration.ZERO;
+      this._duration      = Duration.ZERO;
+      this._lapDuration   = Duration.ZERO;
       this._stringTime    = "";
       this._lapStrings    = null;
       this._lapDurations  = null;
@@ -292,16 +296,11 @@ public class LTimer implements ClockObserver{
          String[] values_ = this._stringTime.split(" ");
          this._days         = Integer.parseInt(values_[0]) - 1;
          values_            = values_[1].split(":");
-         this._hours        = Integer.parseInt(values_[0]);
-         this._minutes      = Integer.parseInt(values_[1]);
          values_            = values_[2].split("\\.");
-         this._seconds      = Integer.parseInt(values_[0]);
-         this._milliseconds = Integer.parseInt(values_[1]);
          if(this._run){
             sdf = new SimpleDateFormat("dd HH:mm:ss");
             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             this._stringTime = sdf.format(cal.getTime());
-            //System.out.println(this._duration.toMillis());
          }
          values_ = this._stringTime.split(" ");
          this._stringTime = this._days + " " + values_[1];
