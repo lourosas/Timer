@@ -32,6 +32,7 @@ implements ClockSubscriber{
    private ButtonGroup              _buttonGroup;
    private ButtonGroup              _menuItemGroup;
    private JTextField               _currentTimeTF;
+   private JTextField               _lapTF;
    private JTextArea                _lapsTA;
    private JScrollPane              _lapsSP;
    private GenericJInteractionFrame _lapsFrame;
@@ -41,6 +42,7 @@ implements ClockSubscriber{
       _buttonGroup    = null;
       _menuItemGroup  = null;
       _currentTimeTF  = null;
+      _lapTF          = null;
       _lapsTA         = null;
       _lapsSP         = null;
       _lapsFrame      = null;
@@ -69,6 +71,29 @@ implements ClockSubscriber{
    /**/
    public void update(String time){
       this._currentTimeTF.setText(time);
+   }
+
+   /**/
+   public void update(String time, String type){
+      Container contentPane = this.getContentPane();
+      JPanel panel = (JPanel)contentPane.getComponent(1);
+      System.out.println(panel.getComponentCount());
+      if(type.toUpperCase().equals("LAP")){
+         if(this._lapTF == null){
+            JLabel lap  = new JLabel("Lap:  ",SwingConstants.RIGHT);
+            this._lapTF = new JTextField();
+            this._lapTF.setEditable(false);
+            panel.add(lap);
+            panel.add(this._lapTF);
+            this.revalidate();
+            this.repaint();
+         }
+         this._lapTF.setText(time);
+         System.out.println(time);
+      }
+      else if(type.toUpperCase().equals("ELAPSED")){
+         this.update(time);
+      }
    }
 
    /**/

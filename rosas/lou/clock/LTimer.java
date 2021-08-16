@@ -181,37 +181,51 @@ public class LTimer implements ClockObserver{
          if(this._instantThen == null){
             this._instantThen = instant;
          }
+         if(this._lap){
+            this.updateLapTime(instant);
+         }
+         /*
          if(this._lap && this._instantLap == null){
             this._instantLap = instant;
          }
+         */
          if(instant.isAfter(this._instantThen)){
             Duration lapduration = null;
             Duration duration = Duration.between(this._instantThen,
                                                instant);
+            /*
             if(this._lap){
                lapduration = Duration.between(this._instantLap,
                                                 instant);
             }
+            */
             if(this._run && duration.toMillis() >= 1000){
+               /*
                if(this._lap){
                   this._lapDuration =
                                   this._lapDuration.plus(lapduration);
                   System.out.println(this._lapDuration.toMillis());
                   this._instantLap = instant;
                }
+               */
                this._duration = this._duration.plus(duration);
                this._instantThen = instant;
+               this.setTimeValues();
             }
             else if(!this._run){
                this._duration = this._duration.plus(duration);
                this.setReceive(false);
                this._instantThen = null;
+               this.setTimeValues();
+               /*
                if(this._lap){
+                  this._lapDuration =
+                                  this._lapDuration.plus(lapduration);
                   this._instantLap = null;
                }
+               */
             }
          }
-         this.setTimeValues();
       }
    }
 
@@ -234,6 +248,7 @@ public class LTimer implements ClockObserver{
       this._lapStrings    = null;
       this._lapDurations  = null;
       this.setTimeValues();
+      this.setTimeValues(this._lapDuration);
    }
 
    /*
@@ -243,6 +258,24 @@ public class LTimer implements ClockObserver{
          Iterator<ClockSubscriber> it = this._subscribers.iterator();
          while(it.hasNext()){
             (it.next()).update(this._stringTime);
+         }
+      }
+      catch(NullPointerException npe){
+         npe.printStackTrace();
+      }
+   }
+
+   /**/
+   private void notifySubscribers(String stringTime, String type){
+      try{
+         Iterator<ClockSubscriber> it = this._subscribers.iterator();
+         while(it.hasNext()){
+            if(type.toUpperCase().equals("LAP")){
+               (it.next()).update(stringTime, "LAP");
+            }
+            else if(type.toUpperCase().equals("ELAPSED")){
+               (it.next()).update(this._stringTime);
+            }
          }
       }
       catch(NullPointerException npe){
@@ -261,6 +294,29 @@ public class LTimer implements ClockObserver{
       }
       catch(NullPointerException npe){
          npe.printStackTrace();
+      }
+   }
+
+   /*
+   */
+   private void updateLapTime(Instant instant){
+      if(this._instantLap == null){
+         this._instantLap = instant;
+      }
+      if(instant.isAfter(this._instantLap)){
+         Duration lapduration = Duration.between(this._instantLap,
+                                                        instant);
+         if(this._run && lapduration.toMillis() >= 1000){
+            this._lapDuration = this._lapDuration.plus(lapduration);
+            this._instantLap = instant;
+            //System.out.println(this._lapDuration.toMillis());
+            this.setTimeValues(this._lapDuration);
+         }
+         else if(!this._run){
+            this._lapDuration = this._lapDuration.plus(lapduration);
+            this._instantLap = null;
+            this.setTimeValues(this._lapDuration);
+         }
       }
    }
 
@@ -308,5 +364,37 @@ public class LTimer implements ClockObserver{
       }
       catch(NumberFormatException nfe){}
       catch(ArrayIndexOutOfBoundsException oob){}
+   }
+
+   /*
+   */
+   private void setTimeValues(Duration duration){
+      Calendar cal = Calendar.getInstance();
+      try{
+         cal.setTimeInMillis(duration.toMillis());
+      }
+      catch(NullPointerException npe){
+         Duration _duration = Duration.ZERO;
+         cal.setTimeInMillis(_duration.toMillis());
+      }
+      try{
+         SimpleDateFormat sdf=new SimpleDateFormat("dd HH:mm:ss.SSS");
+         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+         String time = sdf.format(cal.getTime());
+         String[] values = time.split(" ");
+         int days = Integer.parseInt(values[0]) - 1;
+         if(this._run){
+            sdf = new SimpleDateFormat("dd HH:mm:ss");
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+            time = sdf.format(cal.getTime());
+         }
+         values = time.split(" ");
+         time = days + " " + values[1];
+         this.notifySubscribers(time, "lap");
+      }
+      catch(NumberFormatException nfe){ nfe.printStackTrace(); }
+      catch(ArrayIndexOutOfBoundsException oob){
+         oob.printStackTrace();
+      }
    }
 }
