@@ -75,24 +75,19 @@ implements ClockSubscriber{
 
    /**/
    public void update(String time, String type){
-      Container contentPane = this.getContentPane();
-      JPanel panel = (JPanel)contentPane.getComponent(1);
-      System.out.println(panel.getComponentCount());
       if(type.toUpperCase().equals("LAP")){
          if(this._lapTF == null){
-            JLabel lap  = new JLabel("Lap:  ",SwingConstants.RIGHT);
-            this._lapTF = new JTextField();
-            this._lapTF.setEditable(false);
-            panel.add(lap);
-            panel.add(this._lapTF);
-            this.revalidate();
-            this.repaint();
+            this.setUpTheLapTextField();
          }
          this._lapTF.setText(time);
-         System.out.println(time);
       }
       else if(type.toUpperCase().equals("ELAPSED")){
          this.update(time);
+      }
+      else if(type.toUpperCase().equals("RESET")){
+         if(this._lapTF != null){
+            this.resetTheTimerView();
+         }
       }
    }
 
@@ -156,6 +151,18 @@ implements ClockSubscriber{
          }
       }
    }
+
+   /**/
+   private void resetTheTimerView(){
+      Container contentPane = this.getContentPane();
+      JPanel panel = (JPanel)contentPane.getComponent(1);
+      panel.remove(3);
+      panel.remove(2);
+      this.revalidate();
+      this.repaint();
+      this._lapTF = null;
+   }
+
    /**/
    private JPanel setCenterPanel(){
       final int RIGHT = SwingConstants.RIGHT;
@@ -338,5 +345,19 @@ implements ClockSubscriber{
       jmenuBar.add(this.setUpFileMenu());
       jmenuBar.add(this.setUpHelpMenu());
       return jmenuBar;
+   }
+
+   /*
+   */
+   private void setUpTheLapTextField(){
+      Container contentPane = this.getContentPane();
+      JPanel panel = (JPanel)contentPane.getComponent(1);
+      JLabel lap  = new JLabel("Lap:  ",SwingConstants.RIGHT);
+      this._lapTF = new JTextField();
+      this._lapTF.setEditable(false);
+      panel.add(lap);
+      panel.add(this._lapTF);
+      this.revalidate();
+      this.repaint();
    }
 }

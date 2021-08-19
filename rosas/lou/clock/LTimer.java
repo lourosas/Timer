@@ -184,30 +184,11 @@ public class LTimer implements ClockObserver{
          if(this._lap){
             this.updateLapTime(instant);
          }
-         /*
-         if(this._lap && this._instantLap == null){
-            this._instantLap = instant;
-         }
-         */
          if(instant.isAfter(this._instantThen)){
             Duration lapduration = null;
             Duration duration = Duration.between(this._instantThen,
                                                instant);
-            /*
-            if(this._lap){
-               lapduration = Duration.between(this._instantLap,
-                                                instant);
-            }
-            */
             if(this._run && duration.toMillis() >= 1000){
-               /*
-               if(this._lap){
-                  this._lapDuration =
-                                  this._lapDuration.plus(lapduration);
-                  System.out.println(this._lapDuration.toMillis());
-                  this._instantLap = instant;
-               }
-               */
                this._duration = this._duration.plus(duration);
                this._instantThen = instant;
                this.setTimeValues();
@@ -217,13 +198,6 @@ public class LTimer implements ClockObserver{
                this.setReceive(false);
                this._instantThen = null;
                this.setTimeValues();
-               /*
-               if(this._lap){
-                  this._lapDuration =
-                                  this._lapDuration.plus(lapduration);
-                  this._instantLap = null;
-               }
-               */
             }
          }
       }
@@ -248,7 +222,7 @@ public class LTimer implements ClockObserver{
       this._lapStrings    = null;
       this._lapDurations  = null;
       this.setTimeValues();
-      this.setTimeValues(this._lapDuration);
+      this.setTimeValues(this._lapDuration, "RESET");
    }
 
    /*
@@ -275,6 +249,9 @@ public class LTimer implements ClockObserver{
             }
             else if(type.toUpperCase().equals("ELAPSED")){
                (it.next()).update(this._stringTime);
+            }
+            else if(type.toUpperCase().equals("RESET")){
+               (it.next()).update(stringTime, type);
             }
          }
       }
@@ -309,13 +286,12 @@ public class LTimer implements ClockObserver{
          if(this._run && lapduration.toMillis() >= 1000){
             this._lapDuration = this._lapDuration.plus(lapduration);
             this._instantLap = instant;
-            //System.out.println(this._lapDuration.toMillis());
-            this.setTimeValues(this._lapDuration);
+            this.setTimeValues(this._lapDuration, "LAP");
          }
          else if(!this._run){
             this._lapDuration = this._lapDuration.plus(lapduration);
             this._instantLap = null;
-            this.setTimeValues(this._lapDuration);
+            this.setTimeValues(this._lapDuration, "LAP");
          }
       }
    }
@@ -368,7 +344,7 @@ public class LTimer implements ClockObserver{
 
    /*
    */
-   private void setTimeValues(Duration duration){
+   private void setTimeValues(Duration duration, String state){
       Calendar cal = Calendar.getInstance();
       try{
          cal.setTimeInMillis(duration.toMillis());
@@ -390,9 +366,11 @@ public class LTimer implements ClockObserver{
          }
          values = time.split(" ");
          time = days + " " + values[1];
-         this.notifySubscribers(time, "lap");
+         this.notifySubscribers(time, state);
       }
-      catch(NumberFormatException nfe){ nfe.printStackTrace(); }
+      catch(NumberFormatException nfe){
+         nfe.printStackTrace();
+      }
       catch(ArrayIndexOutOfBoundsException oob){
          oob.printStackTrace();
       }
