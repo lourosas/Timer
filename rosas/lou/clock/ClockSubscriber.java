@@ -23,4 +23,7 @@ public interface ClockSubscriber{
    public void update(java.time.Instant instant);
    public void update(boolean isRunning);
    public void update(String time, String type);
+   //public void update(List<Duration> list);
+   //public void update(List<String> list);
+   public void update(List<?> list);
 }

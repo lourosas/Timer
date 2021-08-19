@@ -44,7 +44,7 @@ public class LTimer implements ClockObserver{
    private LClock                _clock;
    private List<ClockSubscriber> _subscribers;
    private List<Duration>        _lapDurations;
-   private Stack<String>         _lapStrings;
+   private List<String>          _lapStrings;
 
    {
       _run            = false;
@@ -96,35 +96,24 @@ public class LTimer implements ClockObserver{
       if(this._lap == true){
          try{
             this._lapDurations.add(this._lapDuration);
+            this._lapStrings.add(
+                     this.convertToString(this._lapDuration, "lap"));
          }
          catch(NullPointerException npe){
             this._lapDurations = new LinkedList<Duration>();
+            this._lapStrings = new Stack<String>();
             this._lapDurations.add(this._lapDuration);
+            this._lapStrings.add(
+                      this.convertToString(this._lapDuration, "lap"));
          }
-         System.out.println(this._lapDurations);
+         this.notifySubscribers(this._lapDurations);
+         this.notifySubscribers(this._lapStrings);
       }
       else{
          this._lap = true;
       }
       this._instantLap = this._instantThen;
       this._lapDuration = Duration.ZERO;
-   /*
-      if(this._instantLap == null){
-         this._instantLap = this._instantThen;
-      }
-      try{
-         this._lapDurations.add(Duration.between(this._instantLap,
-                                                 this._instantNow));
-      }
-      catch(NullPointerException npe){
-         this._lapDurations = new LinkedList<Duration>();
-         this._lapDurations.add(Duration.between(this._instantLap,
-                                                 this._instantNow));
-      }
-      //At some point, add this to the List<Duration>
-      //Now, set the next Lap Interval to the current Instant
-      this._instantLap = this._instantNow;
-   */
    }
 
    /**/
@@ -225,6 +214,33 @@ public class LTimer implements ClockObserver{
       this.setTimeValues(this._lapDuration, "RESET");
    }
 
+   /**/
+   private String convertToString(Duration duration, String state){
+      String time = null;
+      Calendar cal = Calendar.getInstance();
+      try{
+         cal.setTimeInMillis(duration.toMillis());
+      }
+      catch(NullPointerException npe){
+         Duration _duration = Duration.ZERO;
+         cal.setTimeInMillis(_duration.toMillis());
+      }
+      try{
+         SimpleDateFormat sdf = null;
+         if(state.toUpperCase().equals("LAP")){
+            sdf = new SimpleDateFormat("dd HH:mm:ss.SSS");
+         }
+         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+         time = sdf.format(cal.getTime());
+         String[] values = time.split(" ");
+         int days = Integer.parseInt(values[0]) - 1;
+         time = days + " " + values[1];
+      }
+      catch(NumberFormatException nfe){}
+      catch(ArrayIndexOutOfBoundsException oob){}
+      return time;
+   }
+
    /*
    */
    private void notifySubscribers(){
@@ -237,6 +253,17 @@ public class LTimer implements ClockObserver{
       catch(NullPointerException npe){
          npe.printStackTrace();
       }
+   }
+
+   /**/
+   private void notifySubscribers(List<?> list){
+      try{
+         Iterator<ClockSubscriber> it = this._subscribers.iterator();
+         while(it.hasNext()){
+            (it.next()).update(list);
+         }
+      }
+      catch(NullPointerException npe){}
    }
 
    /**/

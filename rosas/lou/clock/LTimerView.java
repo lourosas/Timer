@@ -68,6 +68,32 @@ implements ClockSubscriber{
    }
 
    ///////////////////Interface Imeplementations//////////////////////
+   /*
+   public void update(java.util.List<Duration> list){
+      System.out.println(list);
+   }
+   */
+   /*
+   public void update(java.util.List<String> list){
+   }
+   */
+
+   /**/
+   public void update(java.util.List<?> list){
+      this.setUpTheLapTextArea(list);
+      /*
+      int count = 1;
+      Iterator<?> it = list.iterator();
+      while(it.hasNext()){
+         Object ob = it.next();
+         if(ob instanceof String){
+            System.out.println("Lap " + count + ": " + (String)ob);
+            count++;
+         }
+      }
+      */
+   }
+
    /**/
    public void update(String time){
       this._currentTimeTF.setText(time);
@@ -359,5 +385,22 @@ implements ClockSubscriber{
       panel.add(this._lapTF);
       this.revalidate();
       this.repaint();
+   }
+
+   /*
+   */
+   private void setUpTheLapTextArea(java.util.List<?> list){
+      if(this._lapsFrame == null){
+         this._lapsFrame = new GenericJInteractionFrame("Laps");
+         this._lapsFrame.setSize(200,400);
+         this._lapsFrame.setLocation(300,0);//Temporary for the time
+      }
+      this._lapsFrame.setVisible(true);
+      this._lapsFrame.setResizable(false);
+      if(this._lapsTA == null){
+         this._lapsTA = new JTextArea();
+         this._lapsTA.setText("Laps go here");
+         this._lapsTA.setEditable(false);
+      }
    }
 }
