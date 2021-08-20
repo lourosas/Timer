@@ -187,6 +187,11 @@ implements ClockSubscriber{
       this.revalidate();
       this.repaint();
       this._lapTF = null;
+      this._lapsFrame.setVisible(false);
+      this._lapsFrame = null;
+      this._lapsTA.setText("");
+      this._lapsTA = null;
+      this._lapsSP = null;
    }
 
    /**/
