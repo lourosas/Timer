@@ -4,7 +4,7 @@
 * the GNU General Public License as published
 * by the Free Software Foundation; either version 3 of the License,
 * or (at your option) any later version.
-* PaceCalculator is distributed in the hope that it will be
+* LTimer is distributed in the hope that it will be
 * useful, but WITHOUT ANY WARRANTY; without even the implied
 * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 * See the GNU General Public License for more details.
@@ -390,17 +390,36 @@ implements ClockSubscriber{
    /*
    */
    private void setUpTheLapTextArea(java.util.List<?> list){
+      int count = 1;
       if(this._lapsFrame == null){
          this._lapsFrame = new GenericJInteractionFrame("Laps");
-         this._lapsFrame.setSize(200,400);
-         this._lapsFrame.setLocation(300,0);//Temporary for the time
+         this._lapsFrame.setSize(200,100);
+         this._lapsFrame.setLocation(340,0);//Temporary for the time
       }
       this._lapsFrame.setVisible(true);
       this._lapsFrame.setResizable(false);
       if(this._lapsTA == null){
          this._lapsTA = new JTextArea();
-         this._lapsTA.setText("Laps go here");
          this._lapsTA.setEditable(false);
+         this._lapsFrame.add(this._lapsTA);
+      }
+      if(this._lapsSP == null){
+         this._lapsSP = new JScrollPane(this._lapsTA);
+         this._lapsSP.createHorizontalScrollBar();
+         this._lapsSP.createVerticalScrollBar();
+         this._lapsFrame.add(this._lapsSP);
+      }
+      this._lapsTA.setText("");
+      Iterator<?> it = list.iterator();
+      while(it.hasNext()){
+         Object obj = it.next();
+         if(obj instanceof String){
+            String last = (String)obj;
+            String previous = this._lapsTA.getText();
+            this._lapsTA.setText(previous+"Lap "+count+": "+last);
+            this._lapsTA.setText(this._lapsTA.getText() + "\n");
+            ++count;
+         }
       }
    }
 }
