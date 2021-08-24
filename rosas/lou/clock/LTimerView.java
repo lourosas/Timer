@@ -21,6 +21,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 import javax.swing.border.*;
 import java.time.*;
 import myclasses.*;
@@ -67,31 +69,25 @@ implements ClockSubscriber{
       this.setVisible(true);
    }
 
-   ///////////////////Interface Imeplementations//////////////////////
-   /*
-   public void update(java.util.List<Duration> list){
-      System.out.println(list);
+   public void save(){
+      JFileChooser chooser = new JFileChooser();
+      try{
+         FileNameExtensionFilter filter =
+                new FileNameExtensionFilter("Text Files","txt","tex");
+         chooser.setFileFilter(filter);
+         int choice = chooser.showSaveDialog(this);
+         if(choice == JFileChooser.APPROVE_OPTION){
+            File file = chooser.getSelectedFile();
+            this._controller.save(file);
+         }
+      }
+      catch(HeadlessException he){}
    }
-   */
-   /*
-   public void update(java.util.List<String> list){
-   }
-   */
 
+   ///////////////////Interface Imeplementations//////////////////////
    /**/
    public void update(java.util.List<?> list){
       this.setUpTheLapTextArea(list);
-      /*
-      int count = 1;
-      Iterator<?> it = list.iterator();
-      while(it.hasNext()){
-         Object ob = it.next();
-         if(ob instanceof String){
-            System.out.println("Lap " + count + ": " + (String)ob);
-            count++;
-         }
-      }
-      */
    }
 
    /**/
@@ -114,6 +110,7 @@ implements ClockSubscriber{
          if(this._lapTF != null){
             this.resetTheTimerView();
          }
+         this.reflectState(false);
       }
    }
 
@@ -157,7 +154,8 @@ implements ClockSubscriber{
          AbstractButton ab = m.nextElement();
          if(isRunning){
             if(ab.getActionCommand().equals("Start") ||
-               ab.getActionCommand().equals("Reset")){
+               ab.getActionCommand().equals("Reset") ||
+               ab.getActionCommand().equals("Save")){
                ab.setEnabled(false);
             }
             else if(ab.getActionCommand().equals("Stop") ||
@@ -173,6 +171,15 @@ implements ClockSubscriber{
             else if(ab.getActionCommand().equals("Stop") ||
                     ab.getActionCommand().equals("Lap")){
                ab.setEnabled(false);
+            }
+            else if(ab.getActionCommand().equals("Save")){
+               if(!(this._currentTimeTF.getText().equals("0 00:00:00.000"))
+                  || (this._lapTF != null) || this._lapsTA != null){
+                  ab.setEnabled(true);
+               }
+               else{
+                  ab.setEnabled(false);
+               }
             }
          }
       }
@@ -306,6 +313,15 @@ implements ClockSubscriber{
 
       file.addSeparator();
 
+      JMenuItem save = new JMenuItem("Save", 'V');
+      save.setEnabled(false);
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_V, ctrl);
+      save.setAccelerator(ks);
+      this._menuItemGroup.add(save);
+      file.add(save);
+
+      file.addSeparator();
+
       JMenuItem quit = new JMenuItem("Quit", 'Q');
       ks = KeyStroke.getKeyStroke(KeyEvent.VK_Q, ctrl);
       quit.setAccelerator(ks);
@@ -318,6 +334,7 @@ implements ClockSubscriber{
          stop.addActionListener(this._controller);
          lap.addActionListener(this._controller);
          reset.addActionListener(this._controller);
+         save.addActionListener(this._controller);
          quit.addActionListener(this._controller);
       }
 

@@ -18,6 +18,7 @@ package rosas.lou.clock;
 import java.lang.*;
 import java.util.*;
 import java.awt.*;
+import java.io.File;
 import java.awt.event.*;
 import javax.swing.*;
 import rosas.lou.clock.LTimer;
@@ -79,6 +80,11 @@ KeyListener{
    /**/
    public void keyTyped(KeyEvent k){}
 
+   /**/
+   public void save(File file){
+      this._lTimer.save(file);
+   }
+
    //////////////////////////Private Methods//////////////////////////
    /**/
    private void handleJButton(ActionEvent e){
@@ -116,6 +122,13 @@ KeyListener{
          }
          else if(menuItem.getActionCommand().equals("Lap")){
             this._lTimer.lap();
+         }
+         else if(menuItem.getActionCommand().equals("Save")){
+            this._lTimerView.save();
+         }
+         else if(menuItem.getActionCommand().equals("Quit")){
+            System.out.println("Exiting...");
+            System.exit(0);
          }
       }
       catch(ClassCastException eec){}

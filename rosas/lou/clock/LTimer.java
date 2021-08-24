@@ -17,6 +17,7 @@ package rosas.lou.clock;
 
 import java.lang.*;
 import java.util.*;
+import java.io.*;
 import java.time.Instant;
 import java.time.Duration;
 import java.text.ParseException;
@@ -125,6 +126,15 @@ public class LTimer implements ClockObserver{
       this.clearAllTimeValues();
    }
 
+   /*
+   */
+   public void save(File file){
+      System.out.println(file);
+      System.out.println(file.getName());
+      System.out.println(file.getPath());
+      System.out.println(file.exists());
+   }
+   
    /*
    */
    public void setClock(LClock clock){
