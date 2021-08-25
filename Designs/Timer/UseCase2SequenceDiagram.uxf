@@ -4,8 +4,8 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>60</x>
-      <y>40</y>
+      <x>0</x>
+      <y>20</y>
       <w>60</w>
       <h>120</h>
     </coordinates>
@@ -16,8 +16,31 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>80</x>
-      <y>100</y>
+      <x>20</x>
+      <y>80</y>
+      <w>30</w>
+      <h>590</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;570.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>230</x>
+      <y>20</y>
+      <w>140</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Controller&gt;&gt;
+_:LTimerController_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>290</x>
+      <y>50</y>
       <w>30</w>
       <h>610</h>
     </coordinates>
@@ -25,22 +48,34 @@
     <additional_attributes>10.0;10.0;10.0;590.0</additional_attributes>
   </element>
   <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>20</x>
+      <y>110</y>
+      <w>300</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+actionPerformed(:ActionEvent)</panel_attributes>
+    <additional_attributes>280.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>230</x>
-      <y>40</y>
+      <x>810</x>
+      <y>20</y>
       <w>140</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;ClockObserver&gt;&gt;
-_:LTimer_</panel_attributes>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+_:LTimerView_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>290</x>
-      <y>70</y>
+      <x>870</x>
+      <y>50</y>
       <w>30</w>
       <h>620</h>
     </coordinates>
@@ -50,87 +85,65 @@ _:LTimer_</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>80</x>
-      <y>140</y>
-      <w>240</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-stop()</panel_attributes>
-    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>290</x>
-      <y>160</y>
-      <w>220</w>
+      <y>140</y>
+      <w>290</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
-setRun(false:boolean)</panel_attributes>
+handleJMenuItem(:ActionEvent)</panel_attributes>
     <additional_attributes>10.0;30.0;50.0;30.0;50.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
       <x>510</x>
-      <y>40</y>
+      <y>20</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>_:Clock_</panel_attributes>
+    <panel_attributes>_:ActionEvent_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>550</x>
-      <y>60</y>
+      <y>40</y>
       <w>30</w>
-      <h>630</h>
+      <h>620</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;610.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;600.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>290</x>
+      <y>170</y>
+      <w>290</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+getSource():JMenuItem</panel_attributes>
+    <additional_attributes>270.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1210</x>
-      <y>40</y>
-      <w>150</w>
+      <x>700</x>
+      <y>20</y>
+      <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>_:ClockSubscriber_</panel_attributes>
+    <panel_attributes>_:JMenuItem_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1270</x>
-      <y>60</y>
-      <w>30</w>
-      <h>560</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;540.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>720</x>
+      <x>740</x>
       <y>40</y>
-      <w>120</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:ClockNotifier_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>770</x>
-      <y>60</y>
       <w>30</w>
       <h>610</h>
     </coordinates>
@@ -141,209 +154,140 @@ setRun(false:boolean)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>290</x>
-      <y>500</y>
-      <w>250</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-setReceive(false:boolean)</panel_attributes>
-    <additional_attributes>10.0;30.0;50.0;30.0;50.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>1000</x>
-      <y>40</y>
-      <w>130</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:ClockObserver_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1060</x>
-      <y>60</y>
-      <w>30</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>550</x>
-      <y>90</y>
-      <w>250</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-setTime(:long)
-</panel_attributes>
-    <additional_attributes>230.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>550</x>
-      <y>120</y>
-      <w>250</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-setTrigger(true:boolean)
-</panel_attributes>
-    <additional_attributes>230.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>510</x>
-      <y>80</y>
-      <w>600</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>while run = true</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>770</x>
-      <y>170</y>
-      <w>320</w>
+      <y>190</y>
+      <w>480</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-updateTime(:Instant)</panel_attributes>
-    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>750</x>
-      <y>150</y>
-      <w>350</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Loop (observers)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>270</x>
-      <y>230</y>
-      <w>1270</w>
-      <h>340</h>
-    </coordinates>
-    <panel_attributes>receive = true</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+getActionCommand():String</panel_attributes>
+    <additional_attributes>460.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>290</x>
-      <y>260</y>
-      <w>180</w>
-      <h>50</h>
+      <y>210</y>
+      <w>610</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
-calculateTime()</panel_attributes>
-    <additional_attributes>10.0;30.0;50.0;30.0;50.0;10.0;10.0;10.0</additional_attributes>
+["Save"]save()</panel_attributes>
+    <additional_attributes>590.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1440</x>
-      <y>40</y>
+      <x>1120</x>
+      <y>20</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>_:Duration_</panel_attributes>
+    <panel_attributes>_:JFileChooser_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1480</x>
-      <y>60</y>
+      <x>1160</x>
+      <y>40</y>
       <w>30</w>
-      <h>300</h>
+      <h>620</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;600.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>230</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+showSaveDialog(this:LTimerView):int</panel_attributes>
+    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>250</x>
+      <y>270</y>
+      <w>940</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>choice == APPROVE_OPTION</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>270</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+getSelectedFile():File</panel_attributes>
+    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>290</x>
       <y>290</y>
-      <w>1220</w>
+      <w>610</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
-between(then:Instant, now:Instant)</panel_attributes>
-    <additional_attributes>1200.0;20.0;10.0;20.0</additional_attributes>
+save(file:File)</panel_attributes>
+    <additional_attributes>10.0;20.0;590.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>UMLFrame</id>
+    <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>320</y>
-      <w>200</w>
-      <h>180</h>
+      <x>870</x>
+      <y>600</y>
+      <w>320</w>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>receive = true</panel_attributes>
+    <panel_attributes>lt=&lt;.
+HeadlessException</panel_attributes>
+    <additional_attributes>10.0;20.0;300.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1280</x>
+      <y>20</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+_:LTimer_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>290</x>
-      <y>340</y>
-      <w>180</w>
-      <h>50</h>
+      <x>1320</x>
+      <y>50</y>
+      <w>30</w>
+      <h>610</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-setTimeValues()</panel_attributes>
-    <additional_attributes>10.0;30.0;50.0;30.0;50.0;10.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;590.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>290</x>
-      <y>380</y>
-      <w>200</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-notifySubscribers()</panel_attributes>
-    <additional_attributes>10.0;30.0;50.0;30.0;50.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>290</x>
-      <y>430</y>
-      <w>1010</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Loop (subscribers)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>290</x>
-      <y>450</y>
-      <w>1010</w>
+      <y>370</y>
+      <w>1060</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
-update(:String)</panel_attributes>
-    <additional_attributes>990.0;20.0;10.0;20.0</additional_attributes>
+save(file:File)</panel_attributes>
+    <additional_attributes>1040.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
