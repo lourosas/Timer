@@ -187,18 +187,21 @@ implements ClockSubscriber{
 
    /**/
    private void resetTheTimerView(){
-      Container contentPane = this.getContentPane();
-      JPanel panel = (JPanel)contentPane.getComponent(1);
-      panel.remove(3);
-      panel.remove(2);
-      this.revalidate();
-      this.repaint();
-      this._lapTF = null;
-      this._lapsFrame.setVisible(false);
-      this._lapsFrame = null;
-      this._lapsTA.setText("");
-      this._lapsTA = null;
-      this._lapsSP = null;
+      try{
+         Container contentPane = this.getContentPane();
+         JPanel panel = (JPanel)contentPane.getComponent(1);
+         panel.remove(3);
+         panel.remove(2);
+         this.revalidate();
+         this.repaint();
+         this._lapTF = null;
+         this._lapsFrame.setVisible(false);
+         this._lapsFrame = null;
+         this._lapsTA.setText("");
+         this._lapsTA = null;
+         this._lapsSP = null;
+      }
+      catch(NullPointerException npe){}
    }
 
    /**/

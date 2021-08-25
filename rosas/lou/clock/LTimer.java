@@ -129,10 +129,38 @@ public class LTimer implements ClockObserver{
    /*
    */
    public void save(File file){
-      System.out.println(file);
-      System.out.println(file.getName());
-      System.out.println(file.getPath());
-      System.out.println(file.exists());
+      boolean exists = file.exists();
+      FileWriter writer = null;
+      PrintWriter printWriter = null;
+      try{
+         writer = new FileWriter(file, exists);
+         printWriter = new PrintWriter(writer);
+         if(this._duration != null&&this._duration != Duration.ZERO){
+            String elpse=this.convertToString(this._duration,"LAP");
+            printWriter.println("Elapsed Time:  " + elpse );
+         }
+         if(this._lapDuration != null && 
+            this._lapDuration != Duration.ZERO){
+            String lap=this.convertToString(this._lapDuration,"LAP");
+            printWriter.println("Current Lap:  " + lap);
+         }
+         if(this._lapDurations != null){
+            int currentLap = 1;
+            Iterator<Duration> it = this._lapDurations.iterator();
+            while(it.hasNext()){
+               String lap = this.convertToString(it.next(),"LAP");
+               printWriter.println("Lap "  +currentLap + ": " + lap);
+               ++currentLap;
+            }
+         }
+         printWriter.println();
+      }
+      catch(IOException ioe){
+         ioe.printStackTrace(); //TBD for more later
+      }
+      finally{
+         printWriter.close();
+      }
    }
    
    /*
