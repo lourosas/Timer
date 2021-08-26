@@ -86,6 +86,17 @@ implements ClockSubscriber{
 
    ///////////////////Interface Imeplementations//////////////////////
    /**/
+   public void error(String type, String message){
+      if(type.toUpperCase().equals("SAVE ERROR")){
+         try{
+            JOptionPane.showMessageDialog(this, message, type,
+                                          JOptionPane.ERROR_MESSAGE);
+	 }
+         catch(HeadlessException he){}
+      }
+   }
+
+   /**/
    public void update(java.util.List<?> list){
       this.setUpTheLapTextArea(list);
    }

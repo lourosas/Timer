@@ -19,6 +19,7 @@ import java.time.*;
 import rosas.lou.clock.*;
 
 public interface ClockSubscriber{
+   public void error(String type, String message);
    public void update(String time);
    public void update(java.time.Instant instant);
    public void update(boolean isRunning);

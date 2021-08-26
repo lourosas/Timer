@@ -156,7 +156,7 @@ public class LTimer implements ClockObserver{
          printWriter.println();
       }
       catch(IOException ioe){
-         ioe.printStackTrace(); //TBD for more later
+         this.notifySubscribers(file.getPath(),"SAVE ERROR");
       }
       finally{
          printWriter.close();
@@ -305,18 +305,22 @@ public class LTimer implements ClockObserver{
    }
 
    /**/
-   private void notifySubscribers(String stringTime, String type){
+   private void notifySubscribers(String message, String type){
       try{
          Iterator<ClockSubscriber> it = this._subscribers.iterator();
          while(it.hasNext()){
             if(type.toUpperCase().equals("LAP")){
-               (it.next()).update(stringTime, "LAP");
+               (it.next()).update(message, "LAP");
             }
             else if(type.toUpperCase().equals("ELAPSED")){
                (it.next()).update(this._stringTime);
             }
             else if(type.toUpperCase().equals("RESET")){
-               (it.next()).update(stringTime, type);
+               (it.next()).update(message, type);
+            }
+            else if(type.toUpperCase().equals("SAVE ERROR")){
+               String errorMessage = message+"\n"+"Could not save";
+               (it.next()).error(type, errorMessage);
             }
          }
       }
