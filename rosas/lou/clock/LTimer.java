@@ -78,6 +78,13 @@ public class LTimer implements ClockObserver{
    //////////////////////////Public Methods///////////////////////////
    /*
    */
+   public void about(ClockSubscriber subscriber){
+      //Indicate to show the About for the given Subscribers
+      subscriber.update(null, "about");
+   }
+
+   /*
+   */
    public void addSubscriber(ClockSubscriber subscriber){
       try{
          this._subscribers.add(subscriber);
@@ -88,6 +95,20 @@ public class LTimer implements ClockObserver{
       }
       finally{
          this.setTimeValues();
+      }
+   }
+
+   /*
+   */
+   public void help(ClockSubscriber subscriber){
+      subscriber.update(null, "help");
+   }
+
+   /*
+   */
+   public void info(ClockSubscriber subscriber, String type){
+      if(type.toUpperCase().equals("GNU INFO")){
+         subscriber.update(null, "gnu info");
       }
    }
 
@@ -139,7 +160,7 @@ public class LTimer implements ClockObserver{
             String elpse=this.convertToString(this._duration,"LAP");
             printWriter.println("Elapsed Time:  " + elpse );
          }
-         if(this._lapDuration != null && 
+         if(this._lapDuration != null &&
             this._lapDuration != Duration.ZERO){
             String lap=this.convertToString(this._lapDuration,"LAP");
             printWriter.println("Current Lap:  " + lap);
@@ -162,7 +183,7 @@ public class LTimer implements ClockObserver{
          printWriter.close();
       }
    }
-   
+
    /*
    */
    public void setClock(LClock clock){

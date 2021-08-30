@@ -130,6 +130,16 @@ KeyListener{
             System.out.println("Exiting...");
             System.exit(0);
          }
+         else if(menuItem.getActionCommand().equals("About")){
+            this._lTimer.about(this._lTimerView);
+         }
+         else if(menuItem.getActionCommand().equals("Help")){
+            this._lTimer.help(this._lTimerView);
+         }
+         else if(menuItem.getActionCommand().equals("GNU Info")){
+            this._lTimer.info(this._lTimerView,
+                                         menuItem.getActionCommand());
+         }
       }
       catch(ClassCastException eec){}
       catch(IllegalArgumentException iae){}

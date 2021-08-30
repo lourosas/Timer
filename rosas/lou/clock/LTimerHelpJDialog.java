@@ -26,11 +26,10 @@ import javax.swing.*;
 import javax.swing.text.*;
 
 //////////////////////////////////////////////////////////////////////
-package rosas.lou.clock;
 
 public class LTimerHelpJDialog extends JDialog{
    private static final short WIDTH  = 350;
-   private static final short HEIGHT = 600;
+   private static final short HEIGHT = 400;
 
    private static LTimerHelpJDialog _instance;
    private String _helpText;
@@ -46,7 +45,7 @@ public class LTimerHelpJDialog extends JDialog{
       if(_instance == null){
          _instance = new LTimerHelpJDialog(frame, txt);
       }
-      return instance;
+      return _instance;
    }
 
    /**/
@@ -84,15 +83,16 @@ public class LTimerHelpJDialog extends JDialog{
    /**/
    private String helpText(){
       String ht = new String("LTimer Help Guide\n\n");
-      ht += "This is a typical stop watch, except is in an app\n\n";
+      ht += "This is a typical stop watch, except is in app";
+      ht += " format\n\n";
       ht += "To start, press 'Start' or chose 'Start' (ctrl-S) from";
-      ht += " the 'File Menu'\n";
+      ht += " the 'File Menu'\n\n";
       ht += "To stop, press 'Stop' or chose 'Stop' (ctrl-T) from ";
-      ht += "the 'File Menu'\n";
+      ht += "the 'File Menu'\n\n";
       ht += "To lap, press 'Lap' or chose 'Lap' (ctrl-L) from ";
-      ht += "the 'File Menu'\n";
+      ht += "the 'File Menu'\n\n";
       ht += "To reset, press 'Reset' or chose 'Reset' from ";
-      ht += "the 'File Menu'\n";
+      ht += "the 'File Menu'\n\n";
       ht += "The User can save the timing data (total elapsed time ";
       ht += ", current lap time AND all previous Lap Times) ";
       ht += "via the 'File Menu':  chose 'Save' (ctrl-V)\n\n";
@@ -141,6 +141,8 @@ public class LTimerHelpJDialog extends JDialog{
          textArea.setText(this._helpText);
       }
 
+      Font font = new Font("Arial", Font.BOLD, 12);
+      textArea.setFont(font);
       textArea.setLineWrap(true);
       textArea.setWrapStyleWord(true);
       textArea.setEditable(false);

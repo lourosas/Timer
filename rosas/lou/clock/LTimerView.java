@@ -4,7 +4,7 @@
 * the GNU General Public License as published
 * by the Free Software Foundation; either version 3 of the License,
 * or (at your option) any later version.
-* LTimer is distributed in the hope that it will be
+* This code is distributed in the hope that it will be
 * useful, but WITHOUT ANY WARRANTY; without even the implied
 * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 * See the GNU General Public License for more details.
@@ -122,6 +122,18 @@ implements ClockSubscriber{
             this.resetTheTimerView();
          }
          this.reflectState(false);
+      }
+      else if(type.toUpperCase().equals("HELP")){
+         LTimerHelpJDialog dialog =
+                               LTimerHelpJDialog.instance(this, null);
+         dialog.setVisible(true);
+
+      }
+      else if(type.toUpperCase().equals("ABOUT")){
+         this.showAboutDialog();
+      }
+      else if(type.toUpperCase().equals("GNU INFO")){
+         this.showGNUDialog();
       }
    }
 
@@ -384,6 +396,11 @@ implements ClockSubscriber{
       this._menuItemGroup.add(helpItem);
       help.add(helpItem);
 
+      help.addSeparator();
+
+      JMenuItem gnuInfo = new JMenuItem("GNU Info", 'G');
+      this._menuItemGroup.add(gnuInfo);
+      help.add(gnuInfo);
 
       help.addSeparator();
 
@@ -396,6 +413,7 @@ implements ClockSubscriber{
       if(this._controller != null){
          helpItem.addActionListener(this._controller);
          about.addActionListener(this._controller);
+         gnuInfo.addActionListener(this._controller);
       }
       return help;
    }
@@ -457,5 +475,43 @@ implements ClockSubscriber{
             ++count;
          }
       }
+   }
+
+   /**/
+   private void showAboutDialog(){
+      int type = JOptionPane.INFORMATION_MESSAGE;
+
+      String message = new String("LTimer Version 1.0\n");
+      message += "Copyright \u00A9 2021\n";
+      message += "LTimer Created by Lou Rosas\n";
+      message += "lourosas@gmail.com\n\n";
+      message += "Pay it forward!\n";
+      message += "Consider giving to your\n";
+      message += "favorite charity in gratitude\n";
+
+      JOptionPane.showMessageDialog(this, message, null, type);
+   }
+
+   /**/
+   private void showGNUDialog(){
+      int type = JOptionPane.INFORMATION_MESSAGE;
+
+      String message=new String("This application is distributed\n");
+      message += "in the hope that it will be useful,\n";
+      message += "but WITHOUT WARRANTY; without even\n";
+      message += "the implied waranty of MERCHANTABILITY\n";
+      message += "or FITNESS FOR A PARTICULAR PURSPOSE.\n";
+      message += "This application is distributed under\n";
+      message += "the GNU General Public License.\n";
+      message += "That license can be found at:\n";
+      message += "http://www.gnu.org/license/ \n\n";
+      message += "This application is free software:  you\n";
+      message += "can redistribute it and/or modify it\n";
+      message += "under the terms of the GNU General Public\n";
+      message += "License as published by the Free Software\n";
+      message += "Foundation:  either version 3 of the License,\n";
+      message += "or (at your option), a later version\n";
+
+      JOptionPane.showMessageDialog(this, message, null, type);
    }
 }
