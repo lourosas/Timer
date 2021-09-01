@@ -1,0 +1,56 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U1S1:  Manage Count Time Events}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }Start the Countdown Timer\\
+\textbf{Related Use Cases:  }N/A\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants an accurate countdown time
+\end{itemize}
+\textbf{Preconditions:  }The Countdown Timer is up, a time is entered,
+(See \emph{Use Case 1S4: User Enters the Countdown Time}), the Countdown Timer
+is currently not running.\\
+\textbf{Success Guaranties:  (Postconditions)} 
+The Countdown Timer is running, and accurately counting down the time
+(to 0 seconds).\\\\
+\textbf{Main Success Scenario: }\\\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Indicates to start the timing countdown. & \\\hline
+&2.  Records the Countdown time (See \textit{Use Case 1S4:  User Enters the 
+Countdown Time}).\\\hline
+&3.  Subtracts (Counts Down) the time in one-second increments.\\\hline
+&4.  Displays the new time (currenttime = previous time-1sec).\\\hline
+&5. Repeats 3 \& 4 until the currenttime is 0\\\hline
+&6. Alerts the User the countdown is complete\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+*a.  If at any time, the System cannot measure the one second increment
+for the countdown, then the System informs the User the Countdown Timer
+has stopped working properly.\\\\
+\textbf{Technology and Variations List:  }\\
+2b-6b.  The Actual accuracy of the timer is dependant and
+will vary based on the task schdulers of both the Operating
+System and the language used for implementation.\\\\
+\textbf{Frequency of Occurrence:  }Multiple Countdown Timers as
+needed.\\\\
+\textbf{Open Issues:  }\\
+\begin{itemize}
+\item Is the accuracy dependant on the Operating System?
+\item Is the accuracy dependant on the Hardware?
+\item Multitasking issues?
+\item Multithreading issues?
+\item How does language affect the accuracy of the Countdown Timer?
+\item How does a ``fully loaded System" affect the accuracy
+of the Countdown Timer?
+\end{itemize}
+\end{document}
