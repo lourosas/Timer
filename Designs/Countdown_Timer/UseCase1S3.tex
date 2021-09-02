@@ -1,0 +1,43 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U1S3:  Manage Countdown Time Events}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }Clear/Reset the Countdown Timer\\
+\textbf{Related Use Cases:  }Use Case 1S2:  \textit{The User shall
+have the option to Stop the Countdown Timer.}\\
+Use Case 1S4:  \textit{The User shall enter the Countdown Time}\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants to Clear the current the remaining countdown time
+\end{itemize}
+\textbf{Preconditions:  }The Countdown Timer is stopped:  (See
+\textit{Use Case 1S42: The User shall have the option to Stop the
+Countdown Timer}).  The current countdown time value is something
+greater than 0.\\
+\textbf{Success Guaranties  (Postconditions)}: 
+The Countdown Timer display value is cleared.\\\\
+\textbf{Main Success Scenario: }\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Indicates to clear the current Countdown value. & \\\hline
+&2.  Clears the Countdown value.\\\hline
+&3.  Displays a cleared Countdown value (all 0's).\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+None\\\\
+\textbf{Technology and Variations List:  }\\
+None.\\\\
+\textbf{Frequency of Occurrence:  }Multiple Countdown Timers as
+needed.\\
+On a single Countdown Timer, as often as the User deisres.\\\\
+\textbf{Open Issues:  }
+None
+\end{document}
