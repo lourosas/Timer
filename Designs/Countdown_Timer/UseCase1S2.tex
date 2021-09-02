@@ -1,0 +1,59 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U1S2:  Manage Countdown Time Events}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }Stop the Countdown Timer\\
+\textbf{Related Use Cases:  }N/A\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants to stop the Countdown Timer to ensure the time is accurate
+\end{itemize}
+\textbf{Preconditions:  }The Countdown Timer is up and Running:  (See
+\textit{Use Case 1S4:  User Enters the Countdown Time}).\\
+\textbf{Success Guaranties  (Postconditions)}: 
+The Countdown Timer is stopped, the countdown time (when stopped), is displayed
+(accuracy within one second).\\\\
+\textbf{Main Success Scenario: }\\\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Indicates to stop the timing countdown. & \\\hline
+&2.  Stops the countdown.\\\hline
+&3.  Displays the latest countdown time.\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+2a. If the Countdown Timer is at 0, then the Countdown Timer stops
+automatically, and without User intervention.\\
+3a. If the Countdown Timer is at 0, then the Countdown Timer displays
+the current time of 0, and does not continue (see Alternative Flow
+\textbf{2a}).\\\\
+\textbf{Technology and Variations List:  }\\
+2b-6b.  The Actual accuracy of the timer is dependant and
+will vary based on the task schdulers of both the Operating
+System and the language used for implementation.\\\\
+\textbf{Frequency of Occurrence:  }Multiple Countdown Timers as
+needed.\\
+Multiple Countdown stops per a sing Countdown Timer as the User
+desires.\\\\
+\textbf{Open Issues:  }
+\begin{itemize}
+\item What is the resolution of the Countdown Timer? One Second? A tenth of a
+Second?
+\item What happens if the Countdown Timer stops ``mid-resolution"? I.E.
+if the Countdown Timer has a 1-second resolution, and the User stops
+the Countdown Timer \textit{between} that resolution (the Countdown
+Timer is between seconds, and the User stops the countdown), how is
+that countdown time displayed?
+\item If the Countdown Timer has one second resolution, and the user
+stops say between 8 and 9 seconds, what is displayed?
+\underline{8 seconds}, \underline{9 seconds}, \underline{8.323 seconds}
+(time with some type of \textit{higher} resolution)???
+\end{itemize}
+\end{document}
