@@ -1,0 +1,51 @@
+%% It is just an empty TeX file.
+%% Write your code here.
+\documentclass[letterpaper]{article}
+\usepackage{latexsym}
+\usepackage{amsbsy}
+\usepackage{graphicx}
+\begin{document}
+\noindent
+\textbf{Use Case U1S4:  Manage Countdown Time Events}\\
+\textbf{Scope:  }Timer\\
+\textbf{Level:  }User Goal\\
+\textbf{Primary Actor:  }User\\
+\textbf{Scenario:  }Enter the Countdown Time\\
+\textbf{Related Use Cases:  }Use Case 1S2 \textit{The User Shall have
+the Option to Stop the Countdown Timer}.\\
+\textbf{Stakeholders and Interests:}
+\begin{itemize}
+\item User:  Wants to enter the time for the countdown.
+\item User:  Wants to alter the countdown time entered as needed.
+\end{itemize}
+\textbf{Preconditions:  }The Countdown Timer is stopped:  (See
+\textit{Use Case 1S2: The User shall have the option to Stop the
+Countdown Timer}).\\
+\textbf{Success Guaranties  (Postconditions)}: 
+The Countdown Timer Displays the User Entered Countdown Time.\\\\
+\textbf{Main Success Scenario: }\\
+\begin{tabular}{|p{6cm}|p{6cm}|}\hline
+\textbf{User} & \textbf{System}\\\hline
+1.  Enters the Countdown Timer values in the following format:
+Hours, Minutes, Seconds & \\\hline
+&2.  Reads the entered time, and converts into seconds.\\\hline
+&3.  Redisplays (as needed)  the entered time in \underline{proper}
+Time Format.\\\hline
+\end{tabular}\\\\
+\textbf{Alternative Flows:  }\\
+3a.  If the User enters the values that are \textit{out of bounds},
+then the System displays the values in \underline{proper} format. I.E.
+if the User enters ``00:67:35", the System will display:  ``1:07:35",
+if the User enters ``00:67:67", the System will display: ``1:08:07"\\\\
+3b.  If the User enters a \textit{typical or proper} value, then the
+System will display the value as entered. ``1:45:56" will be displayed
+as:  ``1:45:56".\\\\
+\textbf{Technology and Variations List:  }\\
+2a.  Is the input value required to be converted into seconds? Or, can the
+time value be stored in the "proper" (HH:MM:SS format)?\\\\
+\textbf{Frequency of Occurrence:  }Multiple Countdown Timers as
+needed.\\
+On a single Countdown Timer, as often as the User deisres.\\\\
+\textbf{Open Issues:  }
+None
+\end{document}
