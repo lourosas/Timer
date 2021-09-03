@@ -1,0 +1,24 @@
+Countdown Timer Nouns List
+
+Coutdown Time Events
+Timer
+User Goal
+User
+Countdown Time
+Time
+Countdown Timer
+seconds
+countdown
+one-second increments
+previous time
+current time
+System
+one second-increment
+Task Schedulers
+Operating System
+language
+accuracy
+hardware
+multitasking issues
+multithreading issues
+fully loaded System
