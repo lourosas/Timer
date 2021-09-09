@@ -32,7 +32,7 @@ public class CountDownTime{
    private int    _minutes;
    private double _seconds;
    private double _totalSeconds;
-   private double _totalMilliSeconds;
+   private long   _totalMilliSeconds;
    private String _hour;
    private String _minute;
    private String _second;
@@ -42,7 +42,7 @@ public class CountDownTime{
       _minutes           = 0;
       _seconds           = 0.0;
       _totalSeconds      = 0.0;
-      _totalMilliSeconds = 0.0;
+      _totalMilliSeconds = 0;
       _hour              = null;
       _minute            = null;
       _second            = null;
@@ -80,29 +80,16 @@ public class CountDownTime{
    }
 
    /**/
-   private void correctHoursandMinutes(){
-      final double SECONDSMOD = 60.;
-      final int MINUTESMOD    =  60;
-      if(this._seconds >= SECONDSMOD){
-      }
-      if(this._minutes >= MINUTESMOD){
-         int mod_minutes = this._minutes % MINUTESMOD;
-         int div_minutes = this._minutes / MINUTESMOD;
-         this._hours  += div_minutes;
-         this._minutes = mod_minutes;
-      }
-   }
-
-   /**/
    private void setAllTimes(String hrs, String mins, String secs)
    throws NumberFormatException, NullPointerException{
       try{
          this._hours   = Integer.parseInt(hrs);
          this._minutes = Integer.parseInt(mins);
          this._seconds = Double.parseDouble(secs);
-         this.correctHoursandMinutes();
          this.calculateTotalSeconds();
-         this._totalMilliSeconds = this._totalSeconds * MILLIS;
+         double temp = this._totalSeconds * MILLIS;
+	 Double tempDouble = Double.valueOf(temp);
+         //this._totalMilliSeconds = this._totalSeconds * MILLIS;
       }
       catch(NumberFormatException nfe){ throw nfe; }
       catch(NullPointerException npe){ throw npe; }
