@@ -55,6 +55,7 @@ public class CountdownTimer implements ClockObserver{
    /**/
    public void inputTime(String hrs, String mins, String secs){
       this._inputTime = new CountDownTime(hrs, mins, secs);
+      System.out.println(this._inputTime);
    }
 
    /**/
@@ -65,6 +66,7 @@ public class CountdownTimer implements ClockObserver{
    /**/
    public void inputTime(double secs){
       this._inputTime = new CountDownTime(secs);
+      System.out.println(this._inputTime);
    }
 
    /**/
