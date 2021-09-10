@@ -32,12 +32,14 @@ public class CountdownTimer implements ClockObserver{
    private CountDownTime _currentTime;
    private CountDownTime _inputTime;
    private LClock        _clock;
+   private Instant       _instantThen;
    private boolean       _run;
 
    {
       _currentTime      = null;
       _inputTime        = null;
       _clock            = null;
+      _instantThen      = null;
       _run              = false;
    };
 
@@ -111,6 +113,11 @@ public class CountdownTimer implements ClockObserver{
    /**/
    public void updateTime(Instant instant){
       if(this._run){
+         if(this._instantThen == null){
+            this._instantThen = instant;
+	 }
+         Duration dur = Duration.between(this._instantThen, instant);
+         this._currentTime = this._inputTime.subtract(dur.toMillis());
       }
    }
 
