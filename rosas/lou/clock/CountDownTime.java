@@ -92,6 +92,29 @@ public class CountDownTime{
    }
 
    /////////////////////////Public Methods////////////////////////////
+   /**/
+   public CountDownTime add(double seconds){
+      return new CountDownTime(this.currentSeconds() - seconds);
+   }
+
+   /**/
+   public CountDownTime add(long milliseconds){
+      long diff = this.currentMilliSeconds() - milliseconds;
+      double diffSecs = diff/MILLIS;
+      return new CountDownTime(diffSecs);
+   }
+
+   /**/
+   public double currentSeconds(){
+      return this._totalSeconds;
+   }
+
+   /**/
+   public long currentMilliSeconds(){
+      return this._totalMilliSeconds;
+   }
+
+   /**/
    public String toString(){
       String countdown = null;
       Calendar cal = Calendar.getInstance();
