@@ -109,7 +109,10 @@ public class CountdownTimer implements ClockObserver{
    public void updateTime(long millis){}
 
    /**/
-   public void updateTime(Instant instant){}
+   public void updateTime(Instant instant){
+      if(this._run){
+      }
+   }
 
    ////////////////////////Private Methods////////////////////////////
    /**/

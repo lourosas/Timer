@@ -94,12 +94,12 @@ public class CountDownTime{
    /////////////////////////Public Methods////////////////////////////
    /**/
    public CountDownTime add(double seconds){
-      return new CountDownTime(this.currentSeconds() - seconds);
+      return new CountDownTime(this.currentSeconds() + seconds);
    }
 
    /**/
    public CountDownTime add(long milliseconds){
-      long diff = this.currentMilliSeconds() - milliseconds;
+      long diff = this.currentMilliSeconds() + milliseconds;
       double diffSecs = diff/MILLIS;
       return new CountDownTime(diffSecs);
    }
@@ -112,6 +112,18 @@ public class CountDownTime{
    /**/
    public long currentMilliSeconds(){
       return this._totalMilliSeconds;
+   }
+
+   /**/
+   public CountDownTime subtract(double seconds){
+      return new CountDownTime(this.currentSeconds() - seconds);
+   }
+
+   /**/
+   public CountDownTime subtract(long milliseconds){
+      long diff = this.currentMilliSeconds() - milliseconds;
+      double diffSecs = diff/MILLIS;
+      return new CountDownTime(diffSecs);
    }
 
    /**/
