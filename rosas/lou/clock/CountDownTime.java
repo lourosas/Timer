@@ -91,6 +91,17 @@ public class CountDownTime{
       catch(NullPointerException npe){ throw npe; }
    }
 
+   /**/
+   public CountDownTime(long milliseconds) throws
+   NumberFormatException, NullPointerException{
+      this._totalMilliSeconds = milliseconds;
+      try{
+         this.setTimeProperly();
+      }
+      catch(NumberFormatException nfe){ throw nfe; }
+      catch(NullPointerException npe){ throw npe; }
+   }
+
    /////////////////////////Public Methods////////////////////////////
    /**/
    public CountDownTime add(double seconds){
@@ -122,8 +133,7 @@ public class CountDownTime{
    /**/
    public CountDownTime subtract(long milliseconds){
       long diff = this.currentMilliSeconds() - milliseconds;
-      double diffSecs = diff/MILLIS;
-      return new CountDownTime(diffSecs);
+      return new CountDownTime(diff);
    }
 
    /**/

@@ -57,7 +57,6 @@ public class CountdownTimer implements ClockObserver{
    /**/
    public void inputTime(String hrs, String mins, String secs){
       this._inputTime = new CountDownTime(hrs, mins, secs);
-      System.out.println(this._inputTime);
    }
 
    /**/
@@ -68,7 +67,6 @@ public class CountdownTimer implements ClockObserver{
    /**/
    public void inputTime(double secs){
       this._inputTime = new CountDownTime(secs);
-      System.out.println(this._inputTime);
    }
 
    /**/
@@ -115,9 +113,15 @@ public class CountdownTimer implements ClockObserver{
       if(this._run){
          if(this._instantThen == null){
             this._instantThen = instant;
-	 }
+         }
          Duration dur = Duration.between(this._instantThen, instant);
-         this._currentTime = this._inputTime.subtract(dur.toMillis());
+         if(dur.toMillis() >= 1000 &&
+            this._currentTime.currentMilliSeconds() > 0){
+            this._currentTime =
+                          this._currentTime.subtract(dur.toMillis());
+            System.out.println(this._currentTime);
+            this._instantThen = instant;
+         }
       }
    }
 
