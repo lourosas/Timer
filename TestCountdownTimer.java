@@ -11,6 +11,8 @@ public class TestCountdownTimer{
    public TestCountdownTimer(){
       LClock clock = new LClock();
       CountdownTimer countdownTimer = new CountdownTimer(clock);
-      countdownTimer.start(87090);
+      Thread t = new Thread(clock, "clock");
+      t.start();
+      countdownTimer.start(400);
    }
 }
