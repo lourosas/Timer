@@ -104,6 +104,13 @@ public class CountdownTimer implements ClockObserver{
       this.start();
    }
 
+   /**/
+   public void stop(){
+      this.setRun(false);
+      this._inputTime   = this._currentTime;
+      this._instantThen = null;
+   }
+
    ////////////////Clock Observer Implementation methods//////////////
    /**/
    public void updateTime(long millis){}
@@ -117,9 +124,18 @@ public class CountdownTimer implements ClockObserver{
          Duration dur = Duration.between(this._instantThen, instant);
          if(dur.toMillis() >= 1000 &&
             this._currentTime.currentMilliSeconds() > 0){
+            System.out.println(this._instantThen);
+            System.out.println(instant);
+            System.out.println(this._currentTime.currentMilliSeconds());
             this._currentTime =
                           this._currentTime.subtract(dur.toMillis());
-            System.out.println(this._currentTime);
+            if(this._currentTime.currentMilliSeconds() >= 0){
+               System.out.println(this._currentTime.currentMilliSeconds());
+               System.out.println(this._currentTime + "\n");
+            }
+            else{
+               this.stop();
+            }
             this._instantThen = instant;
          }
       }
