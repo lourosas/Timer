@@ -13,11 +13,17 @@ public class TestCountdownTimer{
       CountdownTimer countdownTimer = new CountdownTimer(clock);
       Thread t = new Thread(clock, "clock");
       t.start();
-      countdownTimer.start(400);
+      countdownTimer.start(65);
       try{ Thread.sleep(20000); }
       catch(InterruptedException ie){}
       countdownTimer.stop();
       try{ Thread.sleep(14000); }
+      catch(InterruptedException ie){}
+      countdownTimer.start();
+      try{ Thread.sleep(15000); }
+      catch(InterruptedException ie){}
+      countdownTimer.stop();
+      try{ Thread.sleep(25000); }
       catch(InterruptedException ie){}
       countdownTimer.start();
       try{ t.join(); }
