@@ -50,6 +50,13 @@ implements ClockSubscriber{
    public CountdownTimerView(String title,
                              CountdownTimerController controller){
       super(title);
+      this._controller = controller;
+      this.addWindowListener(new WindowAdapter(){
+         public void windowClosing(WindowEvent w){
+            setVisible(false);
+            System.exit(0);
+         }
+      });
    }
 
 }

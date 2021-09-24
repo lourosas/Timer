@@ -26,9 +26,27 @@ import rosas.lou.clock.CountdownTimerView;
 
 public CountdownTimerController implements ActionListener,
 KeyListener{
+   private CountdownTimer     _timer;
+   private CountdownTimerView _view;
+   
+   {
+      _timer = null;
+      _view  = null;
+   };
+
    ////////////////////////Constructors//////////////////////////////
    /**/
    public CountdownTimerController(){}
+
+   /**/
+   public CountdownTimerController
+   (
+      CountdownTimer     ct
+      CountdownTimerView ctv
+   ){
+      this._timer = ct;
+      this._view  = ctv;
+   }
 
    ////////////////////Interface Implementations//////////////////////
    /**/
