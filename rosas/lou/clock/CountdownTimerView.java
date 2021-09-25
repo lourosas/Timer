@@ -57,6 +57,36 @@ implements ClockSubscriber{
             System.exit(0);
          }
       });
+      this.setUpGUI();
+      this.setVisible(true);
    }
 
+
+   ///////////////////////Public Methods//////////////////////////////
+
+   ///////////////////////Private Methods/////////////////////////////
+   /**/
+   private JPanel setCenterPanel(){
+      final int RIGHT = SwingConstants.RIGHT;
+
+      JPanel centerPanel = new JPanel();
+      
+      return centerPanel;
+   }
+
+   /**/
+   private void setUpGUI(){
+      final short WIDTH  = 340;
+      final short HEIGHT = 160;
+      //As always, get the Content Pane first
+      Container contentPane = this.getContentPane();
+      this.setSize(WIDTH,HEIGHT);
+      //Now set up the rest of the GUI (as usual)
+      contentPane.add(this.setNorthPanel(),  BorderLayout.NORTH);
+      contentPane.add(this.setCenterPanel(), BorderLayout.CENTER);
+      contentPane.add(this.setSouthPanel(),  BorderLayout.SOUTH);
+      //As Always, set up the Menu Bar...
+      this.setJMenuBar(this.setUpMenuBar());
+      this.setResizable(false);
+   }
 }
