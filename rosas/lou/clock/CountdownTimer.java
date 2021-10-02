@@ -29,11 +29,12 @@ public class CountdownTimer implements ClockObserver{
    private final int INCREMENT       = 1;
    private final int MILLISINCREMENT = 1000;
 
-   private CountDownTime _currentTime;
-   private CountDownTime _inputTime;
-   private LClock        _clock;
-   private Instant       _instantThen;
-   private boolean       _run;
+   private CountDownTime         _currentTime;
+   private CountDownTime         _inputTime;
+   private LClock                _clock;
+   private Instant               _instantThen;
+   private boolean               _run;
+   private List<ClockSubscriber> _subscribers;
 
    {
       _currentTime      = null;
@@ -41,6 +42,7 @@ public class CountdownTimer implements ClockObserver{
       _clock            = null;
       _instantThen      = null;
       _run              = false;
+      _subscribers      = null;
    };
 
    ////////////////////////Constructors///////////////////////////////
@@ -54,6 +56,9 @@ public class CountdownTimer implements ClockObserver{
 
 
    /////////////////////////Public Methods////////////////////////////
+   /**/
+   public void addSubscriber(ClockSubscriber subscriber){}
+
    /**/
    public void inputTime(String hrs, String mins, String secs){
       this._inputTime = new CountDownTime(hrs, mins, secs);

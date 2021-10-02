@@ -24,7 +24,7 @@ import javax.swing.*;
 import rosas.lou.clock.CountdownTimer;
 import rosas.lou.clock.CountdownTimerView;
 
-public CountdownTimerController implements ActionListener,
+public class CountdownTimerController implements ActionListener,
 KeyListener{
    private CountdownTimer     _timer;
    private CountdownTimerView _view;
@@ -41,12 +41,24 @@ KeyListener{
    /**/
    public CountdownTimerController
    (
-      CountdownTimer     ct
+      CountdownTimer     ct,
       CountdownTimerView ctv
    ){
       this._timer = ct;
       this._view  = ctv;
    }
+
+   /////////////////////Public Methods////////////////////////////////
+   /**/
+   public void addModel(CountdownTimer timer){
+      this._timer = timer;
+   }
+
+   /**/
+   public void addView(CountdownTimerView view){
+      this._view = view;
+   }
+
 
    ////////////////////Interface Implementations//////////////////////
    /**/
