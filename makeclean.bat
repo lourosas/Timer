@@ -1,0 +1,2 @@
+cls
+del /S *.class
