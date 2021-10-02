@@ -62,14 +62,38 @@ KeyListener{
 
    ////////////////////Interface Implementations//////////////////////
    /**/
-   public void actionPerformed(ActionEvent e){}
+   public void actionPerformed(ActionEvent e){
+      this.handleJButton(e);
+      this.handleJMenuItem(e);
+      this.handleJTextField(e);
+   }
 
    /**/
-   public void keyPressed(KeyEvent k){}
+   public void keyPressed(KeyEvent k){
+      System.out.println(k.getSource());
+   }
 
    /**/
    public void keyReleased(KeyEvent k){}
 
    /**/
    public void keyTyped(KeyEvent k){}
+
+   /////////////////////Private Methods///////////////////////////////
+   /**/
+   private void handleJButton(ActionEvent e){
+      try{
+         JButton button = (JButton)e.getSource();
+         System.out.println(button.getActionCommand());
+      }
+      catch(ClassCastException cce){}
+      catch(IllegalArgumentException iae){}
+   }
+
+   /**/
+   private void handleJMenuItem(ActionEvent e){
+   }
+
+   /**/
+   private void handleJTextField(ActionEvent e){}
 }
