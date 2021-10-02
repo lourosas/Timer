@@ -11,8 +11,14 @@ public class TestCountdownTimer{
    public TestCountdownTimer(){
       LClock clock = new LClock();
       CountdownTimer countdownTimer = new CountdownTimer(clock);
+      CountdownTimerController controller = new CountdownTimerController();
+      CountdownTimerView view = new CountdownTimerView("Countdown",controller);
+      countdownTimer.addSubscriber(view);
+      controller.addModel(countdownTimer);
+
       Thread t = new Thread(clock, "clock");
       t.start();
+
       countdownTimer.start(65);
       try{ Thread.sleep(20000); }
       catch(InterruptedException ie){}
