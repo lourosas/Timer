@@ -70,7 +70,7 @@ KeyListener{
 
    /**/
    public void keyPressed(KeyEvent k){
-      System.out.println(k.getSource());
+      this.handleJTextField(k);
    }
 
    /**/
@@ -95,5 +95,20 @@ KeyListener{
    }
 
    /**/
-   private void handleJTextField(ActionEvent e){}
+   private void handleJTextField(ActionEvent e){
+      try{
+         JTextField jtf = (JTextField)e.getSource();
+	 System.out.println(e.getActionCommand());
+      }
+      catch(ClassCastException cce){}
+      catch(IllegalArgumentException iae){}
+   }
+
+   /**/
+   private void handleJTextField(KeyEvent k){
+      try{
+      }
+      catch(ClassCastException cce){}
+      catch(IllegalArgumentException iae){}
+   }
 }
