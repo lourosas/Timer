@@ -106,10 +106,26 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void start(){
+      if(this._inputTime == null){
+         try{
+            this.inputTime(this._hours, this._minutes, this._seconds);
+         }
+	 catch(NullPointerException npe){ npe.printStackTrace(); }
+         catch(NumberFormatException nfe){ nfe.printStackTrace(); }
+      }
+      this._currentTime = this._inputTime;
+      this.setRun(true);
+      /*
       if(this._inputTime != null){
          this._currentTime = this._inputTime;
          this.setRun(true);
       }
+      else{
+         this.inputTime(this._hours, this._minutes, this._seconds);
+         this._currentTime = this._inputTime;
+         this.setRun(true);
+      }
+      */
    }
 
    /**/
