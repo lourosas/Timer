@@ -70,14 +70,18 @@ KeyListener{
 
    /**/
    public void keyPressed(KeyEvent k){
+      //this.handleJTextField(k);
+   }
+
+   /**/
+   public void keyReleased(KeyEvent k){
       this.handleJTextField(k);
    }
 
    /**/
-   public void keyReleased(KeyEvent k){}
-
-   /**/
-   public void keyTyped(KeyEvent k){}
+   public void keyTyped(KeyEvent k){
+      //this.handleJTextField(k);
+   }
 
    /////////////////////Private Methods///////////////////////////////
    /**/
@@ -98,7 +102,7 @@ KeyListener{
    private void handleJTextField(ActionEvent e){
       try{
          JTextField jtf = (JTextField)e.getSource();
-	 System.out.println(e.getActionCommand());
+	 System.out.println(jtf.getName());
       }
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
@@ -107,6 +111,11 @@ KeyListener{
    /**/
    private void handleJTextField(KeyEvent k){
       try{
+         JTextField jtf = (JTextField)k.getComponent();
+         //System.out.println(k.getKeyCode());
+         System.out.println(k.getKeyText(k.getKeyCode()));
+         System.out.println(jtf.getText());
+         System.out.println(jtf.getName());
       }
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}

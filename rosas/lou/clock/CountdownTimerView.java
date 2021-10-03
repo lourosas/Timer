@@ -119,11 +119,11 @@ implements ClockSubscriber{
       JTextField hrsTF  = new JTextField(4);
       JTextField minsTF = new JTextField(2);
       JTextField secsTF = new JTextField(2);
+      hrsTF.setName("Set Hours");
+      minsTF.setName("Set Mins");
+      secsTF.setName("Set Secs");
 
       if(this._controller != null){
-         hrsTF.setActionCommand("Set Hours");
-         minsTF.setActionCommand("Set Mins");
-         secsTF.setActionCommand("Set Secs");
          hrsTF.addActionListener(_controller);
          minsTF.addActionListener(_controller);
          secsTF.addActionListener(_controller);
