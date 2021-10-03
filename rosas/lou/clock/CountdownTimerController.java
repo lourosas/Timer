@@ -102,22 +102,59 @@ KeyListener{
    private void handleJTextField(ActionEvent e){
       try{
          JTextField jtf = (JTextField)e.getSource();
-	 System.out.println(jtf.getName());
+         Integer.parseInt(jtf.getText());
+         String name = jtf.getName();
+         if(name.equals("Set Hours")){
+            this._timer.inputHours(jtf.getText());
+	 }
+         else if(name.equals("Set Mins")){
+            this._timer.inputMins(jtf.getText());
+	 }
+         else if(name.equals("Set Secs")){
+            this._timer.inputSecs(jtf.getText());
+	 }
       }
+      catch(NumberFormatException nfe){}
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
+      catch(NullPointerException npe){ npe.printStackTrace(); }
    }
 
    /**/
    private void handleJTextField(KeyEvent k){
       try{
          JTextField jtf = (JTextField)k.getComponent();
-         //System.out.println(k.getKeyCode());
-         System.out.println(k.getKeyText(k.getKeyCode()));
-         System.out.println(jtf.getText());
-         System.out.println(jtf.getName());
+         char c = k.getKeyChar();
+         if((c >= '0' && c <= '9') ||
+            (k.getKeyCode() == KeyEvent.VK_BACK_SPACE)){
+
+            Integer.parseInt(jtf.getText());
+            String name = jtf.getName();
+            if(name.equals("Set Hours")){
+               this._timer.inputHours(jtf.getText());
+            }
+            else if(name.equals("Set Mins")){
+               this._timer.inputMins(jtf.getText());
+            }
+            else if(name.equals("Set Secs")){
+               this._timer.inputSecs(jtf.getText());
+            }
+         }
+         else if(k.getKeyCode() == KeyEvent.VK_SHIFT      ||
+                 k.getKeyCode() == KeyEvent.VK_CAPS_LOCK  ||
+                 k.getKeyCode() == KeyEvent.VK_ENTER){}
+         else{
+            try{
+               String value = jtf.getText();
+               value = value.substring(0,value.length()-1);
+               jtf.setText(value);
+            }
+            catch(StringIndexOutOfBoundsException e){ System.out.println("POOP"); }
+         }
       }
+      catch(NumberFormatException npe){}
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
+      catch(NullPointerException npe){ npe.printStackTrace(); }
    }
 }

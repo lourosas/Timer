@@ -35,6 +35,9 @@ public class CountdownTimer implements ClockObserver{
    private Instant               _instantThen;
    private boolean               _run;
    private List<ClockSubscriber> _subscribers;
+   private String                _hours;
+   private String                _minutes;
+   private String                _seconds;
 
    {
       _currentTime      = null;
@@ -43,6 +46,9 @@ public class CountdownTimer implements ClockObserver{
       _instantThen      = null;
       _run              = false;
       _subscribers      = null;
+      _hours            = null;
+      _minutes          = null;
+      _seconds          = null;
    };
 
    ////////////////////////Constructors///////////////////////////////
@@ -58,6 +64,21 @@ public class CountdownTimer implements ClockObserver{
    /////////////////////////Public Methods////////////////////////////
    /**/
    public void addSubscriber(ClockSubscriber subscriber){}
+
+   /**/
+   public void inputHours(String hrs){
+      this._hours = hrs;
+   }
+
+   /**/
+   public void inputMins(String mins){
+      this._minutes = mins;
+   }
+
+   /**/
+   public void inputSecs(String secs){
+      this._seconds = secs;
+   }
 
    /**/
    public void inputTime(String hrs, String mins, String secs){
