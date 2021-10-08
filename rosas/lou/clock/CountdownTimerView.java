@@ -127,6 +127,16 @@ implements ClockSubscriber{
          hrsTF.addActionListener(_controller);
          minsTF.addActionListener(_controller);
          secsTF.addActionListener(_controller);
+/*
+         hrsTF.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent k){
+               char c = k.getKeyChar();
+               if(!Character.isDigit(c)){
+                  k.consume();
+               }
+            }
+         });
+*/
          hrsTF.addKeyListener(_controller);
          minsTF.addKeyListener(_controller);
          secsTF.addKeyListener(_controller);

@@ -71,16 +71,19 @@ KeyListener{
    /**/
    public void keyPressed(KeyEvent k){
       //this.handleJTextField(k);
+      this.handleJButton(k);
    }
 
    /**/
    public void keyReleased(KeyEvent k){
-      this.handleJTextField(k);
+      //this.handleJTextField(k);
+      //this.handleJButton(k);
    }
 
    /**/
    public void keyTyped(KeyEvent k){
-      //this.handleJTextField(k);
+      this.handleJTextField(k);
+      //this.handleJButton(k);
    }
 
    /////////////////////Private Methods///////////////////////////////
@@ -88,14 +91,50 @@ KeyListener{
    private void handleJButton(ActionEvent e){
       try{
          JButton button = (JButton)e.getSource();
-         System.out.println(button.getActionCommand());
+         if(button.getActionCommand().equals("Start")){
+         }
+         else if(button.getActionCommand().equals("Stop")){
+            System.out.println(button.getActionCommand());
+         }
+         else if(button.getActionCommand().equals("Reset")){
+            System.out.println(button.getActionCommand());
+         }
       }
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
+      catch(NullPointerException npe){}
+   }
+
+   /**/
+   private void handleJButton(KeyEvent k){
+      try{
+         if(k.getKeyCode() == KeyEvent.VK_ENTER){
+            JButton button = ((JButton)k.getSource());
+            button.doClick(100);
+         }
+      }
+      catch(ClassCastException cce){}
    }
 
    /**/
    private void handleJMenuItem(ActionEvent e){
+      try{
+         JMenuItem item = (JMenuItem)e.getSource();
+         if(item.getActionCommand().equals("Quit")){
+            System.out.println("Exiting...");
+            System.exit(0);
+         }
+         else if(item.getActionCommand().equals("Start")){}
+         else if(item.getActionCommand().equals("Stop")){
+            System.out.println(item.getActionCommand());
+         }
+         else if(item.getActionCommand().equals("Reset")){
+            System.out.println(item.getActionCommand());
+         }
+      }
+      catch(ClassCastException cce){}
+      catch(IllegalArgumentException iae){}
+      catch(NullPointerException npe){}
    }
 
    /**/
@@ -106,28 +145,36 @@ KeyListener{
          String name = jtf.getName();
          if(name.equals("Set Hours")){
             this._timer.inputHours(jtf.getText());
-	 }
+         }
          else if(name.equals("Set Mins")){
             this._timer.inputMins(jtf.getText());
-	 }
+         }
          else if(name.equals("Set Secs")){
             this._timer.inputSecs(jtf.getText());
-	 }
+        }
       }
       catch(NumberFormatException nfe){}
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
-      catch(NullPointerException npe){ npe.printStackTrace(); }
+      catch(NullPointerException npe){
+         npe.printStackTrace();
+      }
    }
 
    /**/
    private void handleJTextField(KeyEvent k){
       try{
+         int modifiers = k.getModifiersEx();
          JTextField jtf = (JTextField)k.getComponent();
          char c = k.getKeyChar();
-         if((c >= '0' && c <= '9') ||
+         if(!Character.isDigit(c)){
+            k.consume();
+         }
+         System.out.println(jtf.getText());
+         /*
+         if(Character.isDigit(c) ||
             (k.getKeyCode() == KeyEvent.VK_BACK_SPACE)){
-
+            jtf.setEditable(true);
             Integer.parseInt(jtf.getText());
             String name = jtf.getName();
             if(name.equals("Set Hours")){
@@ -140,9 +187,17 @@ KeyListener{
                this._timer.inputSecs(jtf.getText());
             }
          }
+         else{
+            jtf.setEditable(false);
+         }
+         */
+         /*
          else if(k.getKeyCode() == KeyEvent.VK_SHIFT      ||
                  k.getKeyCode() == KeyEvent.VK_CAPS_LOCK  ||
-                 k.getKeyCode() == KeyEvent.VK_ENTER){}
+                 k.getKeyCode() == KeyEvent.VK_ENTER      ||
+                 k.getKeyCode() == KeyEvent.VK_CONTROL    ||
+                 k.getKeyCode() == KeyEvent.VK_F1         ||
+                 k.getKeyCode() == KeyEvent.VK_F2){}
          else{
             try{
                String value = jtf.getText();
@@ -151,8 +206,9 @@ KeyListener{
             }
             catch(StringIndexOutOfBoundsException e){ System.out.println("POOP"); }
          }
+	 */
       }
-      catch(NumberFormatException npe){}
+      catch(NumberFormatException nfe){}
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
       catch(NullPointerException npe){ npe.printStackTrace(); }
