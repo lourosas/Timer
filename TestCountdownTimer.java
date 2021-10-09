@@ -15,10 +15,12 @@ public class TestCountdownTimer{
       CountdownTimerView view = new CountdownTimerView("Countdown",controller);
       countdownTimer.addSubscriber(view);
       controller.addModel(countdownTimer);
+      controller.addView(view);
 
       Thread t = new Thread(clock, "clock");
       t.start();
 
+      /*
       countdownTimer.start(65);
       try{ Thread.sleep(20000); }
       catch(InterruptedException ie){}
@@ -34,5 +36,6 @@ public class TestCountdownTimer{
       countdownTimer.start();
       try{ t.join(); }
       catch(InterruptedException ie){}
+      */
    }
 }
