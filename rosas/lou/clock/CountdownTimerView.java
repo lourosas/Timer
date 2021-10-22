@@ -65,6 +65,30 @@ implements ClockSubscriber{
 
 
    ///////////////////////Public Methods//////////////////////////////
+   /**/
+   public void requestNextFocus(String currentName){
+      Container cp = this.getContentPane();
+      if(currentName.equals("Set Hours") ||
+         currentName.equals("Set Mins")){
+         JPanel panel = (JPanel)cp.getComponent(0);
+         for(int i = 0; i < panel.getComponentCount(); ++i){
+            try{
+               JTextField jtf = (JTextField)panel.getComponent(i);
+               if((currentName.equals("Set Hours") &&
+                  jtf.getName().equals("Set Mins")) ||
+                  (currentName.equals("Set Mins") &&
+                  jtf.getName().equals("Set Secs"))){
+                  jtf.requestFocus();
+               }
+	    }
+            catch(ClassCastException cce){}
+	 }
+      }
+      else if(currentName.equals("Set Secs")){
+         JPanel panel = (JPanel)cp.getComponent(2);
+         panel.getComponent(0).requestFocus();
+      }
+   }
 
    //////////////////////Interface Implementations////////////////////
    /**/
@@ -116,7 +140,7 @@ implements ClockSubscriber{
       JLabel hrsLbl     = new JLabel("Hours:  ");
       JLabel minsLbl    = new JLabel("Mins: ");
       JLabel secsLbl    = new JLabel("Secs: ");
-      JTextField hrsTF  = new JTextField(4);
+      JTextField hrsTF  = new JTextField(3);
       JTextField minsTF = new JTextField(2);
       JTextField secsTF = new JTextField(2);
       hrsTF.setName("Set Hours");
@@ -127,17 +151,15 @@ implements ClockSubscriber{
          hrsTF.addActionListener(_controller);
          minsTF.addActionListener(_controller);
          secsTF.addActionListener(_controller);
+         hrsTF.addKeyListener(_controller);
 /*
          hrsTF.addKeyListener(new KeyAdapter(){
-            public void keyTyped(KeyEvent k){
-               char c = k.getKeyChar();
-               if(!Character.isDigit(c)){
-                  k.consume();
-               }
+            public void keyReleased(KeyEvent k){
+               JTextField jtf = (JTextField)k.getSource();
+               System.out.println(jtf.getText());
             }
          });
 */
-         hrsTF.addKeyListener(_controller);
          minsTF.addKeyListener(_controller);
          secsTF.addKeyListener(_controller);
       }
