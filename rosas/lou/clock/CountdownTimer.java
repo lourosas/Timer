@@ -35,11 +35,6 @@ public class CountdownTimer implements ClockObserver{
    private Instant               _instantThen;
    private boolean               _run;
    private List<ClockSubscriber> _subscribers;
-   /*
-   private String                _hours;
-   private String                _minutes;
-   private String                _seconds;
-   */
    {
       _currentTime      = null;
       _inputTime        = null;
@@ -47,11 +42,6 @@ public class CountdownTimer implements ClockObserver{
       _instantThen      = null;
       _run              = false;
       _subscribers      = null;
-      /*
-      _hours            = "";
-      _minutes          = "";
-      _seconds          = "";
-      */
    };
 
    ////////////////////////Constructors///////////////////////////////
@@ -70,6 +60,7 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void inputHours(String hrs){
+      final int ZERO = 0;
       try{
          this._inputTime.hour(hrs);
       }
@@ -79,20 +70,49 @@ public class CountdownTimer implements ClockObserver{
             this._inputTime.hour(hrs);
          }
          catch(NumberFormatException nfe){
-            this._inputTime.hour(0);
+            this._inputTime.hour(ZERO);
          }
       }
       catch(NumberFormatException nfe){
-         this._inputTime.hour(0);
+         this._inputTime.hour(ZERO);
       }
    }
 
    /**/
    public void inputMins(String mins){
+      final int ZERO = 0;
+      try{
+         this._inputTime.minute(mins);
+      }
+      catch(NullPointerException npe){
+         this._inputTime = new CountDownTime();
+         try{
+            this._inputTime.minute(mins);
+         }
+         catch(NumberFormatException nfe){
+            this._inputTime.minute(ZERO);
+         }
+      }
+      catch(NumberFormatException nfe){
+         this._inputTime.minute(ZERO);
+      }
    }
 
    /**/
    public void inputSecs(String secs){
+      /*This works easier than the above code, but I will keep the
+      above code as an example of Exception Handling*/
+      final double ZERO = 0.;
+      if(this._inputTime == null){
+         this._inputTime = new CountDownTime();
+      }
+      try{
+         this._inputTime.second(secs);
+      }
+      catch(NumberFormatException nfe){
+         nfe.printStackTrace();
+         this._inputTime.second(ZERO);
+      }
    }
 
    /**/
@@ -121,6 +141,7 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void start(){
+      //System.out.println(this._inputTime);
       /*
       try{
          if(this._inputTime == null){
