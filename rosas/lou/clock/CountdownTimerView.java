@@ -80,14 +80,30 @@ implements ClockSubscriber{
                   jtf.getName().equals("Set Secs"))){
                   jtf.requestFocus();
                }
-	    }
+            }
             catch(ClassCastException cce){}
-	 }
+         }
       }
       else if(currentName.equals("Set Secs")){
          JPanel panel = (JPanel)cp.getComponent(2);
          panel.getComponent(0).requestFocus();
       }
+   }
+
+   /**/
+   Hashtable<String,String> requestTimes(){
+      Hashtable<String,String> values=new Hashtable<String,String>();
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JTextField jtf = (JTextField)panel.getComponent(i);
+            String key   = jtf.getName();
+            String value = jtf.getText();
+            values.put(key, value);
+         }
+         catch(ClassCastException cce){}
+      }
+      return values;
    }
 
    //////////////////////Interface Implementations////////////////////
@@ -119,7 +135,7 @@ implements ClockSubscriber{
       Border border = BorderFactory.createEtchedBorder();
       centerPanel.setBorder(border);
       centerPanel.setLayout(new GridLayout(0,2));
-      
+
       JLabel countdownTime = new JLabel("Countdown Time:  ", RIGHT);
       this._countDownTF    = new JTextField();
       this._countDownTF.setEditable(false);
@@ -166,7 +182,7 @@ implements ClockSubscriber{
       northPanel.add(hrsLbl);  northPanel.add(hrsTF);
       northPanel.add(minsLbl); northPanel.add(minsTF);
       northPanel.add(secsLbl); northPanel.add(secsTF);
-      
+
       return northPanel;
    }
 
@@ -270,7 +286,7 @@ implements ClockSubscriber{
       help.add(gnuInfo);
 
       help.addSeparator();
-      
+
       JMenuItem about = new JMenuItem("About", 'A');
       ks = KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0);
       about.setAccelerator(ks);

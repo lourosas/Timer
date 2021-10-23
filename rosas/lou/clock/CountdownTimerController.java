@@ -28,7 +28,7 @@ public class CountdownTimerController implements ActionListener,
 KeyListener{
    private CountdownTimer     _timer;
    private CountdownTimerView _view;
-   
+
    {
       _timer = null;
       _view  = null;
@@ -92,6 +92,21 @@ KeyListener{
       try{
          JButton button = (JButton)e.getSource();
          if(button.getActionCommand().equals("Start")){
+            Hashtable<String, String> times=this._view.requestTimes();
+            Enumeration<String> keys = times.keys();
+            while(keys.hasMoreElements()){
+               String key = (String)keys.nextElement();
+               if(key.toUpperCase().contains("HOURS")){
+                  this._timer.inputHours(times.get(key));
+               }
+               else if(key.toUpperCase().contains("MINS")){
+                  this._timer.inputMins(times.get(key));
+               }
+               else if(key.toUpperCase().contains("SECS")){
+                  this._timer.inputSecs(times.get(key));
+               }
+            }
+            this._timer.start();
          }
          else if(button.getActionCommand().equals("Stop")){
          }
@@ -100,7 +115,9 @@ KeyListener{
       }
       catch(ClassCastException cce){}
       catch(IllegalArgumentException iae){}
-      catch(NullPointerException npe){}
+      catch(NullPointerException npe){
+         npe.printStackTrace();
+      }
    }
 
    /**/
@@ -141,6 +158,7 @@ KeyListener{
           JTextField jtf = (JTextField)e.getSource();
           Integer.parseInt(jtf.getText());
           String name = jtf.getName();
+          /*
           if(name.equals("Set Hours")){
              this._timer.inputHours(jtf.getText());
           }
@@ -150,6 +168,7 @@ KeyListener{
           else if(name.equals("Set Secs")){
              this._timer.inputSecs(jtf.getText());
          }
+         */
          this._view.requestNextFocus(name);
       }
       catch(NumberFormatException nfe){}

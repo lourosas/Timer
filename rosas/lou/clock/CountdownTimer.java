@@ -35,10 +35,11 @@ public class CountdownTimer implements ClockObserver{
    private Instant               _instantThen;
    private boolean               _run;
    private List<ClockSubscriber> _subscribers;
+   /*
    private String                _hours;
    private String                _minutes;
    private String                _seconds;
-
+   */
    {
       _currentTime      = null;
       _inputTime        = null;
@@ -46,9 +47,11 @@ public class CountdownTimer implements ClockObserver{
       _instantThen      = null;
       _run              = false;
       _subscribers      = null;
+      /*
       _hours            = "";
       _minutes          = "";
       _seconds          = "";
+      */
    };
 
    ////////////////////////Constructors///////////////////////////////
@@ -67,20 +70,29 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void inputHours(String hrs){
-      this._hours = hrs;
-      System.out.println(this._hours);
+      try{
+         this._inputTime.hour(hrs);
+      }
+      catch(NullPointerException npe){
+         this._inputTime = new CountDownTime();
+         try{
+            this._inputTime.hour(hrs);
+         }
+         catch(NumberFormatException nfe){
+            this._inputTime.hour(0);
+         }
+      }
+      catch(NumberFormatException nfe){
+         this._inputTime.hour(0);
+      }
    }
 
    /**/
    public void inputMins(String mins){
-      this._minutes = mins;
-      System.out.println(this._minutes);
    }
 
    /**/
    public void inputSecs(String secs){
-      this._seconds = secs;
-      System.out.println(this._seconds);
    }
 
    /**/
@@ -109,16 +121,20 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void start(){
-      if(this._inputTime == null){
-         try{
+      /*
+      try{
+         if(this._inputTime == null){
             this.inputTime(this._hours, this._minutes, this._seconds);
          }
-	 catch(NullPointerException npe){ npe.printStackTrace(); }
-         catch(NumberFormatException nfe){ nfe.printStackTrace(); }
+         this._currentTime = this._inputTime;
+         this.setRun(true);
       }
-      this._currentTime = this._inputTime;
-      this.setRun(true);
-      /*
+      catch(NullPointerException npe){
+         npe.printStackTrace();
+      }
+      catch(NumberFormatException nfe){
+         nfe.printStackTrace();
+      }
       if(this._inputTime != null){
          this._currentTime = this._inputTime;
          this.setRun(true);

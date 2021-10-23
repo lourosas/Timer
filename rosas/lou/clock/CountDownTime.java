@@ -54,6 +54,9 @@ public class CountDownTime{
 
    //////////////////////////Constructors/////////////////////////////
    /**/
+   public CountDownTime(){}
+
+   /**/
    public CountDownTime(String hrs, String mins, String secs) throws
    NumberFormatException, NullPointerException{
       try{
@@ -123,6 +126,57 @@ public class CountDownTime{
    /**/
    public long currentMilliSeconds(){
       return this._totalMilliSeconds;
+   }
+
+   /**/
+   public void hour(String hour) throws NumberFormatException{
+      try{
+         this._hours = Integer.parseInt(hour);
+         this._hour  = new String(hour);
+      }
+      catch(NumberFormatException nfe){
+         throw new NumberFormatException("CountDownTime.hour()");
+      }
+   }
+
+   /**/
+   public void hour(int hour){
+      this._hour  = new String("" + hour);
+      this._hours = hour;
+   }
+
+   /**/
+   public void minute(String min){
+      try{
+         this._minutes = Integer.parseInt(min);
+         this._minute  = new String(min);
+      }
+      catch(NumberFormatException nfe){
+         throw new NumberFormatException("CountDownTime.minute()");
+      }
+   }
+
+   /**/
+   public void minute(int min){
+      this._minute  = new String("" + min);
+      this._minutes = min;
+   }
+
+   /**/
+   public void second(String second){
+      try{
+         this._seconds = Double.parseDouble(second);
+         this._second  = new String(second);
+      }
+      catch(NumberFormatException nfe){
+         throw new NumberFormatException("CountDownTime.second()");
+      }
+   }
+
+   /**/
+   public void second(double second){
+      this._second  = new String("" + second);
+      this._seconds = second;
    }
 
    /**/
