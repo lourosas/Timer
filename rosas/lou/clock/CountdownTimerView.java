@@ -111,13 +111,17 @@ implements ClockSubscriber{
    public void error(String type, String message){}
 
    /**/
-   public void update(String time){}
+   public void update(String time){
+      System.out.println(time);
+   }
 
    /**/
    public void update(java.time.Instant instant){}
 
    /**/
-   public void update(boolean isRunning){}
+   public void update(boolean isRunning){
+      System.out.println(isRunning);
+   }
 
    /**/
    public void update(String time, String type){}

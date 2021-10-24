@@ -56,7 +56,15 @@ public class CountdownTimer implements ClockObserver{
 
    /////////////////////////Public Methods////////////////////////////
    /**/
-   public void addSubscriber(ClockSubscriber subscriber){}
+   public void addSubscriber(ClockSubscriber subscriber){
+      try{
+         this._subscribers.add(subscriber);
+      }
+      catch(NullPointerException npe){
+         this._subscribers = new LinkedList<ClockSubscriber>();
+         this._subscribers.add(subscriber);
+      }
+   }
 
    /**/
    public void inputHours(String hrs){
@@ -110,7 +118,6 @@ public class CountdownTimer implements ClockObserver{
          this._inputTime.second(secs);
       }
       catch(NumberFormatException nfe){
-         nfe.printStackTrace();
          this._inputTime.second(ZERO);
       }
    }
@@ -141,7 +148,17 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void start(){
-      //System.out.println(this._inputTime);
+      if(this._inputTime == null){
+         this._inputTime = new CountDownTime();
+      }
+      this._currentTime = this._inputTime;
+      Iterator<ClockSubscriber> it = this._subscribers.iterator();
+      while(it.hasNext()){
+         ClockSubscriber sub = it.next();
+         sub.update(this._inputTime.toString());
+         sub.update(true);
+      }
+      //this.setRun(true);
       /*
       try{
          if(this._inputTime == null){
@@ -149,6 +166,7 @@ public class CountdownTimer implements ClockObserver{
          }
          this._currentTime = this._inputTime;
          this.setRun(true);
+
       }
       catch(NullPointerException npe){
          npe.printStackTrace();

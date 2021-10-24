@@ -132,7 +132,7 @@ public class CountDownTime{
    public void hour(String hour) throws NumberFormatException{
       try{
          this._hours = Integer.parseInt(hour);
-         this._hour  = new String(hour);
+         this.hour(this._hours);
       }
       catch(NumberFormatException nfe){
          throw new NumberFormatException("CountDownTime.hour()");
@@ -143,13 +143,15 @@ public class CountDownTime{
    public void hour(int hour){
       this._hour  = new String("" + hour);
       this._hours = hour;
+      this.calculateTotalSeconds();
+      this.setTotalMilliSeconds();
    }
 
    /**/
    public void minute(String min){
       try{
          this._minutes = Integer.parseInt(min);
-         this._minute  = new String(min);
+         this.minute(this._minutes);         
       }
       catch(NumberFormatException nfe){
          throw new NumberFormatException("CountDownTime.minute()");
@@ -160,13 +162,15 @@ public class CountDownTime{
    public void minute(int min){
       this._minute  = new String("" + min);
       this._minutes = min;
+      this.calculateTotalSeconds();
+      this.setTotalMilliSeconds();
    }
 
    /**/
    public void second(String second){
       try{
          this._seconds = Double.parseDouble(second);
-         this._second  = new String(second);
+         this.second(this._seconds);
       }
       catch(NumberFormatException nfe){
          throw new NumberFormatException("CountDownTime.second()");
@@ -177,6 +181,8 @@ public class CountDownTime{
    public void second(double second){
       this._second  = new String("" + second);
       this._seconds = second;
+      this.calculateTotalSeconds();
+      this.setTotalMilliSeconds();
    }
 
    /**/
@@ -200,9 +206,16 @@ public class CountDownTime{
          sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
          countdown = sdf.format(cal.getTime());
          String[] values = countdown.split(" ");
-         this._days = Integer.parseInt(values[0]) - 1;
-         this._day  = new String(this._days + "");
-         countdown  = this._day + " " + values[1];
+         this._days    = Integer.parseInt(values[0]) - 1;
+         this._day     = new String(this._days + "");
+         String[] hms  = values[1].split(":");
+         this._hours   = Integer.parseInt(hms[0]);
+         this._hour    = new String(this._hours + "");
+         this._minutes = Integer.parseInt(hms[1]);
+         this._minute  = new String(this._minutes + "");
+         this._seconds = Integer.parseInt(hms[2]);
+         this._second  = new String(this._seconds + "");
+         countdown     = this._day + " " + values[1];
       }
       catch(NumberFormatException nfe){
          //Temporary for now...print this out for the time being
