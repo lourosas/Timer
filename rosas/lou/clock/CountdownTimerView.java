@@ -33,13 +33,13 @@ implements ClockSubscriber{
    private CountdownTimerController    _controller;
    private ButtonGroup                 _buttonGroup;
    private ButtonGroup                 _menuItemGroup;
-   private JTextField                  _countDownTF;
+   //private JTextField                  _countDownTF;
 
    {
       _controller     = null;
       _buttonGroup    = null;
       _menuItemGroup  = null;
-      _countDownTF    = null;
+      //_countDownTF    = null;
    };
 
    ////////////////////////Constructors///////////////////////////////
@@ -112,7 +112,7 @@ implements ClockSubscriber{
 
    /**/
    public void update(String time){
-      System.out.println(time);
+      this.setCountdownTime(time);
    }
 
    /**/
@@ -120,7 +120,8 @@ implements ClockSubscriber{
 
    /**/
    public void update(boolean isRunning){
-      System.out.println(isRunning);
+      this.updateHrsMinsSecsPanel(isRunning);
+      this.updateButtonPanel(isRunning);
    }
 
    /**/
@@ -141,13 +142,28 @@ implements ClockSubscriber{
       centerPanel.setLayout(new GridLayout(0,2));
 
       JLabel countdownTime = new JLabel("Countdown Time:  ", RIGHT);
-      this._countDownTF    = new JTextField();
-      this._countDownTF.setEditable(false);
+      //this._countDownTF    = new JTextField();
+      //this._countDownTF.setEditable(false);
+      JTextField jtf     = new JTextField();
+      jtf.setEditable(false);
 
       centerPanel.add(countdownTime);
-      centerPanel.add(this._countDownTF);
+      //centerPanel.add(this._countDownTF);
+      centerPanel.add(jtf);
 
       return centerPanel;
+   }
+
+   /**/
+   private void setCountdownTime(String time){
+      JPanel panel = (JPanel)this.getContentPane().getComponent(1);
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JTextField jtf = (JTextField)panel.getComponent(i);
+            jtf.setText(time);
+         }
+         catch(ClassCastException cce){}
+      }
    }
 
    /**/
@@ -199,7 +215,7 @@ implements ClockSubscriber{
       buttonPanel.add(start);
 
       JButton stop = new JButton("Stop");
-      //stop.setEnabled(false);
+      stop.setEnabled(false);
       stop.setMnemonic(KeyEvent.VK_T);
       buttonPanel.add(stop);
 
@@ -311,5 +327,82 @@ implements ClockSubscriber{
       jmenuBar.add(this.setUpFileMenu());
       jmenuBar.add(this.setUpHelpMenu());
       return jmenuBar;
+   }
+
+   /**/
+   private void updateButtonPanel(boolean currentlyRunning){
+      JPanel panel = (JPanel)this.getContentPane().getComponent(2);
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JButton button = (JButton)panel.getComponent(i);
+            if(currentlyRunning){
+               if(button.getText().equals("Start") ||
+                  button.getText().equals("Reset")){
+                  button.setEnabled(false);
+               }
+               else{
+                  button.setEnabled(true);
+               }
+            }
+            else{
+               if(button.getText().equals("Start") ||
+                  button.getText().equals("Reset")){
+                  button.setEnabled(true);
+               }
+               else{
+                  button.setEnabled(false);
+               }
+            }
+         }
+         catch(ClassCastException cce){}
+      }
+   }
+
+   /**/
+   private void updateHrsMinsSecsPanel(boolean currentlyRunning){
+      int  hours = 0;
+      int  mins  = 0;
+      int  secs  = 0;
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      JTextField hrTF  = null; 
+      JTextField minTF = null;
+      JTextField secTF = null;
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JTextField jtf = (JTextField)panel.getComponent(i);
+            if(jtf.getName().equals("Set Secs")){ secTF = jtf; }
+            else if(jtf.getName().equals("Set Mins")){ minTF = jtf; }
+            else if(jtf.getName().equals("Set Hours")){ hrTF = jtf; }
+         }
+         catch(ClassCastException cce){}
+      }
+      if(currentlyRunning){
+         try{ secs = Integer.parseInt(secTF.getText()); }
+         catch(NumberFormatException npe){}
+         try{ mins = Integer.parseInt(minTF.getText()); }
+         catch(NumberFormatException npe){}
+         try{ hours= Integer.parseInt(hrTF.getText()); }
+         catch(NumberFormatException npe){}
+         if(secs >= 60){
+            mins += secs/60;
+            secs  = secs % 60;
+            minTF.setText("" + mins);
+            secTF.setText("" + secs);
+         }
+         if(mins >= 60){
+            hours += mins/60;
+            mins   = mins % 60;
+            hrTF.setText("" + hours);
+            minTF.setText("" + mins);
+         }
+         hrTF.setEditable(false);
+         minTF.setEditable(false);
+         secTF.setEditable(false);
+      }
+      else{
+         hrTF.setEditable(true);
+         minTF.setEditable(true);
+         secTF.setEditable(true);
+      }
    }
 }

@@ -158,7 +158,7 @@ public class CountdownTimer implements ClockObserver{
          sub.update(this._inputTime.toString());
          sub.update(true);
       }
-      //this.setRun(true);
+      this.setRun(true);
       /*
       try{
          if(this._inputTime == null){
@@ -221,6 +221,7 @@ public class CountdownTimer implements ClockObserver{
          if(this._instantThen == null){
             this._instantThen = instant;
          }
+         Iterator<ClockSubscriber> it = this._subscribers.iterator();
          Duration dur = Duration.between(this._instantThen, instant);
          if(dur.toMillis() >= 1000 &&
             this._currentTime.currentMilliSeconds() > 0){
@@ -232,6 +233,10 @@ public class CountdownTimer implements ClockObserver{
             if(this._currentTime.currentMilliSeconds() >= 0){
                System.out.println(this._currentTime.currentMilliSeconds());
                System.out.println(this._currentTime + "\n");
+               while(it.hasNext()){
+                  ClockSubscriber sub = it.next();
+                  sub.update(this._currentTime.toString());
+               }
             }
             else{
                this.stop();
