@@ -109,6 +109,7 @@ KeyListener{
             this._timer.start();
          }
          else if(button.getActionCommand().equals("Stop")){
+            this._timer.stop();
          }
          else if(button.getActionCommand().equals("Reset")){
          }
@@ -139,9 +140,11 @@ KeyListener{
             System.out.println("Exiting...");
             System.exit(0);
          }
-         else if(item.getActionCommand().equals("Start")){}
+         else if(item.getActionCommand().equals("Start")){
+            this._timer.start();
+         }
          else if(item.getActionCommand().equals("Stop")){
-            System.out.println(item.getActionCommand());
+            this._timer.stop();
          }
          else if(item.getActionCommand().equals("Reset")){
             System.out.println(item.getActionCommand());

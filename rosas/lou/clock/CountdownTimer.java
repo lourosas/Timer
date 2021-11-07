@@ -206,7 +206,12 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void stop(){
+      Iterator<ClockSubscriber> it = this._subscribers.iterator();
       this.setRun(false);
+      while(it.hasNext()){
+         ClockSubscriber sub = it.next();
+         sub.update(false);
+      }
       this._inputTime   = this._currentTime;
       this._instantThen = null;
    }
