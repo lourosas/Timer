@@ -700,17 +700,18 @@
 									"model": {
 										"$ref": "AAAAAAF8+9GgHaIouSw="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 393,
+									"left": 351,
 									"top": 86,
+									"width": 85.97900390625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
 									"hostEdge": {
 										"$ref": "AAAAAAF8+9GgHaIpkIQ="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "Start / Pressed"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -794,17 +795,18 @@
 									"model": {
 										"$ref": "AAAAAAF8+9IpaaI8Qls="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 624,
+									"left": 582,
 									"top": 123,
+									"width": 85.26806640625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
 									"hostEdge": {
 										"$ref": "AAAAAAF8+9IpaaI93Fs="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "Stop / Pressed"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -888,17 +890,18 @@
 									"model": {
 										"$ref": "AAAAAAF8+9JFbaJNlrc="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 507,
+									"left": 461,
 									"top": 201,
+									"width": 92.4853515625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
 									"hostEdge": {
 										"$ref": "AAAAAAF8+9JFbaJOfGs="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "Reset / Pressed"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -982,17 +985,18 @@
 									"model": {
 										"$ref": "AAAAAAF8+9LmmKJltlY="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 631,
+									"left": 589,
 									"top": 63,
+									"width": 85.97900390625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
 									"hostEdge": {
 										"$ref": "AAAAAAF8+9LmmKJmeTE="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "Start / Pressed"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -1126,7 +1130,27 @@
 							},
 							"target": {
 								"$ref": "AAAAAAF8+9A1I6G0upc="
-							}
+							},
+							"triggers": [
+								{
+									"_type": "UMLEvent",
+									"_id": "AAAAAAF8/IT3sOSBPkU=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9GgHaIouSw="
+									},
+									"name": "Start"
+								}
+							],
+							"effects": [
+								{
+									"_type": "UMLOpaqueBehavior",
+									"_id": "AAAAAAF8/IUZeOSEPy8=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9GgHaIouSw="
+									},
+									"name": "Pressed"
+								}
+							]
 						},
 						{
 							"_type": "UMLTransition",
@@ -1139,7 +1163,27 @@
 							},
 							"target": {
 								"$ref": "AAAAAAF8+9BMVqHavw0="
-							}
+							},
+							"triggers": [
+								{
+									"_type": "UMLEvent",
+									"_id": "AAAAAAF8/IVDDeSHX0k=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9IpaaI8Qls="
+									},
+									"name": "Stop"
+								}
+							],
+							"effects": [
+								{
+									"_type": "UMLOpaqueBehavior",
+									"_id": "AAAAAAF8/IVDDeSIcJo=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9IpaaI8Qls="
+									},
+									"name": "Pressed"
+								}
+							]
 						},
 						{
 							"_type": "UMLTransition",
@@ -1152,7 +1196,27 @@
 							},
 							"target": {
 								"$ref": "AAAAAAF8+8/Af6GOSro="
-							}
+							},
+							"triggers": [
+								{
+									"_type": "UMLEvent",
+									"_id": "AAAAAAF8/IXk/OSSQo4=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9JFbaJNlrc="
+									},
+									"name": "Reset"
+								}
+							],
+							"effects": [
+								{
+									"_type": "UMLOpaqueBehavior",
+									"_id": "AAAAAAF8/IXk/OSTrQQ=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9JFbaJNlrc="
+									},
+									"name": "Pressed"
+								}
+							]
 						},
 						{
 							"_type": "UMLTransition",
@@ -1165,7 +1229,27 @@
 							},
 							"target": {
 								"$ref": "AAAAAAF8+9A1I6G0upc="
-							}
+							},
+							"triggers": [
+								{
+									"_type": "UMLEvent",
+									"_id": "AAAAAAF8/IV46+SMT64=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9LmmKJltlY="
+									},
+									"name": "Start"
+								}
+							],
+							"effects": [
+								{
+									"_type": "UMLOpaqueBehavior",
+									"_id": "AAAAAAF8/IV47OSNsb4=",
+									"_parent": {
+										"$ref": "AAAAAAF8+9LmmKJltlY="
+									},
+									"name": "Pressed"
+								}
+							]
 						}
 					]
 				}
