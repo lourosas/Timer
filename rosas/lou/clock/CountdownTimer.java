@@ -72,40 +72,44 @@ public class CountdownTimer implements ClockObserver{
    /**/
    public void inputHours(String hrs){
       final int ZERO = 0;
-      try{
-         this._inputTime.hour(hrs);
-      }
-      catch(NullPointerException npe){
-         this._inputTime = new CountDownTime();
+      if(this._state == State.RESET){
          try{
             this._inputTime.hour(hrs);
+         }
+         catch(NullPointerException npe){
+            this._inputTime = new CountDownTime();
+            try{
+               this._inputTime.hour(hrs);
+            }
+            catch(NumberFormatException nfe){
+               this._inputTime.hour(ZERO);
+            }
          }
          catch(NumberFormatException nfe){
             this._inputTime.hour(ZERO);
          }
-      }
-      catch(NumberFormatException nfe){
-         this._inputTime.hour(ZERO);
       }
    }
 
    /**/
    public void inputMins(String mins){
       final int ZERO = 0;
-      try{
-         this._inputTime.minute(mins);
-      }
-      catch(NullPointerException npe){
-         this._inputTime = new CountDownTime();
+      if(this._state == State.RESET){
          try{
             this._inputTime.minute(mins);
+         }
+         catch(NullPointerException npe){
+            this._inputTime = new CountDownTime();
+            try{
+               this._inputTime.minute(mins);
+            }
+            catch(NumberFormatException nfe){
+               this._inputTime.minute(ZERO);
+            }
          }
          catch(NumberFormatException nfe){
             this._inputTime.minute(ZERO);
          }
-      }
-      catch(NumberFormatException nfe){
-         this._inputTime.minute(ZERO);
       }
    }
 
@@ -114,30 +118,38 @@ public class CountdownTimer implements ClockObserver{
       /*This works easier than the above code, but I will keep the
       above code as an example of Exception Handling*/
       final double ZERO = 0.;
-      if(this._inputTime == null){
-         this._inputTime = new CountDownTime();
-      }
-      try{
-         this._inputTime.second(secs);
-      }
-      catch(NumberFormatException nfe){
-         this._inputTime.second(ZERO);
+      if(this._state == State.RESET){
+         if(this._inputTime == null){
+            this._inputTime = new CountDownTime();
+         }
+         try{
+            this._inputTime.second(secs);
+         }
+         catch(NumberFormatException nfe){
+            this._inputTime.second(ZERO);
+         }
       }
    }
 
    /**/
    public void inputTime(String hrs, String mins, String secs){
-      this._inputTime = new CountDownTime(hrs, mins, secs);
+      if(this._state == State.RESET){
+         this._inputTime = new CountDownTime(hrs, mins, secs);
+      }
    }
 
    /**/
    public void inputTime(int hour, int minute, double second){
-      this._inputTime = new CountDownTime(hour,minute,second);
+      if(this._state == State.RESET){
+         this._inputTime = new CountDownTime(hour,minute,second);
+      }
    }
 
    /**/
    public void inputTime(double secs){
-      this._inputTime = new CountDownTime(secs);
+      if(this._state == State.RESET){
+         this._inputTime = new CountDownTime(secs);
+      }
    }
 
    /**/
@@ -248,6 +260,7 @@ public class CountdownTimer implements ClockObserver{
             }
             else{
                this.stop();
+               //this.reset();
             }
             this._instantThen = instant;
          }
