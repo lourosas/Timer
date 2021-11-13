@@ -28,6 +28,7 @@ import rosas.lou.clock.*;
 public class CountdownTimer implements ClockObserver{
    private final int INCREMENT       = 1;
    private final int MILLISINCREMENT = 1000;
+   private enum  State { RESET, RUN, STOP }
 
    private CountDownTime         _currentTime;
    private CountDownTime         _inputTime;
@@ -35,6 +36,7 @@ public class CountdownTimer implements ClockObserver{
    private Instant               _instantThen;
    private boolean               _run;
    private List<ClockSubscriber> _subscribers;
+   private State                 _state;
    {
       _currentTime      = null;
       _inputTime        = null;
@@ -42,6 +44,7 @@ public class CountdownTimer implements ClockObserver{
       _instantThen      = null;
       _run              = false;
       _subscribers      = null;
+      _state            = State.RESET;
    };
 
    ////////////////////////Constructors///////////////////////////////
@@ -255,5 +258,6 @@ public class CountdownTimer implements ClockObserver{
    /**/
    private void setRun(boolean toRun){
       this._run = toRun;
+      this._state = (this._run) ? State.RUN : State.STOP;
    }
 }
