@@ -153,6 +153,22 @@ public class CountdownTimer implements ClockObserver{
    }
 
    /**/
+   public void reset(){
+      this.setRun(false);
+      this._state = State.RESET;
+      this.inputTime(0,0,0.);
+      this._currentTime = null;
+      Iterator<ClockSubscriber> it = this._subscribers.iterator();
+      List<String> list = new LinkedList<String>();
+      list.add(this._inputTime.toString());
+      list.add("RESET");
+      while(it.hasNext()){
+         ClockSubscriber sub = it.next();
+         sub.update(list);
+      }
+   }
+
+   /**/
    public void setClock(LClock clock){
       if(this._clock != null){
          this._clock.removeObserver(this);
@@ -168,10 +184,12 @@ public class CountdownTimer implements ClockObserver{
       }
       this._currentTime = this._inputTime;
       Iterator<ClockSubscriber> it = this._subscribers.iterator();
+      List<String> list = new LinkedList<String>();
+      list.add(this._inputTime.toString());
+      list.add("RUN");
       while(it.hasNext()){
          ClockSubscriber sub = it.next();
-         sub.update(this._inputTime.toString());
-         sub.update(true);
+         sub.update(list);
       }
       this.setRun(true);
       /*
@@ -223,9 +241,12 @@ public class CountdownTimer implements ClockObserver{
    public void stop(){
       Iterator<ClockSubscriber> it = this._subscribers.iterator();
       this.setRun(false);
+      List<String> list = new LinkedList<String>();
+      list.add(this._currentTime.toString());
+      list.add("STOP");
       while(it.hasNext()){
          ClockSubscriber sub = it.next();
-         sub.update(false);
+         sub.update(list);
       }
       this._inputTime   = this._currentTime;
       this._instantThen = null;
@@ -260,7 +281,7 @@ public class CountdownTimer implements ClockObserver{
             }
             else{
                this.stop();
-               //this.reset();
+               this.reset();
             }
             this._instantThen = instant;
          }

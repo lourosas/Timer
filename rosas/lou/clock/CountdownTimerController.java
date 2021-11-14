@@ -112,6 +112,7 @@ KeyListener{
             this._timer.stop();
          }
          else if(button.getActionCommand().equals("Reset")){
+            this._timer.reset();
          }
       }
       catch(ClassCastException cce){}

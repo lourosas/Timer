@@ -128,7 +128,11 @@ implements ClockSubscriber{
    public void update(String time, String type){}
 
    /**/
-   public void update(java.util.List<?> list){}
+   public void update(java.util.List<?> list){
+      this.setCountdownTime((String)list.get(0));
+      this.updateHrsMinsSecsPanel((String)list.get(1));
+      this.updateButtonPanel((String)list.get(1));
+   }
 
    ///////////////////////Private Methods/////////////////////////////
    /**/
@@ -220,6 +224,7 @@ implements ClockSubscriber{
       buttonPanel.add(stop);
 
       JButton reset = new JButton("Reset");
+      reset.setEnabled(false);
       reset.setMnemonic(KeyEvent.VK_R);
       buttonPanel.add(reset);
 
@@ -359,12 +364,48 @@ implements ClockSubscriber{
    }
 
    /**/
+   private void updateButtonPanel(String state){
+      JPanel panel = (JPanel)this.getContentPane().getComponent(2);
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JButton button = (JButton)panel.getComponent(i);
+            if(state.equals("RUN")){
+               if(button.getText().equals("Start") ||
+                  button.getText().equals("Reset")){
+                  button.setEnabled(false);
+               }
+               else{
+                  button.setEnabled(true);
+               }
+            }
+            else if(state.equals("RESET")){
+               if(button.getText().equals("Start")){
+                  button.setEnabled(true);
+               }
+               else{
+                  button.setEnabled(false);
+               }
+            }
+            else if(state.equals("STOP")){
+               if(button.getText().equals("Stop")){
+                  button.setEnabled(false);
+               }
+               else{
+                  button.setEnabled(true);
+               }
+            }
+         }
+         catch(ClassCastException cce){}
+      }
+   }
+
+   /**/
    private void updateHrsMinsSecsPanel(boolean currentlyRunning){
       int  hours = 0;
       int  mins  = 0;
       int  secs  = 0;
       JPanel panel = (JPanel)this.getContentPane().getComponent(0);
-      JTextField hrTF  = null; 
+      JTextField hrTF  = null;
       JTextField minTF = null;
       JTextField secTF = null;
       for(int i = 0; i < panel.getComponentCount(); ++i){
@@ -403,6 +444,59 @@ implements ClockSubscriber{
          hrTF.setEditable(true);
          minTF.setEditable(true);
          secTF.setEditable(true);
+      }
+   }
+
+   /**/
+   private void updateHrsMinsSecsPanel(String state){
+      int hours = 0;
+      int mins  = 0;
+      int secs  = 0;
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      JTextField hrTF  = null;
+      JTextField minTF = null;
+      JTextField secTF = null;
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JTextField jtf = (JTextField)panel.getComponent(i);
+            if(jtf.getName().equals("Set Secs")){ secTF = jtf; }
+            else if(jtf.getName().equals("Set Mins")){ minTF = jtf; }
+            else if(jtf.getName().equals("Set Hours")){ hrTF = jtf; }
+         }
+         catch(ClassCastException cce){}
+      }
+      if(state.equals("RUN")){
+         try{ secs = Integer.parseInt(secTF.getText()); }
+         catch(NumberFormatException npe){}
+         try{ mins = Integer.parseInt(minTF.getText()); }
+         catch(NumberFormatException npe){}
+         try{ hours= Integer.parseInt(hrTF.getText()); }
+         catch(NumberFormatException npe){}
+         if(secs >= 60){
+            mins += secs/60;
+            secs  = secs % 60;
+            minTF.setText("" + mins);
+            secTF.setText("" + secs);
+         }
+         if(mins >= 60){
+            hours += mins/60;
+            mins   = mins % 60;
+            hrTF.setText("" + hours);
+            minTF.setText("" + mins);
+         }
+         hrTF.setEditable(false);
+         minTF.setEditable(false);
+         secTF.setEditable(false);
+      }
+      else if(state.equals("RESET")){
+         hrTF.setEditable(true);
+         minTF.setEditable(true);
+         secTF.setEditable(true);
+      }
+      else if(state.equals("STOP")){
+         hrTF.setEditable(false);
+         minTF.setEditable(false);
+         secTF.setEditable(false);
       }
    }
 }
