@@ -211,6 +211,92 @@ implements ClockSubscriber{
    }
 
    /**/
+   private void setHrsMinSecsPanelResetState(){
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      JTextField hrTF  = null;
+      JTextField minTF = null;
+      JTextField secTF = null;
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JTextField jtf = (JTextField)panel.getComponent(i);
+            if(jtf.getName().equals("Set Secs")){ secTF = jtf; }
+            else if(jtf.getName().equals("Set Mins")){ minTF = jtf; }
+            else if(jtf.getName().equals("Set Hours")){ hrTF = jtf; }
+         }
+         catch(ClassCastException cce){}
+      }
+      hrTF.setEditable(true);
+      hrTF.setText("");
+      hrTF.requestFocus();
+      hrTF.selectAll();
+      minTF.setEditable(true);
+      minTF.setText("");
+      secTF.setEditable(true);
+      secTF.setText("");
+   }
+
+   /**/
+   private void setHrsMinSecsPanelRunState(){
+      int hours = 0;
+      int mins  = 0;
+      int secs  = 0;
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      JTextField hrTF  = null;
+      JTextField minTF = null;
+      JTextField secTF = null;
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JTextField jtf = (JTextField)panel.getComponent(i);
+            if(jtf.getName().equals("Set Secs")){ secTF = jtf; }
+            else if(jtf.getName().equals("Set Mins")){ minTF = jtf; }
+            else if(jtf.getName().equals("Set Hours")){ hrTF = jtf; }
+         }
+         catch(ClassCastException cce){}
+      }
+      try{ secs = Integer.parseInt(secTF.getText()); }
+      catch(NumberFormatException npe){}
+      try{ mins = Integer.parseInt(minTF.getText()); }
+      catch(NumberFormatException npe){}
+      try{ hours= Integer.parseInt(hrTF.getText()); }
+      catch(NumberFormatException npe){}
+      if(secs >= 60){
+         mins += secs/60;
+         secs  = secs % 60;
+         minTF.setText("" + mins);
+         secTF.setText("" + secs);
+      }
+      if(mins >= 60){
+         hours += mins/60;
+         mins   = mins % 60;
+         hrTF.setText("" + hours);
+         minTF.setText("" + mins);
+      }
+      hrTF.setEditable(false);
+      minTF.setEditable(false);
+      secTF.setEditable(false);
+   }
+
+   /**/
+   private void setHrsMinSecsPanelStopState(){
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      JTextField hrTF  = null;
+      JTextField minTF = null;
+      JTextField secTF = null;
+      for(int i = 0; i < panel.getComponentCount(); ++i){
+         try{
+            JTextField jtf = (JTextField)panel.getComponent(i);
+            if(jtf.getName().equals("Set Secs")){ secTF = jtf; }
+            else if(jtf.getName().equals("Set Mins")){ minTF = jtf; }
+            else if(jtf.getName().equals("Set Hours")){ hrTF = jtf; }
+         }
+         catch(ClassCastException cce){}
+      }
+      hrTF.setEditable(false);
+      minTF.setEditable(false);
+      secTF.setEditable(false);
+   }
+
+   /**/
    private JPanel setSouthPanel(){
       JPanel buttonPanel = new JPanel();
 
@@ -401,103 +487,24 @@ implements ClockSubscriber{
 
    /**/
    private void updateHrsMinsSecsPanel(boolean currentlyRunning){
-      int  hours = 0;
-      int  mins  = 0;
-      int  secs  = 0;
-      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
-      JTextField hrTF  = null;
-      JTextField minTF = null;
-      JTextField secTF = null;
-      for(int i = 0; i < panel.getComponentCount(); ++i){
-         try{
-            JTextField jtf = (JTextField)panel.getComponent(i);
-            if(jtf.getName().equals("Set Secs")){ secTF = jtf; }
-            else if(jtf.getName().equals("Set Mins")){ minTF = jtf; }
-            else if(jtf.getName().equals("Set Hours")){ hrTF = jtf; }
-         }
-         catch(ClassCastException cce){}
-      }
       if(currentlyRunning){
-         try{ secs = Integer.parseInt(secTF.getText()); }
-         catch(NumberFormatException npe){}
-         try{ mins = Integer.parseInt(minTF.getText()); }
-         catch(NumberFormatException npe){}
-         try{ hours= Integer.parseInt(hrTF.getText()); }
-         catch(NumberFormatException npe){}
-         if(secs >= 60){
-            mins += secs/60;
-            secs  = secs % 60;
-            minTF.setText("" + mins);
-            secTF.setText("" + secs);
-         }
-         if(mins >= 60){
-            hours += mins/60;
-            mins   = mins % 60;
-            hrTF.setText("" + hours);
-            minTF.setText("" + mins);
-         }
-         hrTF.setEditable(false);
-         minTF.setEditable(false);
-         secTF.setEditable(false);
+         this.setHrsMinSecsPanelRunState();
       }
       else{
-         hrTF.setEditable(true);
-         minTF.setEditable(true);
-         secTF.setEditable(true);
+         this.setHrsMinSecsPanelResetState();
       }
    }
 
    /**/
    private void updateHrsMinsSecsPanel(String state){
-      int hours = 0;
-      int mins  = 0;
-      int secs  = 0;
-      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
-      JTextField hrTF  = null;
-      JTextField minTF = null;
-      JTextField secTF = null;
-      for(int i = 0; i < panel.getComponentCount(); ++i){
-         try{
-            JTextField jtf = (JTextField)panel.getComponent(i);
-            if(jtf.getName().equals("Set Secs")){ secTF = jtf; }
-            else if(jtf.getName().equals("Set Mins")){ minTF = jtf; }
-            else if(jtf.getName().equals("Set Hours")){ hrTF = jtf; }
-         }
-         catch(ClassCastException cce){}
-      }
-      hrTF.setEditable(false);
-      minTF.setEditable(false);
-      secTF.setEditable(false);
       if(state.equals("RUN")){
-         try{ secs = Integer.parseInt(secTF.getText()); }
-         catch(NumberFormatException npe){}
-         try{ mins = Integer.parseInt(minTF.getText()); }
-         catch(NumberFormatException npe){}
-         try{ hours= Integer.parseInt(hrTF.getText()); }
-         catch(NumberFormatException npe){}
-         if(secs >= 60){
-            mins += secs/60;
-            secs  = secs % 60;
-            minTF.setText("" + mins);
-            secTF.setText("" + secs);
-         }
-         if(mins >= 60){
-            hours += mins/60;
-            mins   = mins % 60;
-            hrTF.setText("" + hours);
-            minTF.setText("" + mins);
-         }
+         this.setHrsMinSecsPanelRunState();
       }
       else if(state.equals("RESET")){
-         hrTF.setEditable(true);
-         hrTF.setText("");
-         hrTF.requestFocus();
-         hrTF.selectAll();
-         minTF.setEditable(true);
-         minTF.setText("");
-         secTF.setEditable(true);
-         secTF.setText("");
+         this.setHrsMinSecsPanelResetState();
       }
-      else if(state.equals("STOP")){}
+      else if(state.equals("STOP")){
+         this.setHrsMinSecsPanelStopState();
+      }
    }
 }
