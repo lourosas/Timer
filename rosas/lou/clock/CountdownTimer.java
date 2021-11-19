@@ -258,7 +258,8 @@ public class CountdownTimer implements ClockObserver{
 
    /**/
    public void updateTime(Instant instant){
-      if(this._run){
+      //if(this._run){
+      if(this._state == State.RUN){
          if(this._instantThen == null){
             this._instantThen = instant;
          }
