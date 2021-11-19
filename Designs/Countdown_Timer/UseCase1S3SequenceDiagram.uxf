@@ -184,7 +184,7 @@ update(list:List&lt;String&gt;)</panel_attributes>
       <w>150</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>_:CountDownTime_</panel_attributes>
+    <panel_attributes>_:CountDownTimer_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
