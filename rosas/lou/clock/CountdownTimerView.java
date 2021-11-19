@@ -465,6 +465,9 @@ implements ClockSubscriber{
          }
          catch(ClassCastException cce){}
       }
+      hrTF.setEditable(false);
+      minTF.setEditable(false);
+      secTF.setEditable(false);
       if(state.equals("RUN")){
          try{ secs = Integer.parseInt(secTF.getText()); }
          catch(NumberFormatException npe){}
@@ -484,19 +487,17 @@ implements ClockSubscriber{
             hrTF.setText("" + hours);
             minTF.setText("" + mins);
          }
-         hrTF.setEditable(false);
-         minTF.setEditable(false);
-         secTF.setEditable(false);
       }
       else if(state.equals("RESET")){
          hrTF.setEditable(true);
+         hrTF.setText("");
+         hrTF.requestFocus();
+         hrTF.selectAll();
          minTF.setEditable(true);
+         minTF.setText("");
          secTF.setEditable(true);
+         secTF.setText("");
       }
-      else if(state.equals("STOP")){
-         hrTF.setEditable(false);
-         minTF.setEditable(false);
-         secTF.setEditable(false);
-      }
+      else if(state.equals("STOP")){}
    }
 }
