@@ -490,7 +490,22 @@ implements ClockSubscriber{
 
    /**/
    private void updateFileMenu(String state){
+      JMenuBar jmb = this.getJMenuBar();
+      for(int i = 0; i < jmb.getMenu(0).getItemCount(); ++i){
+         try{
+            JMenuItem jmi = (JMenuItem)jmb.getMenu(0).getItem(i);
+            if(state.equals("RUN")){
 
+            }
+            else if(state.equals("RESET")){
+
+            }
+            else if(state.equals("STOP")){
+
+            }
+         }
+         catch(ClassCastException cce){}
+      }
    }
 
    /**/
