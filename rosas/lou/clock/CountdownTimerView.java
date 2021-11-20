@@ -382,6 +382,7 @@ implements ClockSubscriber{
    /**/
    private JMenu setUpHelpMenu(){
       KeyStroke ks = null;
+      JFrame frame = this;
 
       JMenu help = new JMenu("Help");
       help.setMnemonic(KeyEvent.VK_H);
@@ -403,11 +404,21 @@ implements ClockSubscriber{
       about.setAccelerator(ks);
       help.add(about);
 
-      if(this._controller != null){
-         helpItem.addActionListener(this._controller);
-         about.addActionListener(this._controller);
-         gnuInfo.addActionListener(this._controller);
-      }
+      about.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e){
+            showAboutDialog();
+         }
+      });
+      gnuInfo.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e){
+            showGNUDialog();
+         }
+      });
+      helpItem.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e){
+            showHelpDialog();
+         }
+      });
 
       return help;
    }
@@ -418,6 +429,51 @@ implements ClockSubscriber{
       jmenuBar.add(this.setUpFileMenu());
       jmenuBar.add(this.setUpHelpMenu());
       return jmenuBar;
+   }
+
+   /**/
+   private void showAboutDialog(){
+      int type = JOptionPane.INFORMATION_MESSAGE;
+
+      String message = new String("LTimer Version 1.0\n");
+      message += "Copyright \u00A9 2021\n";
+      message += "LTimer Created by Lou Rosas\n";
+      message += "lourosas@gmail.com\n\n";
+      message += "Pay it forward!\n";
+      message += "Consider giving to your\n";
+      message += "favorite charity in gratitude\n";
+
+      JOptionPane.showMessageDialog(this, message, null, type);
+   }
+
+   /**/
+   private void showGNUDialog(){
+      int type = JOptionPane.INFORMATION_MESSAGE;
+
+      String message=new String("This application is distributed\n");
+      message += "in the hope that it will be useful,\n";
+      message += "but WITHOUT WARRANTY; without even\n";
+      message += "the implied waranty of MERCHANTABILITY\n";
+      message += "or FITNESS FOR A PARTICULAR PURSPOSE.\n";
+      message += "This application is distributed under\n";
+      message += "the GNU General Public License.\n";
+      message += "That license can be found at:\n";
+      message += "http://www.gnu.org/license/ \n\n";
+      message += "This application is free software:  you\n";
+      message += "can redistribute it and/or modify it\n";
+      message += "under the terms of the GNU General Public\n";
+      message += "License as published by the Free Software\n";
+      message += "Foundation:  either version 3 of the License,\n";
+      message += "or (at your option), a later version\n";
+
+      JOptionPane.showMessageDialog(this, message, null, type);
+   }
+
+   /**/
+   private void showHelpDialog(){
+      CountdownTimerHelpJDialog dialog =
+                       CountdownTimerHelpJDialog.instance(this, null);
+      dialog.setVisible(true);
    }
 
    /**/
