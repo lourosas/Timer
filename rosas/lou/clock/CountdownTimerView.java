@@ -132,6 +132,7 @@ implements ClockSubscriber{
       this.setCountdownTime((String)list.get(0));
       this.updateHrsMinsSecsPanel((String)list.get(1));
       this.updateButtonPanel((String)list.get(1));
+      this.updateFileMenu((String)list.get(1));
    }
 
    ///////////////////////Private Methods/////////////////////////////
@@ -146,13 +147,10 @@ implements ClockSubscriber{
       centerPanel.setLayout(new GridLayout(0,2));
 
       JLabel countdownTime = new JLabel("Countdown Time:  ", RIGHT);
-      //this._countDownTF    = new JTextField();
-      //this._countDownTF.setEditable(false);
-      JTextField jtf     = new JTextField();
+      JTextField jtf       = new JTextField();
       jtf.setEditable(false);
 
       centerPanel.add(countdownTime);
-      //centerPanel.add(this._countDownTF);
       centerPanel.add(jtf);
 
       return centerPanel;
@@ -341,9 +339,11 @@ implements ClockSubscriber{
       JMenuItem stop = new JMenuItem("Stop", 'T');
       ks = KeyStroke.getKeyStroke(KeyEvent.VK_T, ctrl);
       stop.setAccelerator(ks);
+      stop.setEnabled(false);
       file.add(stop);
 
       JMenuItem reset = new JMenuItem("Reset", 'R');
+      reset.setEnabled(false);
       file.add(reset);
 
       file.addSeparator();
@@ -483,6 +483,14 @@ implements ClockSubscriber{
          }
          catch(ClassCastException cce){}
       }
+   }
+
+   /**/
+   private void updateFileMenu(boolean currentlyRunning){}
+
+   /**/
+   private void updateFileMenu(String state){
+
    }
 
    /**/

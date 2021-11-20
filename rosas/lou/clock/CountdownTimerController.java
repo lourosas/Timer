@@ -142,13 +142,27 @@ KeyListener{
             System.exit(0);
          }
          else if(item.getActionCommand().equals("Start")){
+            Hashtable<String,String> times=this._view.requestTimes();
+            Enumeration<String> keys = times.keys();
+            while(keys.hasMoreElements()){
+               String key = (String)keys.nextElement();
+               if(key.toUpperCase().contains("HOURS")){
+                  this._timer.inputHours(times.get(key));
+               }
+               else if(key.toUpperCase().contains("MINS")){
+                  this._timer.inputMins(times.get(key));
+               }
+               else if(key.toUpperCase().contains("SECS")){
+                  this._timer.inputSecs(times.get(key));
+               }
+            }
             this._timer.start();
          }
          else if(item.getActionCommand().equals("Stop")){
             this._timer.stop();
          }
          else if(item.getActionCommand().equals("Reset")){
-            System.out.println(item.getActionCommand());
+            this._timer.reset();
          }
       }
       catch(ClassCastException cce){}
@@ -191,9 +205,6 @@ KeyListener{
          if(!Character.isDigit(c)){
             k.consume();
          }
-	 /*else{
-	    System.out.println(jtf.getText());
-         }*/
       }
       catch(NumberFormatException nfe){}
       catch(ClassCastException cce){}
