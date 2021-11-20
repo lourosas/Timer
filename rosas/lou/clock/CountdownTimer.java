@@ -267,14 +267,14 @@ public class CountdownTimer implements ClockObserver{
          Duration dur = Duration.between(this._instantThen, instant);
          if(dur.toMillis() >= 1000 &&
             this._currentTime.currentMilliSeconds() > 0){
-            System.out.println(this._instantThen);
-            System.out.println(instant);
-            System.out.println(this._currentTime.currentMilliSeconds());
+            //System.out.println(this._instantThen);
+            //System.out.println(instant);
+            //System.out.println(this._currentTime.currentMilliSeconds());
             this._currentTime =
                           this._currentTime.subtract(dur.toMillis());
             if(this._currentTime.currentMilliSeconds() >= 0){
-               System.out.println(this._currentTime.currentMilliSeconds());
-               System.out.println(this._currentTime + "\n");
+               //System.out.println(this._currentTime.currentMilliSeconds());
+               //System.out.println(this._currentTime + "\n");
                while(it.hasNext()){
                   ClockSubscriber sub = it.next();
                   sub.update(this._currentTime.toString());

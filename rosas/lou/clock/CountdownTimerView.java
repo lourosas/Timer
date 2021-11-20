@@ -486,7 +486,33 @@ implements ClockSubscriber{
    }
 
    /**/
-   private void updateFileMenu(boolean currentlyRunning){}
+   private void updateFileMenu(boolean currentlyRunning){
+      JMenuBar jmb = this.getJMenuBar();
+      for(int i = 0; i < jmb.getMenu(0).getItemCount(); ++i){
+         try{
+            JMenuItem jmi = (JMenuItem)jmb.getMenu(0).getItem(i);
+            if(currentlyRunning){
+               if(jmi.getText().equals("Start") ||
+                  jmi.getText().equals("Reset")){
+                  jmi.setEnabled(false);
+               }
+               else{
+                  jmi.setEnabled(true);
+               }
+            }
+            else{
+               if(jmi.getText().equals("Stop")){
+                  jmi.setEnabled(false);
+               }
+               else{
+                  jmi.setEnabled(true);
+               }
+            }
+         }
+         catch(ClassCastException cce){}
+         catch(NullPointerException npe){}
+      }
+   }
 
    /**/
    private void updateFileMenu(String state){
@@ -495,16 +521,34 @@ implements ClockSubscriber{
          try{
             JMenuItem jmi = (JMenuItem)jmb.getMenu(0).getItem(i);
             if(state.equals("RUN")){
-
+               if(jmi.getText().equals("Start") ||
+                  jmi.getText().equals("Reset")){
+                  jmi.setEnabled(false);
+               }
+               else{
+                  jmi.setEnabled(true);
+               }
             }
             else if(state.equals("RESET")){
-
+               if(jmi.getText().equals("Start") ||
+                  jmi.getText().equals("Quit")){
+                  jmi.setEnabled(true);
+               }
+               else{
+                  jmi.setEnabled(false);
+               }
             }
             else if(state.equals("STOP")){
-
+               if(jmi.getText().equals("Stop")){
+                  jmi.setEnabled(false);
+               }
+               else{
+                  jmi.setEnabled(true);
+               }
             }
          }
          catch(ClassCastException cce){}
+         catch(NullPointerException npe){}
       }
    }
 
