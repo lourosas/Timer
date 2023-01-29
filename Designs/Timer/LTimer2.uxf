@@ -379,10 +379,10 @@ m2=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>60</x>
-      <y>200</y>
-      <w>280</w>
-      <h>190</h>
+      <x>50</x>
+      <y>180</y>
+      <w>300</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>ClockSubscriber
 --
@@ -390,6 +390,7 @@ m2=1</panel_attributes>
 +update(time:String)
 +update(:java.time.Instant)
 +update(:java.time.Duration)
++update(:java.time.Duration, :boolean)
 +update(:boolean)
 update(time:String, type:String)
 update(list:List&lt;?&gt;)</panel_attributes>
@@ -399,11 +400,11 @@ update(list:List&lt;?&gt;)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>190</x>
-      <y>200</y>
+      <y>180</y>
       <w>120</w>
-      <h>300</h>
+      <h>320</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;100.0;280.0</additional_attributes>
+    <additional_attributes>10.0;10.0;100.0;300.0</additional_attributes>
   </element>
 </diagram>
