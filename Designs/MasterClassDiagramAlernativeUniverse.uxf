@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>120</x>
+      <y>120</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>ClockObserver
+--
+updateTime(:long)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>200</y>
+      <w>230</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Observer&gt;&gt;
+ClockNotifier
+Package::Clock
+-
+-currentTime:long
+-
++ctor()
++addObserver(:ClockObserver)
++quit(:boolean)
++setTime(time:long)
++trigger(:boolean)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>270</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Timer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>120</y>
+      <w>30</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>660</x>
+      <y>40</y>
+      <w>80</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Runnable
+--
+run()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>40</y>
+      <w>200</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>180.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+</diagram>

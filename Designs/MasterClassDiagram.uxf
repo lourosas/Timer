@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>720</y>
+      <w>230</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Subject&gt;&gt;
+LClock
+Package::Clock
+-
+-time:long
+-MOD:int = 1000
+-
++ctor()
++addObserver(:ClockObserver)
++getTime():long
++getDate():Date</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>560</x>
+      <y>560</y>
+      <w>80</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Runnable
+--
+run()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>560</y>
+      <w>110</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>720</y>
+      <w>230</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Subject&gt;&gt;
+ClockNotifier
+Package::Clock
+-
+-currentTime:long
+-
++ctor()
++addObserver(:ClockObserver)
++quit(:boolean)
++setTime(time:long)
++trigger(:boolean)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>730</y>
+      <w>210</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+r2=-clockNotifier</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>560</y>
+      <w>130</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>1040</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Date</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>880</y>
+      <w>70</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+r2=-date</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>1000</x>
+      <y>780</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>List&lt;ClockObserver&gt;
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>920</x>
+      <y>770</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=1
+m2=1
+r1=-observers</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>140</y>
+      <w>180</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+LTimer
+Package::Clock
+-
+-run:boolean
+-receive:boolean
+-days:short
+-hours:short
+-minutes:short
+-seconds:short
+-milliseconds:long
+-differenceTime:int
+-currentTime:long
+-updateTime:long
+-
++ctor&lt;&gt;()
++ctor&lt;&gt;(LTimer )
++reset()
++start()
++stop()
+-clearAllTimeValues()
+-setRun(:boolean)
+-setReceive(:boolean)
+-setTime(:long)
+-setTimeValues()
+-calculateTime()
+-notifyObservers()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>260</x>
+      <y>0</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Publisher&gt;&gt;
+ClockObserver
+--
+updateTime(:long)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>0</y>
+      <w>30</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>0</y>
+      <w>800</w>
+      <h>810</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=1
+m2=0..*
+stores</panel_attributes>
+    <additional_attributes>770.0;790.0;770.0;280.0;290.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>10</x>
+      <y>90</y>
+      <w>180</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>fontsize=12
+bg=gray
+Using the
+Observer/Publish-Subscribe
+Design Pattern
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>120</y>
+      <w>80</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>60.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>10</x>
+      <y>570</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>List&lt;Subscriber&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>70</x>
+      <y>430</y>
+      <w>190</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=1
+m2=1
+r1=-observers</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>370</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Instant</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>390</y>
+      <w>160</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>390</y>
+      <w>160</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>300</y>
+      <w>170</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=3
+m2=1</panel_attributes>
+    <additional_attributes>150.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>250</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Duration</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>250</y>
+      <w>130</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=2
+m2=1</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>0</x>
+      <y>370</y>
+      <w>120</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Stack&lt;String&gt;
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>60</x>
+      <y>370</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=1
+m2=1
+r1=-laps</panel_attributes>
+    <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>80</x>
+      <y>730</y>
+      <w>120</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>List&lt;Duration&gt;
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>560</y>
+      <w>230</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=1
+m2=1
+r1=-lapDurations</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>560</y>
+      <w>70</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+r1=-clock</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
