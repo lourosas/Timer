@@ -25,7 +25,10 @@ implements ClockSubscriber{
    private ButtonGroup buttonGroup = null;
    private ButtonGroup menuGroup   = null;
 
+   private boolean run             = false;
+
    private long currentSeconds = -1L;
+   private long lapSeconds     = -1L;
 
    ///////////////////////Constructors////////////////////////////////
    /*
@@ -72,6 +75,48 @@ implements ClockSubscriber{
       JLabel label = (JLabel)panel.getComponent(0);
       //label.setText(millis+"");
       label.setText(this.convertToFullTimeString(millis));
+   }
+
+   /*
+    * */
+   private void reflectState(State state){
+      Enumeration<AbstractButton> e=this.buttonGroup.getElements();
+      while(e.hasMoreElements()){
+         AbstractButton b = e.nextElement();
+         String command   = b.getActionCommand().toUpperCase();
+         if(command.equals("START")){
+            if(state == State.START||state == State.LAP){
+               b.setEnabled(false);
+            }
+            else{
+               b.setEnabled(true);
+            }
+         }
+         else if(command.equals("STOP")){
+            if(state == State.STOP||state == State.RESET){
+               b.setEnabled(false);
+            }
+            else{
+               b.setEnabled(true);
+            }
+         }
+         else if(command.equals("LAP")){
+            if(state == State.START||state == State.LAP){
+               b.setEnabled(true);
+            }
+            else{
+               b.setEnabled(false);
+            }
+         }
+         else if(command.equals("RESET")){
+            if(state == State.STOP){
+               b.setEnabled(true);
+            }
+            else{
+               b.setEnabled(false);
+            }
+         }
+      }
    }
 
    /*
@@ -180,7 +225,13 @@ implements ClockSubscriber{
 
    /*
     * */
-   public void update(String time){}
+   public void update(String data){
+      System.out.println(data);
+   }
+
+   public void update(State state){
+      this.reflectState(state);
+   }
 
    /*
     * */
@@ -190,6 +241,7 @@ implements ClockSubscriber{
     * */
    public void update(Duration duration){
       long seconds = duration.getSeconds();
+      //This needs to change based on State...
       if(this.currentSeconds != seconds){
          this.displayTime(duration.toMillis());
          this.currentSeconds = seconds;
@@ -198,20 +250,61 @@ implements ClockSubscriber{
 
    /*
     * */
+   public void update(Duration duration, boolean isRunning){
+      if(!isRunning){
+         this.displayTime(duration.toMillis());
+      }
+      else{
+         this.update(duration);
+      }
+      this.update(isRunning);
+   }
+
+   /*
+    * */
+   public void update(Duration duration, State state){
+      if(state == State.STOP){
+         this.displayTime(duration.toMillis());
+      }
+      else if(state == State.LAP){
+         long seconds = duration.getSeconds();
+         if(this.lapSeconds != seconds){
+            System.out.println("Lab:  "+duration.toMillis());
+            this.lapSeconds = seconds;
+         }
+      }
+      else{
+         this.update(duration);
+      }
+      this.update(state);
+   }
+
+   /*
+    * */
    public void update(boolean isRunning){
-      Enumeration<AbstractButton> e = this.buttonGroup.getElements();
-      while(e.hasMoreElements()){
-         AbstractButton b = e.nextElement();
-         String command = b.getActionCommand().toUpperCase();
-         if(isRunning){
+      if(this.run != isRunning){
+         this.run = isRunning;
+         Enumeration<AbstractButton> e=this.buttonGroup.getElements();
+         while(e.hasMoreElements()){
+            AbstractButton b = e.nextElement();
+            String command = b.getActionCommand().toUpperCase();
             if(command.equals("START")||command.equals("RESET")){
-               b.setEnabled(false);
+               if(isRunning){
+                  b.setEnabled(false);
+               }
+               else{
+                  b.setEnabled(true);
+               }
             }
             else if(command.equals("STOP")||command.equals("LAP")){
-               b.setEnabled(true);
+               if(isRunning){
+                  b.setEnabled(true);
+               }
+               else{
+                  b.setEnabled(false);
+               }
             }
          }
-         else{}
       }
    }
 
@@ -221,6 +314,8 @@ implements ClockSubscriber{
 
    /*
     * */
-   public void update(java.util.List<?> list){}
+   public void update(java.util.List<?> list){
+      System.out.println(list);
+   }
 }
 //////////////////////////////////////////////////////////////////////

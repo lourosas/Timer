@@ -19,16 +19,20 @@ public class LTimer2 implements ActionListener{
    private int seconds               = -1;
    private int milliseconds          = -1;
    private Instant start             = null;
+   private Instant aLap              = null;
    private Duration current          = null;
    private javax.swing.Timer timer   = null;
 
    private List<ClockSubscriber> observers = null;
+   private List<Duration>     lapDurations = null;
 
    /*
     * */
    public LTimer2(){
       this.timer = new javax.swing.Timer(0,this);
-      this.timer.setDelay(10);//this will change
+      this.timer.setCoalesce(true);
+      //a delay of 10 millisecs appears to work well
+      this.timer.setDelay(10);
       this.current = Duration.ZERO;
    }
 
@@ -46,11 +50,51 @@ public class LTimer2 implements ActionListener{
 
    /*
     * */
-   public void lap(){}
+   public void lap(){
+      if(this.run == true){
+         if(aLap != null){
+            //Normally, do try{} catch(){} exception handling, but
+            //time is of the essence
+            Duration d = Duration.between(this.aLap,Instant.now());
+            if(this.lapDurations == null){
+               this.lapDurations = new LinkedList<Duration>();
+            }
+            this.lapDurations.add(d);
+            Iterator<ClockSubscriber> it = this.observers.iterator();
+            while(it.hasNext()){
+               ((ClockSubscriber)it.next()).update(this.lapDurations);
+            }
+         }
+         aLap = Instant.now();
+      }
+   }
 
    /*
     * */
-   public void reset(){}
+   public void reset(){
+      if(this.run == false){
+         try{
+            this.start = null;
+            this.aLap  = null;
+            this.run   = false;
+            this.current = Duration.ZERO;
+            this.lapDurations.clear();
+            this.lapDurations = null;
+         }
+         catch(NullPointerException npe){}
+         finally{
+            Iterator<ClockSubscriber> it = this.observers.iterator();
+            while(it.hasNext()){
+               ClockSubscriber cs = (ClockSubscriber)it.next();
+               //cs.update(this.current, this.run);
+               //cs.update(this.current);
+               //cs.update(this.run);
+               //cs.update(State.RESET);
+               cs.update(this.current, State.RESET);
+            }
+         }
+      }
+   }
 
    /*
     * */
@@ -66,13 +110,28 @@ public class LTimer2 implements ActionListener{
       this.run = true;
       Iterator<ClockSubscriber> it = this.observers.iterator();
       while(it.hasNext()){
-         ((ClockSubscriber)it.next()).update(this.run);
+         ClockSubscriber cs = (ClockSubscriber)it.next();
+         //cs.update(this.run);
+         //cs.update(this.run);
+         cs.update(State.START);
       }
    }
 
    /*
     * */
    public void stop(){
+      this.run = false;
+      Duration d = Duration.between(this.start, Instant.now());
+      this.current = this.current.plus(d);
+      this.timer.stop();
+      Iterator<ClockSubscriber> it = this.observers.iterator();
+      while(it.hasNext()){
+         ClockSubscriber cs = (ClockSubscriber)it.next();
+         //cs.update(this.current, this.run);
+         //cs.update(State.STOP);
+         cs.update(this.current, State.STOP);
+      }
+      this.start = null;
    }
 
    ///////////////////////Interface Implementation////////////////////
@@ -81,12 +140,20 @@ public class LTimer2 implements ActionListener{
    public void actionPerformed(ActionEvent e){
       try{
          javax.swing.Timer t = (javax.swing.Timer)e.getSource();
-         //Instant now = Instant.now();
-         Duration d = Duration.between(this.start,Instant.now());
+         Instant now = Instant.now();
+         Duration d = Duration.between(this.start,now);
+         Duration l = null;
+         if(this.aLap != null){
+            l = Duration.between(this.aLap,now);
+         }
          Iterator<ClockSubscriber> it = this.observers.iterator();
          while(it.hasNext()){
             //Will need to assess how handle the Start, Stop, Reset
-            ((ClockSubscriber)it.next()).update(d.plus(this.current));
+            ClockSubscriber cs = (ClockSubscriber)it.next();
+            cs.update(d.plus(this.current));
+            if(this.aLap != null){
+               cs.update(l, State.LAP);
+            }
          }
       }
       catch(ClassCastException cce){}

@@ -37,6 +37,15 @@ KeyListener, ItemListener{
          if(command.equals("START")){
             this._timer.start();
          }
+         else if(command.equals("STOP")){
+            this._timer.stop();
+         }
+         else if(command.equals("RESET")){
+            this._timer.reset();
+         }
+         else if(command.equals("LAP")){
+            this._timer.lap();
+         }
       }
       catch(ClassCastException cce){}
    }

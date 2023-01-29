@@ -20,9 +20,12 @@ import rosas.lou.clock.*;
 
 public interface ClockSubscriber{
    public void error(String type, String message);
-   public void update(String time);
+   public void update(String data);
+   public void update(State state);
    public void update(java.time.Instant instant);
    public void update(Duration duration);
+   public void update(Duration duration, boolean isRunning);
+   public void update(Duration duration, State state);
    public void update(boolean isRunning);
    public void update(String time, String type);
    public void update(List<?> list);
