@@ -31,8 +31,8 @@
       <w>250</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Model&gt;&gt;
-_ltimer2:rosas.lou.clock.LTimer2_</panel_attributes>
+    <panel_attributes>_ltimer2:rosas.lou.clock.LTimer2_
+&lt;&lt;Model&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -297,7 +297,7 @@ aLap=Now():Instant</panel_attributes>
       <x>390</x>
       <y>520</y>
       <w>1130</w>
-      <h>200</h>
+      <h>280</h>
     </coordinates>
     <panel_attributes>Given Time Passes</panel_attributes>
     <additional_attributes/>
@@ -310,7 +310,7 @@ aLap=Now():Instant</panel_attributes>
       <w>180</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>_timer:ActionListener_
+    <panel_attributes>_ltimer2:ActionListener_
 &lt;&lt;Model&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
@@ -329,7 +329,7 @@ aLap=Now():Instant</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1180</x>
-      <y>530</y>
+      <y>520</y>
       <w>270</w>
       <h>40</h>
     </coordinates>
@@ -342,13 +342,13 @@ actionPerformed(ae:ActionEvent)</panel_attributes>
     <coordinates>
       <x>610</x>
       <y>540</y>
-      <w>600</w>
+      <w>840</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 &lt;&lt;Static&gt;&gt;
 now=now():Instant</panel_attributes>
-    <additional_attributes>10.0;20.0;580.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;820.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLFrame</id>
@@ -356,7 +356,7 @@ now=now():Instant</panel_attributes>
       <x>410</x>
       <y>580</y>
       <w>1100</w>
-      <h>130</h>
+      <h>210</h>
     </coordinates>
     <panel_attributes>aLap!=null</panel_attributes>
     <additional_attributes/>
@@ -371,7 +371,7 @@ now=now():Instant</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 &lt;&lt;Static&gt;&gt;
-between(aLap,now):Duration</panel_attributes>
+lap=between(aLap,now):Duration</panel_attributes>
     <additional_attributes>10.0;20.0;730.0;20.0</additional_attributes>
   </element>
   <element>
@@ -380,7 +380,7 @@ between(aLap,now):Duration</panel_attributes>
       <x>870</x>
       <y>640</y>
       <w>630</w>
-      <h>60</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>for all ClockSubscribers</panel_attributes>
     <additional_attributes/>
@@ -389,12 +389,23 @@ between(aLap,now):Duration</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>930</x>
-      <y>670</y>
+      <y>730</y>
       <w>280</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
-update(:Duration,State.LAP:State)</panel_attributes>
+update(lap:Duration,State.LAP:State)</panel_attributes>
     <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>920</x>
+      <y>700</y>
+      <w>290</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>aLap!=null</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
