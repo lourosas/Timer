@@ -12,6 +12,7 @@ import java.time.Duration;
 import rosas.lou.clock.*;
 
 public class LTimer2 implements ActionListener{
+   private State state               = State.STOP;
    private boolean run               = false;
    private short days                = -1;
    private int hours                 = -1;
@@ -33,6 +34,7 @@ public class LTimer2 implements ActionListener{
       this.timer.setCoalesce(true);
       //a delay of 10 millisecs appears to work well
       this.timer.setDelay(10);
+      this.state   = State.STOP;
       this.current = Duration.ZERO;
    }
 
@@ -51,7 +53,7 @@ public class LTimer2 implements ActionListener{
    /*
     * */
    public void lap(){
-      if(this.run == true){
+      if(this.run == true){ //this.state == State.RUN
          if(aLap != null){
             //Normally, do try{} catch(){} exception handling, but
             //time is of the essence
@@ -72,7 +74,7 @@ public class LTimer2 implements ActionListener{
    /*
     * */
    public void reset(){
-      if(this.run == false){
+      if(this.run == false){ //this.state == State.STOP
          try{
             this.start = null;
             this.aLap  = null;
@@ -90,7 +92,7 @@ public class LTimer2 implements ActionListener{
                //cs.update(this.current);
                //cs.update(this.run);
                //cs.update(State.RESET);
-               cs.update(this.current, State.RESET);
+               cs.update(this.current, this.state, "RESET");
             }
          }
       }
@@ -102,6 +104,7 @@ public class LTimer2 implements ActionListener{
       //Going to have to come up with a better way to do this
       //evantually
       this.timer.start();
+      this.state = State.RUN;
       //Probably will not need this conditional...will need to think
       //about this a little--this should address the Start,Stop...
       if(this.start == null){
@@ -113,15 +116,21 @@ public class LTimer2 implements ActionListener{
          ClockSubscriber cs = (ClockSubscriber)it.next();
          //cs.update(this.run);
          //cs.update(this.run);
-         cs.update(State.START);
+         cs.update(null,this.state,"ELAPSED");
       }
    }
 
    /*
     * */
    public void stop(){
-      this.run = false;
-      Duration d = Duration.between(this.start, Instant.now());
+      this.run   = false;
+      this.state = State.STOP;
+      Instant now = Instant.now();
+      Duration d = Duration.between(this.start, now);
+      Duration l = null;
+      if(this.aLap != null){
+         l = Duration.between(this.aLap,now);
+      }
       this.current = this.current.plus(d);
       this.timer.stop();
       Iterator<ClockSubscriber> it = this.observers.iterator();
@@ -129,7 +138,10 @@ public class LTimer2 implements ActionListener{
          ClockSubscriber cs = (ClockSubscriber)it.next();
          //cs.update(this.current, this.run);
          //cs.update(State.STOP);
-         cs.update(this.current, State.STOP);
+         cs.update(this.current, this.state, "ELAPSED");
+         if(this.aLap != null){
+            cs.update(l,this.state,"LAP");
+         }
       }
       this.start = null;
    }
@@ -150,9 +162,9 @@ public class LTimer2 implements ActionListener{
          while(it.hasNext()){
             //Will need to assess how handle the Start, Stop, Reset
             ClockSubscriber cs = (ClockSubscriber)it.next();
-            cs.update(d.plus(this.current));
+            cs.update(d.plus(this.current),this.state,"ELAPSED");
             if(this.aLap != null){
-               cs.update(l, State.LAP);
+               cs.update(l,this.state,"LAP");
             }
          }
       }

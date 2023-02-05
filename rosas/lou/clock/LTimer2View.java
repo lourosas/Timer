@@ -25,6 +25,8 @@ implements ClockSubscriber{
    private ButtonGroup buttonGroup = null;
    private ButtonGroup menuGroup   = null;
 
+   private State state             = State.STOP;
+
    private boolean run             = false;
 
    private long currentSeconds = -1L;
@@ -80,6 +82,7 @@ implements ClockSubscriber{
    /*
     * */
    private void reflectState(State state){
+      /*
       Enumeration<AbstractButton> e=this.buttonGroup.getElements();
       while(e.hasMoreElements()){
          AbstractButton b = e.nextElement();
@@ -117,6 +120,7 @@ implements ClockSubscriber{
             }
          }
       }
+      */
    }
 
    /*
@@ -263,13 +267,14 @@ implements ClockSubscriber{
    /*
     * */
    public void update(Duration duration, State state){
+      /*
       if(state == State.STOP){
          this.displayTime(duration.toMillis());
       }
       else if(state == State.LAP){
          long seconds = duration.getSeconds();
          if(this.lapSeconds != seconds){
-            System.out.println("Lab:  "+duration.toMillis());
+            System.out.println("Lap:  "+duration.toMillis());
             this.lapSeconds = seconds;
          }
       }
@@ -277,6 +282,16 @@ implements ClockSubscriber{
          this.update(duration);
       }
       this.update(state);
+      */
+   }
+
+   /*
+    * */
+   public void update(Duration duration, State state, String type){
+      try{
+      }
+      catch(NullPointerException npe){}
+      finally{}
    }
 
    /*

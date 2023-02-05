@@ -19,4 +19,4 @@ import java.util.*;
 import java.lang.*;
 import rosas.lou.clock.*;
 
-public enum State{START, STOP, RESET, RUN, LAP, UNKNOWN}
+public enum State{RUN, STOP, UNKNOWN}

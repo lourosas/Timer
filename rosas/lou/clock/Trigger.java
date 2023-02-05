@@ -1,5 +1,5 @@
 /*********************************************************************
-* Copyright (C) 2021 Lou Rosas
+* Copyright (C) 2023 Lou Rosas
 * This file is part of many applications registered with
 * the GNU General Public License as published
 * by the Free Software Foundation; either version 3 of the License,
@@ -15,19 +15,7 @@
 package rosas.lou.clock;
 
 import java.util.*;
-import java.time.*;
+import java.lang.*;
 import rosas.lou.clock.*;
 
-public interface ClockSubscriber{
-   public void error(String type, String message);
-   public void update(String data);
-   public void update(State state);
-   public void update(java.time.Instant instant);
-   public void update(Duration duration);
-   public void update(Duration duration, boolean isRunning);
-   public void update(Duration duration, State state);
-   public void update(Duration duration, State state, String type);
-   public void update(boolean isRunning);
-   public void update(String time, String type);
-   public void update(List<?> list);
-}
+public enum Trigger{CLEAR,START,STOP,LAP,RESET,SAVE}
