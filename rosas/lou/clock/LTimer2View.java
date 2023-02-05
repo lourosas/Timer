@@ -125,6 +125,53 @@ implements ClockSubscriber{
 
    /*
     * */
+   public void reflectState(State state, boolean reset){
+      Enumeration<AbstractButton> e = this.buttonGroup.getElements();
+      boolean change = (this.state != state);
+      this.state = state;
+      while(e.hasMoreElements()){
+         AbstractButton b = e.nextElement();
+         String command   = b.getActionCommand().toUpperCase();
+         if(change){
+            if(command.equals("START")){
+               if(this.state == State.RUN){
+                  b.setEnabled(false);
+               }
+               else{
+                  b.setEnabled(true);
+               }
+            }
+            else if(command.equals("STOP")){
+               if(this.state == State.RUN){
+                  b.setEnabled(true);
+               }
+               else{
+                  b.setEnabled(false);
+               }
+            }
+            else if(command.equals("LAP")){
+               if(this.state == State.RUN){
+                  b.setEnabled(true);
+               }
+               else{
+                  b.setEnabled(false);
+               }
+            }
+         }
+         if(command.equals("RESET")){
+            //this is TBD
+            if(this.state == State.STOP && !reset){
+               b.setEnabled(true);
+            }
+            else{
+               b.setEnabled(false);
+            }
+         }
+      }
+   }
+
+   /*
+    * */
    private JPanel setUpCenterPanel(){
       JPanel panel = new JPanel();
       panel.setBorder(BorderFactory.createEtchedBorder());
@@ -229,6 +276,49 @@ implements ClockSubscriber{
 
    /*
     * */
+   public void updateElapsed(Duration duration){
+      long seconds = duration.getSeconds();
+      if(this.state == State.STOP){
+         System.out.println(duration.toMillis());
+      }
+      //Only update once a second in the RUN State...
+      else if(this.currentSeconds != seconds){
+         System.out.println(duration.toMillis());
+         this.currentSeconds = seconds;
+      }
+   }
+   
+   /*
+    * */
+   public void updateLap(Duration duration){}
+
+   /*
+    * */
+   public void updateLaps(java.util.List<?> laps){}
+
+   /*
+    * */
+   public void updateRun(){
+      this.reflectState(State.RUN, false);
+   }
+
+   /*
+    * */
+   public void updateStop(){
+      this.reflectState(State.STOP,false);
+   }
+
+   /*
+    * */
+   public void updateReset(){
+      this.reflectState(this.state, true);
+   }
+
+   //Most of what is below is going to go away...to transition to
+   //what is above...
+
+   /*
+    * */
    public void update(String data){
       System.out.println(data);
    }
@@ -288,10 +378,6 @@ implements ClockSubscriber{
    /*
     * */
    public void update(Duration duration, State state, String type){
-      try{
-      }
-      catch(NullPointerException npe){}
-      finally{}
    }
 
    /*

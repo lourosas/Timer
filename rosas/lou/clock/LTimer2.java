@@ -88,17 +88,15 @@ public class LTimer2 implements ActionListener{
             Iterator<ClockSubscriber> it = this.observers.iterator();
             while(it.hasNext()){
                ClockSubscriber cs = (ClockSubscriber)it.next();
-               //cs.update(this.current, this.run);
-               //cs.update(this.current);
-               //cs.update(this.run);
-               //cs.update(State.RESET);
-               cs.update(this.current, this.state, "RESET");
+               cs.updateReset();
             }
          }
       }
    }
 
    /*
+    * Triggers the Transition
+    * Stop-->Run
     * */
    public void start(){
       //Going to have to come up with a better way to do this
@@ -114,9 +112,7 @@ public class LTimer2 implements ActionListener{
       Iterator<ClockSubscriber> it = this.observers.iterator();
       while(it.hasNext()){
          ClockSubscriber cs = (ClockSubscriber)it.next();
-         //cs.update(this.run);
-         //cs.update(this.run);
-         cs.update(null,this.state,"ELAPSED");
+         cs.updateRun();
       }
    }
 
@@ -138,10 +134,13 @@ public class LTimer2 implements ActionListener{
          ClockSubscriber cs = (ClockSubscriber)it.next();
          //cs.update(this.current, this.run);
          //cs.update(State.STOP);
-         cs.update(this.current, this.state, "ELAPSED");
-         if(this.aLap != null){
-            cs.update(l,this.state,"LAP");
-         }
+         cs.updateStop();
+         //The rest of this is TBD!!!
+         //cs.update(this.current, this.state, "ELAPSED");
+         cs.updateElapsed(this.current);
+         //if(this.aLap != null){
+         //   cs.update(l,this.state,"LAP");
+         //}
       }
       this.start = null;
    }
@@ -162,8 +161,9 @@ public class LTimer2 implements ActionListener{
          while(it.hasNext()){
             //Will need to assess how handle the Start, Stop, Reset
             ClockSubscriber cs = (ClockSubscriber)it.next();
-            cs.update(d.plus(this.current),this.state,"ELAPSED");
+            cs.updateElapsed(d.plus(this.current));
             if(this.aLap != null){
+               //this DEFINITELY NEEDS TO CHANGE!!!
                cs.update(l,this.state,"LAP");
             }
          }

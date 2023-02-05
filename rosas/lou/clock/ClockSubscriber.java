@@ -20,6 +20,7 @@ import rosas.lou.clock.*;
 
 public interface ClockSubscriber{
    public void error(String type, String message);
+   //These are pretty much going to go away...
    public void update(String data);
    public void update(State state);
    public void update(java.time.Instant instant);
@@ -30,4 +31,11 @@ public interface ClockSubscriber{
    public void update(boolean isRunning);
    public void update(String time, String type);
    public void update(List<?> list);
+   //Transitioning to this...
+   public void updateElapsed(Duration duration);
+   public void updateLap(Duration duration);
+   public void updateLaps(List<?> laps);
+   public void updateRun();
+   public void updateStop();
+   public void updateReset();
 }
