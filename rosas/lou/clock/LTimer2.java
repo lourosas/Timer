@@ -138,9 +138,10 @@ public class LTimer2 implements ActionListener{
          //The rest of this is TBD!!!
          //cs.update(this.current, this.state, "ELAPSED");
          cs.updateElapsed(this.current);
-         //if(this.aLap != null){
+         if(this.aLap != null){
          //   cs.update(l,this.state,"LAP");
-         //}
+              cs.updateLap(l);
+         }
       }
       this.start = null;
    }
@@ -164,7 +165,8 @@ public class LTimer2 implements ActionListener{
             cs.updateElapsed(d.plus(this.current));
             if(this.aLap != null){
                //this DEFINITELY NEEDS TO CHANGE!!!
-               cs.update(l,this.state,"LAP");
+               //cs.update(l,this.state,"LAP");
+               cs.updateLap(l);
             }
          }
       }

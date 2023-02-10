@@ -279,10 +279,12 @@ implements ClockSubscriber{
    public void updateElapsed(Duration duration){
       long seconds = duration.getSeconds();
       if(this.state == State.STOP){
+         //This will DEFINITELY NEED TO CHANGE!!!
          System.out.println(duration.toMillis());
       }
       //Only update once a second in the RUN State...
       else if(this.currentSeconds != seconds){
+         //This will DEFINITELY NEED TO CHANGE!!!
          System.out.println(duration.toMillis());
          this.currentSeconds = seconds;
       }
@@ -290,7 +292,18 @@ implements ClockSubscriber{
    
    /*
     * */
-   public void updateLap(Duration duration){}
+   public void updateLap(Duration duration){
+      long seconds = duration.getSeconds();
+      if(this.state == State.STOP){
+         //This will DEFINITELY NEED TO CHANGE!!!
+         System.out.println("Lap Stop:  "+duration.toMillis());
+      }
+      //As always, in the RUN State, only update once a second...
+      else if(this.lapSeconds != seconds){
+         System.out.println("Lap:  "+duration.toMillis());
+         this.lapSeconds = seconds;
+      }
+   }
 
    /*
     * */
