@@ -22,6 +22,7 @@ public class LTimer2 implements ActionListener{
    private Instant start             = null;
    private Instant aLap              = null;
    private Duration current          = null;
+   private Duration lSave            = null;
    private javax.swing.Timer timer   = null;
 
    private List<ClockSubscriber> observers = null;
@@ -36,6 +37,7 @@ public class LTimer2 implements ActionListener{
       this.timer.setDelay(10);
       this.state   = State.STOP;
       this.current = Duration.ZERO;
+      this.lSave   = Duration.ZERO;
    }
 
    /*
@@ -61,11 +63,13 @@ public class LTimer2 implements ActionListener{
             if(this.lapDurations == null){
                this.lapDurations = new LinkedList<Duration>();
             }
-            this.lapDurations.add(d);
+            //I need to figure out how to get this to work properly
+            this.lapDurations.add(d.plus(this.lSave));
             Iterator<ClockSubscriber> it = this.observers.iterator();
             while(it.hasNext()){
                ((ClockSubscriber)it.next()).update(this.lapDurations);
             }
+            this.lSave = Duration.ZERO;
          }
          aLap = Instant.now();
       }
@@ -80,6 +84,7 @@ public class LTimer2 implements ActionListener{
             this.aLap  = null;
             this.run   = false;
             this.current = Duration.ZERO;
+            this.lSave   = Duration.ZERO;
             this.lapDurations.clear();
             this.lapDurations = null;
          }
@@ -107,6 +112,9 @@ public class LTimer2 implements ActionListener{
       //about this a little--this should address the Start,Stop...
       if(this.start == null){
          this.start = Instant.now();
+         if(this.aLap != null){
+            this.aLap = this.start;
+         }
       }
       this.run = true;
       Iterator<ClockSubscriber> it = this.observers.iterator();
@@ -139,8 +147,8 @@ public class LTimer2 implements ActionListener{
          //cs.update(this.current, this.state, "ELAPSED");
          cs.updateElapsed(this.current);
          if(this.aLap != null){
-         //   cs.update(l,this.state,"LAP");
-              cs.updateLap(l);
+            this.lSave = this.lSave.plus(l);
+            cs.updateLap(this.lSave);
          }
       }
       this.start = null;
@@ -166,7 +174,7 @@ public class LTimer2 implements ActionListener{
             if(this.aLap != null){
                //this DEFINITELY NEEDS TO CHANGE!!!
                //cs.update(l,this.state,"LAP");
-               cs.updateLap(l);
+               cs.updateLap(l.plus(this.lSave));
             }
          }
       }
