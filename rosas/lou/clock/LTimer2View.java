@@ -72,10 +72,27 @@ implements ClockSubscriber{
    /*
     * */
    private void displayTime(long millis){
-      System.out.println(millis);
+      //System.out.println(millis);
       JPanel panel = (JPanel)this.getContentPane().getComponent(0);
-      JLabel label = (JLabel)panel.getComponent(0);
-      //label.setText(millis+"");
+      JLabel label = (JLabel)panel.getComponent(1);
+      label.setText(this.convertToFullTimeString(millis));
+   }
+
+   /*
+    * */
+   private void displayLap(long millis){
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      if(panel.getComponentCount() < 3){
+         JLabel lap = new JLabel("Lap:  ", SwingConstants.RIGHT);
+         lap.setForeground(Color.BLUE);
+         panel.add(lap);
+         JLabel time = new JLabel(" Time ", SwingConstants.LEFT);
+         time.setForeground(Color.BLUE);
+         panel.add(time);
+         this.revalidate();
+         this.repaint();
+      }
+      JLabel label = (JLabel)panel.getComponent(3);
       label.setText(this.convertToFullTimeString(millis));
    }
 
@@ -174,8 +191,15 @@ implements ClockSubscriber{
     * */
    private JPanel setUpCenterPanel(){
       JPanel panel = new JPanel();
+      panel.setLayout(new GridLayout(0,2));
       panel.setBorder(BorderFactory.createEtchedBorder());
-      JLabel label = new JLabel("This is a Test Panel");
+      //Elapsed Label
+      JLabel label = new JLabel("  Elapsed:  ");
+      label.setHorizontalAlignment(SwingConstants.RIGHT);
+      panel.add(label);
+      //Label to display the total (elapsed) time
+      label = new JLabel("  Time  ");
+      label.setHorizontalAlignment(SwingConstants.LEFT);
       panel.add(label);
       return panel;
    }
@@ -279,13 +303,11 @@ implements ClockSubscriber{
    public void updateElapsed(Duration duration){
       long seconds = duration.getSeconds();
       if(this.state == State.STOP){
-         //This will DEFINITELY NEED TO CHANGE!!!
-         System.out.println(duration.toMillis());
+         this.displayTime(duration.toMillis());
       }
       //Only update once a second in the RUN State...
       else if(this.currentSeconds != seconds){
-         //This will DEFINITELY NEED TO CHANGE!!!
-         System.out.println(duration.toMillis());
+         this.displayTime(duration.toMillis());
          this.currentSeconds = seconds;
       }
    }
@@ -295,19 +317,20 @@ implements ClockSubscriber{
    public void updateLap(Duration duration){
       long seconds = duration.getSeconds();
       if(this.state == State.STOP){
-         //This will DEFINITELY NEED TO CHANGE!!!
-         System.out.println("Lap Stop:  "+duration.toMillis());
+         this.displayLap(duration.toMillis());
       }
       //As always, in the RUN State, only update once a second...
       else if(this.lapSeconds != seconds){
-         System.out.println("Lap:  "+duration.toMillis());
          this.lapSeconds = seconds;
+         this.displayLap(duration.toMillis());
       }
    }
 
    /*
     * */
-   public void updateLaps(java.util.List<?> laps){}
+   public void updateLaps(java.util.List<?> laps){
+      System.out.println(laps);
+   }
 
    /*
     * */

@@ -67,7 +67,8 @@ public class LTimer2 implements ActionListener{
             this.lapDurations.add(d.plus(this.lSave));
             Iterator<ClockSubscriber> it = this.observers.iterator();
             while(it.hasNext()){
-               ((ClockSubscriber)it.next()).update(this.lapDurations);
+               ((ClockSubscriber)it.next()).updateLaps(
+                                                   this.lapDurations);
             }
             this.lSave = Duration.ZERO;
          }
