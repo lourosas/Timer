@@ -232,6 +232,38 @@ implements ClockSubscriber{
 
    /*
     * */
+   private void removeLap(){
+      JPanel panel = (JPanel)this.getContentPane().getComponent(0);
+      if(panel.getComponentCount() > 2){
+         panel.remove(3);
+         panel.remove(2);
+         this.revalidate();
+         this.repaint();
+      }
+   }
+
+   /*
+    * */
+   private void removeLaps(){
+      try{
+         this.lapsTA.setText("");
+         this.lapsTA = null;
+         this.lapsSP = null;
+         this.lapsFrame.setVisible(false);
+         this.lapsFrame = null;
+      }
+      catch(NullPointerException npe){}
+   }
+
+   /*
+    * */
+   private void resetTime(){
+      Duration d = Duration.ZERO;
+      this.displayTime(d.toMillis());
+   }
+
+   /*
+    * */
    private JPanel setUpCenterPanel(){
       JPanel panel = new JPanel();
       panel.setLayout(new GridLayout(0,2));
@@ -241,7 +273,9 @@ implements ClockSubscriber{
       label.setHorizontalAlignment(SwingConstants.RIGHT);
       panel.add(label);
       //Label to display the total (elapsed) time
-      label = new JLabel("  Time  ");
+      Duration d = Duration.ZERO;
+      //label = new JLabel("  Time  ");
+      label = new JLabel(this.convertToFullTimeString(d.toMillis()));
       label.setHorizontalAlignment(SwingConstants.LEFT);
       panel.add(label);
       return panel;
@@ -373,7 +407,6 @@ implements ClockSubscriber{
     * */
    public void updateLaps(java.util.List<?> laps){
       this.displayLaps(laps);
-      //System.out.println(laps);
    }
 
    /*
@@ -391,6 +424,9 @@ implements ClockSubscriber{
    /*
     * */
    public void updateReset(){
+      this.removeLap();
+      this.removeLaps();
+      this.resetTime();
       this.reflectState(this.state, true);
    }
 
