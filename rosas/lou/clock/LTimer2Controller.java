@@ -22,9 +22,39 @@ KeyListener, ItemListener{
       this._timer      = timer;
    }
 
+   /*
+    * */
    public void addClockSubscriber(ClockSubscriber subscriber){
       this._subscriber = subscriber;
       this._timer.addSubscriber(this._subscriber);
+   }
+
+   /*
+    * */
+   private void handleJButton(JButton button){
+      String command = button.getActionCommand().toUpperCase();
+      if(command.equals("START")){
+         this._timer.start();
+      }
+      else if(command.equals("STOP")){
+         this._timer.stop();
+      }
+      else if(command.equals("RESET")){
+         this._timer.reset();
+      }
+      else if(command.equals("LAP")){
+         this._timer.lap();
+      }
+   }
+
+   /*
+    * */
+   private void handleJMenuItem(JMenuItem item){
+      String command = item.getActionCommand().toUpperCase();
+      System.out.println(command);
+      if(command.equals("MENUITEMQUIT")){
+         System.exit(0);  //Just quit
+      }
    }
 
    ////////////////////Interface Implementation///////////////////////
@@ -33,19 +63,12 @@ KeyListener, ItemListener{
    public void actionPerformed(ActionEvent e){
       try{
          JButton button = (JButton)e.getSource();
-         String command = button.getActionCommand().toUpperCase();
-         if(command.equals("START")){
-            this._timer.start();
-         }
-         else if(command.equals("STOP")){
-            this._timer.stop();
-         }
-         else if(command.equals("RESET")){
-            this._timer.reset();
-         }
-         else if(command.equals("LAP")){
-            this._timer.lap();
-         }
+         this.handleJButton(button);
+      }
+      catch(ClassCastException cce){}
+      try{
+         JMenuItem item = (JMenuItem)e.getSource();
+         this.handleJMenuItem(item);
       }
       catch(ClassCastException cce){}
    }

@@ -145,6 +145,27 @@ implements ClockSubscriber{
       this.reflectState(isRunning);
    }
 
+   /**/
+   public void update(State state){}
+
+   /**/
+   public void updateElapsed(Duration duration){}
+
+   /**/
+   public void updateLap(Duration duration){}
+
+   /**/
+   public void updateLaps(List<?> laps){}
+
+   /**/
+   public void updateRun(){}
+
+   /**/
+   public void updateStop(){}
+
+   /**/
+   public void updateReset(){}
+
    /////////////////////////Private Methods///////////////////////////
    /**/
    private void reflectState(boolean isRunning){

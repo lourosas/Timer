@@ -51,6 +51,7 @@ implements ClockSubscriber{
    /*
     * */
    private JMenuBar addJMenuBar(){
+      this.menuGroup = new ButtonGroup();
       //Add menu item button group
       JMenuBar menuBar = new JMenuBar();
       menuBar.add(this.setUpFileMenu());
@@ -219,7 +220,6 @@ implements ClockSubscriber{
             }
          }
          if(command.equals("RESET")){
-            //this is TBD
             if(this.state == State.STOP && !reset){
                b.setEnabled(true);
             }
@@ -227,6 +227,11 @@ implements ClockSubscriber{
                b.setEnabled(false);
             }
          }
+      }
+      e = this.menuGroup.getElements();
+      while(e.hasMoreElements()){
+         //Continue at this point!!
+         AbstractButton mi = e.nextElement();
       }
    }
 
@@ -274,7 +279,6 @@ implements ClockSubscriber{
       panel.add(label);
       //Label to display the total (elapsed) time
       Duration d = Duration.ZERO;
-      //label = new JLabel("  Time  ");
       label = new JLabel(this.convertToFullTimeString(d.toMillis()));
       label.setHorizontalAlignment(SwingConstants.LEFT);
       panel.add(label);
@@ -285,19 +289,64 @@ implements ClockSubscriber{
     * This will need to change!!
     * */
    private JMenu setUpFileMenu(){
+      int ctrl     = InputEvent.CTRL_DOWN_MASK;
+      KeyStroke ks = null;
+
       JMenu file = new JMenu("File");
       file.setMnemonic(KeyEvent.VK_F);
 
-      JMenuItem save = new JMenuItem("Save");
+      JMenuItem start = new JMenuItem("Start", 'S');
+      start.setActionCommand("MenuItemStart");
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_S, ctrl);
+      start.setAccelerator(ks);
+      this.menuGroup.add(start);
+      start.addActionListener(this._controller);
+      file.add(start);
+
+      JMenuItem stop = new JMenuItem("Stop", 'T');
+      stop.setActionCommand("MenuItemStop");
+      stop.setEnabled(false);
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_T, ctrl);
+      stop.setAccelerator(ks);
+      this.menuGroup.add(stop);
+      stop.addActionListener(this._controller);
+      file.add(stop);
+
+      JMenuItem lap = new JMenuItem("Lap",'L');
+      lap.setActionCommand("MenuItemLap");
+      lap.setEnabled(false);
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_L, ctrl);
+      lap.setAccelerator(ks);
+      this.menuGroup.add(lap);
+      lap.addActionListener(this._controller);
+      file.add(lap);
+
+      JMenuItem reset = new JMenuItem("Reset", 'R');
+      reset.setEnabled(false);
+      reset.setActionCommand("MenuItemReset");
+      reset.addActionListener(this._controller);
+      this.menuGroup.add(reset);
+      file.add(reset);
+
+      file.addSeparator();
+
+      JMenuItem save = new JMenuItem("Save",'V');
+      save.setEnabled(false);
       save.setActionCommand("MenuItemSave");
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_V, ctrl);
+      save.setAccelerator(ks);
       save.addActionListener(this._controller);
+      this.menuGroup.add(save);
       file.add(save);
 
       file.addSeparator();
 
-      JMenuItem quit = new JMenuItem("Quit");
+      JMenuItem quit = new JMenuItem("Quit",'Q');
       quit.setActionCommand("MenuItemQuit");
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_Q, ctrl);
+      quit.setAccelerator(ks);
       quit.addActionListener(this._controller);
+      this.menuGroup.add(quit);
       file.add(quit);
 
       return file;
@@ -321,8 +370,35 @@ implements ClockSubscriber{
     * This will need to change!!!
     * */
    private JMenu setUpHelpMenu(){
+      KeyStroke ks = null;
+
       JMenu help = new JMenu("Help");
       help.setMnemonic(KeyEvent.VK_H);
+
+      JMenuItem helpItem = new JMenuItem("Help",'H');
+      helpItem.setActionCommand("MenuItemHelp");
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_F1,0);
+      helpItem.setAccelerator(ks);
+      this.menuGroup.add(helpItem);
+      helpItem.addActionListener(this._controller);
+      help.add(helpItem);
+
+      help.addSeparator();
+
+      JMenuItem gnuInfo = new JMenuItem("GNU Info",'G');
+      gnuInfo.setActionCommand("GNUInfo");
+      this.menuGroup.add(gnuInfo);
+      help.add(gnuInfo);
+
+      help.addSeparator();
+
+      JMenuItem about = new JMenuItem("About", 'A');
+      about.setActionCommand("MenuItemAbout");
+      ks = KeyStroke.getKeyStroke(KeyEvent.VK_F2,0);
+      about.setAccelerator(ks);
+      this.menuGroup.add(about);
+      about.addActionListener(this._controller);
+      help.add(about);
 
       return help;
    }
