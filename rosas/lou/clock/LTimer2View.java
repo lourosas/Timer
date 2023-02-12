@@ -25,6 +25,10 @@ implements ClockSubscriber{
    private ButtonGroup buttonGroup = null;
    private ButtonGroup menuGroup   = null;
 
+   private JTextArea                lapsTA    = null;
+   private JScrollPane              lapsSP    = null;
+   private GenericJInteractionFrame lapsFrame = null;
+
    private State state             = State.STOP;
 
    private boolean run             = false;
@@ -94,6 +98,45 @@ implements ClockSubscriber{
       }
       JLabel label = (JLabel)panel.getComponent(3);
       label.setText(this.convertToFullTimeString(millis));
+   }
+
+   /*
+    * */
+   private void displayLaps(java.util.List<?> list){
+      int count = 1;
+      if(this.lapsFrame == null){
+         this.lapsFrame = new GenericJInteractionFrame("Laps");
+         this.lapsFrame.setSize(200,100);
+         this.lapsFrame.setLocation(340,340);
+      }
+      this.lapsFrame.setVisible(true);
+      this.lapsFrame.setResizable(false);
+      if(this.lapsTA == null){
+         this.lapsTA = new JTextArea();
+         this.lapsTA.setEditable(false);
+         this.lapsFrame.add(this.lapsTA);
+      }
+      this.lapsTA.setText("");
+      if(this.lapsSP == null){
+         this.lapsSP = new JScrollPane(this.lapsTA);
+         this.lapsSP.createHorizontalScrollBar();
+         this.lapsSP.createVerticalScrollBar();
+         this.lapsFrame.add(this.lapsSP);
+      }
+      Iterator<?> it = list.iterator();
+      while(it.hasNext()){
+         Object obj = it.next();
+         try{
+            String previous = this.lapsTA.getText();
+            Duration d = (Duration)obj;
+            long millis = d.toMillis();
+            String current = this.convertToFullTimeString(millis);
+            String place = previous+"Lap "+count+":  "+current+"\n";
+            this.lapsTA.setText(place);
+            ++count;
+         }
+         catch(ClassCastException cce){}
+      }
    }
 
    /*
@@ -329,7 +372,8 @@ implements ClockSubscriber{
    /*
     * */
    public void updateLaps(java.util.List<?> laps){
-      System.out.println(laps);
+      this.displayLaps(laps);
+      //System.out.println(laps);
    }
 
    /*

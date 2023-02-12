@@ -91,7 +91,7 @@ implements ClockSubscriber{
          try{
             JOptionPane.showMessageDialog(this, message, type,
                                           JOptionPane.ERROR_MESSAGE);
-	 }
+         }
          catch(HeadlessException he){}
       }
    }
