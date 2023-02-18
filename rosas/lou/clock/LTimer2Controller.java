@@ -52,7 +52,13 @@ KeyListener, ItemListener{
    private void handleJMenuItem(JMenuItem item){
       String command = item.getActionCommand().toUpperCase();
       System.out.println(command);
-      if(command.equals("MENUITEMQUIT")){
+      if(command.equals("MENUITEMSTART")){
+         this._timer.start();
+      }
+      else if(command.equals("MENUITEMSTOP")){
+         this._timer.stop();
+      }
+      else if(command.equals("MENUITEMQUIT")){
          System.exit(0);  //Just quit
       }
    }

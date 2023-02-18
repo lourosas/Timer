@@ -143,57 +143,27 @@ implements ClockSubscriber{
    /*
     * */
    private void reflectState(State state){
-      /*
-      Enumeration<AbstractButton> e=this.buttonGroup.getElements();
-      while(e.hasMoreElements()){
-         AbstractButton b = e.nextElement();
-         String command   = b.getActionCommand().toUpperCase();
-         if(command.equals("START")){
-            if(state == State.START||state == State.LAP){
-               b.setEnabled(false);
-            }
-            else{
-               b.setEnabled(true);
-            }
-         }
-         else if(command.equals("STOP")){
-            if(state == State.STOP||state == State.RESET){
-               b.setEnabled(false);
-            }
-            else{
-               b.setEnabled(true);
-            }
-         }
-         else if(command.equals("LAP")){
-            if(state == State.START||state == State.LAP){
-               b.setEnabled(true);
-            }
-            else{
-               b.setEnabled(false);
-            }
-         }
-         else if(command.equals("RESET")){
-            if(state == State.STOP){
-               b.setEnabled(true);
-            }
-            else{
-               b.setEnabled(false);
-            }
-         }
-      }
-      */
    }
 
    /*
     * */
-   public void reflectState(State state, boolean reset){
-      Enumeration<AbstractButton> e = this.buttonGroup.getElements();
+   private void reflectState(State state, boolean reset){
+
       boolean change = (this.state != state);
       this.state = state;
+      this.reflectStateInButtons(change,  reset);
+      this.reflectStateInMenuItems(change,reset);
+
+   }
+
+   /*
+    * */
+   private void reflectStateInButtons(boolean changed, boolean reset){
+      Enumeration<AbstractButton> e = this.buttonGroup.getElements();
       while(e.hasMoreElements()){
          AbstractButton b = e.nextElement();
          String command   = b.getActionCommand().toUpperCase();
-         if(change){
+         if(changed){
             if(command.equals("START")){
                if(this.state == State.RUN){
                   b.setEnabled(false);
@@ -228,10 +198,38 @@ implements ClockSubscriber{
             }
          }
       }
-      e = this.menuGroup.getElements();
+   }
+
+   /*
+    * */
+   private void reflectStateInMenuItems
+   (
+      boolean changed,
+      boolean reset
+   ){
+      Enumeration<AbstractButton> e = this.menuGroup.getElements();
       while(e.hasMoreElements()){
-         //Continue at this point!!
          AbstractButton mi = e.nextElement();
+         String command = mi.getActionCommand().toUpperCase();
+         if(changed){
+            if(command.equals("MENUITEMSTART")){
+               if(this.state == State.RUN){
+                  mi.setEnabled(false);
+               }
+               else{
+                  mi.setEnabled(true);
+               }
+            }
+            else if(command.equals("MENUITEMSTOP")){
+               if(this.state == State.RUN){
+                  mi.setEnabled(true);
+               }
+               else{
+                  mi.setEnabled(false);
+               }
+            }
+         }
+         if(command.equals("MENUITEMRESET")){}
       }
    }
 
@@ -386,8 +384,9 @@ implements ClockSubscriber{
       help.addSeparator();
 
       JMenuItem gnuInfo = new JMenuItem("GNU Info",'G');
-      gnuInfo.setActionCommand("GNUInfo");
+      gnuInfo.setActionCommand("MenuItemGNUInfo");
       this.menuGroup.add(gnuInfo);
+      gnuInfo.addActionListener(this._controller);
       help.add(gnuInfo);
 
       help.addSeparator();
@@ -464,7 +463,7 @@ implements ClockSubscriber{
          this.currentSeconds = seconds;
       }
    }
-   
+
    /*
     * */
    public void updateLap(Duration duration){
