@@ -58,6 +58,12 @@ KeyListener, ItemListener{
       else if(command.equals("MENUITEMSTOP")){
          this._timer.stop();
       }
+      else if(command.equals("MENUITEMLAP")){
+         this._timer.lap();
+      }
+      else if(command.equals("MENUITEMRESET")){
+         this._timer.reset();
+      }
       else if(command.equals("MENUITEMQUIT")){
          System.exit(0);  //Just quit
       }

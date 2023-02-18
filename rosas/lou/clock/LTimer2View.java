@@ -228,8 +228,23 @@ implements ClockSubscriber{
                   mi.setEnabled(false);
                }
             }
+            else if(command.equals("MENUITEMLAP")){
+               if(this.state == State.RUN){
+                  mi.setEnabled(true);
+               }
+               else{
+                  mi.setEnabled(false);
+               }
+            }
          }
-         if(command.equals("MENUITEMRESET")){}
+         if(command.equals("MENUITEMRESET")){
+            if(this.state == State.STOP && !reset){
+               mi.setEnabled(true);
+            }
+            else{
+               mi.setEnabled(false);
+            }
+         }
       }
    }
 
