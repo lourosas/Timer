@@ -237,7 +237,8 @@ implements ClockSubscriber{
                }
             }
          }
-         if(command.equals("MENUITEMRESET")){
+         if(command.equals("MENUITEMRESET") ||
+            command.equals("MENUITEMSAVE")){
             if(this.state == State.STOP && !reset){
                mi.setEnabled(true);
             }

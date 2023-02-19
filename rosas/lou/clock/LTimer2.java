@@ -3,6 +3,7 @@ package rosas.lou.clock;
 
 import java.lang.*;
 import java.util.*;
+import java.io.*;
 import javax.swing.*;
 import java.awt.event.*;
 //import java.awt.*;
@@ -101,6 +102,47 @@ public class LTimer2 implements ActionListener{
    }
 
    /*
+    * */
+   public void save(File file){
+      PrintWriter outs = null;
+      try{
+         FileWriter fw = new FileWriter(file,true);
+         outs          = new PrintWriter(fw,true);
+         long millis = this.current.toMillis();
+         if(millis > 0){
+            outs.println(this.convertToFullTimeString(millis));
+         }
+         millis = this.lSave.toMillis();
+         if(millis > 0){
+            outs.println(this.convertToFullTimeString(millis));
+         }
+         if(this.lapDurations != null){
+            Iterator<Duration> it = this.lapDurations.iterator();
+            while(it.hasNext()){
+               Duration d = (Duration)it.next();
+               long time = d.toMillis();
+               if(time > 0){
+                  outs.println(this.convertToFullTimeString(time));
+               }
+            }
+         }
+         outs.println();
+      }
+      catch(IOException ioe){
+         String type = "File I/O Error";
+         String message = "Could not save to: " + file.toString();
+         Iterator<ClockSubscriber> it = this.observers.iterator();
+         while(it.hasNext()){
+            ClockSubscriber cs = (ClockSubscriber)it.next();
+            cs.error(type, message);
+         }
+      }
+      finally{
+         outs.close();
+      }
+   }
+
+   /*
     * Triggers the Transition
     * Stop-->Run
     * */
@@ -153,6 +195,22 @@ public class LTimer2 implements ActionListener{
          }
       }
       this.start = null;
+   }
+
+   ////////////////////////Private Methods////////////////////////////
+   /*
+    * */
+   private String convertToFullTimeString(long millis){
+      int  millisecs = (int)millis%1000;
+      long totalSecs = millis/1000;
+      int  secs      = (int)totalSecs%60;
+      long totalMins = totalSecs/60;
+      int  mins      = (int)totalMins%60;
+      long totalHours= totalMins/60;
+      int  hours     = (int)totalHours%24;
+      int  days      = (int)totalHours/24;
+      return String.format("%d %02d:%02d:%02d.%03d",
+                                      days,hours,mins,secs,millisecs); 
    }
 
    ///////////////////////Interface Implementation////////////////////

@@ -51,7 +51,6 @@ KeyListener, ItemListener{
     * */
    private void handleJMenuItem(JMenuItem item){
       String command = item.getActionCommand().toUpperCase();
-      System.out.println(command);
       if(command.equals("MENUITEMSTART")){
          this._timer.start();
       }
@@ -63,6 +62,20 @@ KeyListener, ItemListener{
       }
       else if(command.equals("MENUITEMRESET")){
          this._timer.reset();
+      }
+      else if(command.equals("MENUITEMSAVE")){
+         try{
+            JFileChooser jfc = new JFileChooser();
+            FileNameExtensionFilter filter =
+                            new FileNameExtensionFilter("text","txt");
+            jfc.setFileFilter(filter);
+            //will need to pass in the frame, eventually...
+            int open = jfc.showSaveDialog(null);
+            if(open == JFileChooser.APPROVE_OPTION){
+               this._timer.save(jfc.getSelectedFile());
+            }
+         }
+         catch(HeadlessException he){}
       }
       else if(command.equals("MENUITEMQUIT")){
          System.exit(0);  //Just quit
