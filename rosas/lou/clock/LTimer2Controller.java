@@ -1,4 +1,21 @@
 //////////////////////////////////////////////////////////////////////
+/*
+LTimer2 Apoplication
+Copyright (C) 2023 Lou Rosas
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+//////////////////////////////////////////////////////////////////////
 package rosas.lou.clock;
 
 import java.lang.*;
@@ -15,6 +32,7 @@ public class LTimer2Controller implements ActionListener,
 KeyListener, ItemListener{
    private LTimer2              _timer = null;
    private ClockSubscriber _subscriber = null;
+   private Frame           _frame      = null;
 
    /*
    */
@@ -27,6 +45,12 @@ KeyListener, ItemListener{
    public void addClockSubscriber(ClockSubscriber subscriber){
       this._subscriber = subscriber;
       this._timer.addSubscriber(this._subscriber);
+   }
+
+   /*
+    * */
+   public void addFrame(Frame frame){
+      this._frame = frame;
    }
 
    /*
@@ -70,12 +94,21 @@ KeyListener, ItemListener{
                             new FileNameExtensionFilter("text","txt");
             jfc.setFileFilter(filter);
             //will need to pass in the frame, eventually...
-            int open = jfc.showSaveDialog(null);
+            int open = jfc.showSaveDialog(this._frame);
             if(open == JFileChooser.APPROVE_OPTION){
                this._timer.save(jfc.getSelectedFile());
             }
          }
          catch(HeadlessException he){}
+      }
+      else if(command.equals("MENUITEMHELP")){
+         this._subscriber.update("help");
+      }
+      else if(command.equals("MENUITEMGNUINFO")){
+         this._subscriber.update("gnuinfo");
+      }
+      else if(command.equals("MENUITEMABOUT")){
+         this._subscriber.update("about");
       }
       else if(command.equals("MENUITEMQUIT")){
          System.exit(0);  //Just quit

@@ -1,4 +1,21 @@
 //////////////////////////////////////////////////////////////////////
+/*
+LTimer2 Apoplication
+Copyright (C) 2023 Lou Rosas
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+//////////////////////////////////////////////////////////////////////
 package rosas.lou.clock;
 
 import java.lang.*;
@@ -8,7 +25,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.File;
+import java.io.*;
 import javax.swing.border.*;
 import java.time.*;
 import java.time.temporal.*;
@@ -43,6 +60,7 @@ implements ClockSubscriber{
       super(title);
       this._controller = controller;
       this.setUpGUI();
+      this._controller.addFrame(this);
    }
 
    ////////////////////////Public Methods/////////////////////////////
@@ -461,10 +479,100 @@ implements ClockSubscriber{
 
       return panel;
    }
+
+   /*
+    * */
+   private void showAboutDialog(){
+      BufferedReader br = null;
+      int type          = JOptionPane.INFORMATION_MESSAGE;
+      String title      = new String("About");
+      try{
+         String file = "./about.txt";
+         br = new BufferedReader(new FileReader(file));
+         String text = new String();
+         char [] c = new char[1];
+         while(br.read(c, 0, 1) != -1){
+            text = text.concat(new String(c));
+         }
+         JOptionPane.showMessageDialog(this,text,title,type);
+      }
+      catch(IOException ioe){
+         String text = new String("LTimer Version 2.0\n");
+         text += "Copyright \u00A9 2023\n";
+         text += "LTimer 2 Created by Lou Rosas\n";
+         text += "lourosas@gmail.com\n\n";
+         text += "Pay it forward!\nConsider giving to your\nfavorite";
+         text += "charity in gratitude\n";
+         JOptionPane.showMessageDialog(this,text,title,type);
+      }
+      finally{
+         try{
+            br.close();
+         }
+         catch(Exception e){}
+      }
+   }
+
+   /*
+    * */
+   private void showGNUDialog(){
+      BufferedReader br = null;
+      int type          = JOptionPane.INFORMATION_MESSAGE;
+      String title      = "GNU License Notice";
+      try{
+         String file = "./gnuinfo.txt";
+         br = new BufferedReader(new FileReader(file));
+         String text = new String();
+         char [] c = new char[1];
+         while(br.read(c,0,1) != -1){
+            text = text.concat(new String(c));
+         }
+         JOptionPane.showMessageDialog(this,text,title,type);
+      }
+      catch(IOException ioe){}
+      finally{
+         try{
+            br.close();
+         }
+         catch(Exception e){}
+      }
+   }
+
+   /*
+    * */
+   private void showHelpDialog(){
+      BufferedReader br = null;
+      try{
+         String file = "./help.txt";
+         br = new BufferedReader(new FileReader(file));
+         String text = new String();
+         char [] l = new char[1];
+         while(br.read(l, 0, 1) != -1){
+            text = text.concat(new String(l));
+         }
+         LTimerHelpJDialog d = LTimerHelpJDialog.instance(this,text);
+         d.setVisible(true);
+      }
+      catch(IOException ioe){
+         //incase there is not help.txt...
+         LTimerHelpJDialog d = LTimerHelpJDialog.instance(this,null);
+         d.setVisible(true);
+      }
+      finally{
+         try{
+            br.close();
+         }
+         catch(IOException ioe){}
+         catch(NullPointerException npe){}
+      }
+   }
    ////////////////////Interface Implementations//////////////////////
    /*
     * */
-   public void error(String type, String message){}
+   public void error(String type, String message){
+      int error = JOptionPane.ERROR_MESSAGE;
+      JOptionPane.showMessageDialog(this,message,type,error);
+   }
 
    /*
     * */
@@ -527,7 +635,15 @@ implements ClockSubscriber{
    /*
     * */
    public void update(String data){
-      System.out.println(data);
+      if(data.toUpperCase().equals("HELP")){
+         this.showHelpDialog();
+      }
+      else if(data.toUpperCase().equals("ABOUT")){
+         this.showAboutDialog();
+      }
+      else if(data.toUpperCase().equals("GNUINFO")){
+         this.showGNUDialog();
+      }
    }
 
    public void update(State state){
@@ -564,22 +680,6 @@ implements ClockSubscriber{
    /*
     * */
    public void update(Duration duration, State state){
-      /*
-      if(state == State.STOP){
-         this.displayTime(duration.toMillis());
-      }
-      else if(state == State.LAP){
-         long seconds = duration.getSeconds();
-         if(this.lapSeconds != seconds){
-            System.out.println("Lap:  "+duration.toMillis());
-            this.lapSeconds = seconds;
-         }
-      }
-      else{
-         this.update(duration);
-      }
-      this.update(state);
-      */
    }
 
    /*
@@ -623,7 +723,6 @@ implements ClockSubscriber{
    /*
     * */
    public void update(java.util.List<?> list){
-      System.out.println(list);
    }
 }
 //////////////////////////////////////////////////////////////////////
