@@ -1,0 +1,20 @@
+LTimer Help Guide
+
+This is a typical stop watch, except is in app
+format
+
+To start, press 'Start' or chose 'Start' (ctrl-S) from
+the 'File Menu'
+
+To stop, press 'Stop' or chose 'Stop' (ctrl-T) from
+the 'File Menu'
+
+To lap, press 'Lap' or chose 'Lap' (ctrl-L) from
+the 'File Menu'
+
+To reset, press 'Reset' or chose 'Reset' from
+the 'File Menu'
+
+The User can save the timing data (total elapsed time
+, current lap time AND all previous Lap Times)
+via the 'File Menu':  chose 'Save' (ctrl-V)
