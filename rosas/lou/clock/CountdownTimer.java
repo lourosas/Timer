@@ -54,6 +54,7 @@ public class CountdownTimer implements ClockObserver{
    /**/
    public CountdownTimer(LClock clock){
       this.setClock(clock);
+      System.out.println("poop");
    }
 
 
@@ -66,6 +67,31 @@ public class CountdownTimer implements ClockObserver{
       catch(NullPointerException npe){
          this._subscribers = new LinkedList<ClockSubscriber>();
          this._subscribers.add(subscriber);
+      }
+   }
+
+   /**/
+   public void broadcastTime(){
+      Iterator<ClockSubscriber> it = this._subscribers.iterator();
+      List<String> list = new LinkedList<String>();
+      try{
+         list.add(this._currentTime.toString());
+         list.add("REQUEST");
+      }
+      catch(NullPointerException npe){
+         try{
+            list.add(this._inputTime.toString());
+            list.add("REQUEST");
+         }
+         catch(NullPointerException np){
+            this.inputTime(0,0,0.);
+            list.add(this._inputTime.toString());
+            list.add("REQUEST");
+         }
+      }
+      while(it.hasNext()){
+         ClockSubscriber sub = it.next();
+         sub.update(list);
       }
    }
 
